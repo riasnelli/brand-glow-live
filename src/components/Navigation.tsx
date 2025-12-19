@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +23,10 @@ const Navigation = () => {
     { name: 'About', href: '#about' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  const handleNavClick = () => {
+    setIsOpen(false);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 py-4 px-6">
@@ -47,11 +57,32 @@ const Navigation = () => {
             ))}
           </nav>
 
-          <button className="md:hidden text-foreground">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <button className="md:hidden text-foreground p-2 hover:bg-white/10 rounded-lg transition-colors">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </SheetTrigger>
+            <SheetContent 
+              side="right" 
+              className="w-[300px] bg-[hsl(140_30%_6%/0.95)] backdrop-blur-xl border-l border-white/10"
+            >
+              <nav className="flex flex-col gap-6 mt-12">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={handleNavClick}
+                    className="text-xl text-muted-foreground hover:text-foreground transition-colors duration-300 py-2 border-b border-white/5"
+                  >
+                    {link.name}
+                  </a>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>
