@@ -31,7 +31,9 @@ const ExpertiseSection = () => {
   return (
     <section id="services" className="py-32 bg-background relative overflow-hidden">
       {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-[hsl(140_30%_6%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-[hsl(220_30%_8%)] pointer-events-none" />
+      {/* Radial glow */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}

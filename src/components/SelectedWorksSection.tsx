@@ -30,8 +30,12 @@ const projects = [
 const SelectedWorksSection = () => {
   return (
     <section id="work" className="py-32 bg-background relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_30%_8%)] via-background to-background pointer-events-none" />
       {/* Background pattern */}
-      <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
+      {/* Corner glow */}
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
