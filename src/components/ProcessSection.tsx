@@ -1,3 +1,5 @@
+import FloatingParticles from './FloatingParticles';
+
 const steps = [
   {
     number: '01',
@@ -30,6 +32,8 @@ const ProcessSection = () => {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       {/* Center glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/3 rounded-full blur-[150px] pointer-events-none" />
+      {/* Floating particles */}
+      <FloatingParticles count={12} />
       
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
