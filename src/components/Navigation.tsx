@@ -27,8 +27,8 @@ const Navigation = () => {
           <div 
             className={`relative flex items-center justify-between px-6 md:px-8 py-4 rounded-full transition-all duration-500 backdrop-blur-2xl ${
               scrolled 
-                ? 'bg-gradient-to-r from-[hsl(280_30%_12%/0.7)] via-[hsl(260_25%_15%/0.6)] to-[hsl(240_30%_12%/0.7)] border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)]' 
-                : 'bg-gradient-to-r from-[hsl(280_25%_18%/0.4)] via-[hsl(260_20%_20%/0.3)] to-[hsl(240_25%_18%/0.4)] border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]'
+                ? 'bg-gradient-to-r from-[hsl(160_25%_8%/0.75)] via-[hsl(180_20%_10%/0.7)] to-[hsl(200_25%_8%/0.75)] border border-primary/20 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)]' 
+                : 'bg-gradient-to-r from-[hsl(160_20%_12%/0.4)] via-[hsl(180_15%_14%/0.35)] to-[hsl(200_20%_12%/0.4)] border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]'
             }`}
           >
             {/* Gradient overlay for glass depth */}

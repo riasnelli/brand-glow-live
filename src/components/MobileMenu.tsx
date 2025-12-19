@@ -32,7 +32,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
     <>
       {/* Fullscreen overlay with circle clip-path animation */}
       <div
-        className={`fixed inset-0 z-[100] bg-gradient-to-br from-[hsl(280_30%_12%)] via-[hsl(260_25%_14%)] to-[hsl(240_30%_10%)] transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+        className={`fixed inset-0 z-[100] bg-gradient-to-br from-[hsl(160_25%_8%)] via-[hsl(180_20%_10%)] to-[hsl(200_25%_6%)] transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${
           isOpen
             ? 'clip-path-circle-open opacity-100'
             : 'clip-path-circle-closed opacity-0 pointer-events-none'
