@@ -1,7 +1,11 @@
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import LogoMarquee from '@/components/LogoMarquee';
-import PhilosophySection from '@/components/PhilosophySection';
+import ExpertiseSection from '@/components/ExpertiseSection';
+import SelectedWorksSection from '@/components/SelectedWorksSection';
+import ProcessSection from '@/components/ProcessSection';
+import TestimonialSection from '@/components/TestimonialSection';
+import ContactSection from '@/components/ContactSection';
 
 const Index = () => {
   return (
@@ -10,7 +14,11 @@ const Index = () => {
       <main>
         <HeroSection />
         <LogoMarquee />
-        <PhilosophySection />
+        <ExpertiseSection />
+        <SelectedWorksSection />
+        <ProcessSection />
+        <TestimonialSection />
+        <ContactSection />
       </main>
     </div>
   );

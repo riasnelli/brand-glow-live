@@ -1,0 +1,99 @@
+import { Lightbulb, Palette, PenTool, BookOpen, ArrowUpRight } from 'lucide-react';
+
+const services = [
+  {
+    icon: Lightbulb,
+    title: 'Brand Strategy',
+    description: "Defining your brand's core purpose, positioning, and voice to build a solid foundation for growth and connection.",
+    features: ['Market Research', 'Brand Positioning'],
+  },
+  {
+    icon: Palette,
+    title: 'Visual Identity Design',
+    description: 'Creating a cohesive visual language including color palettes, typography, and imagery that speaks to your audience.',
+    features: ['Color Systems', 'Typography Selection'],
+  },
+  {
+    icon: PenTool,
+    title: 'Logo Design',
+    description: "Crafting memorable and versatile logos that serve as the cornerstone of your brand's visual presence.",
+    features: ['Logomark', 'Wordmark'],
+  },
+  {
+    icon: BookOpen,
+    title: 'Brand Guidelines',
+    description: 'Documenting rules and standards to ensure consistency across all media and communication channels.',
+    features: ['Usage Rules', 'Application Examples'],
+  },
+];
+
+const ExpertiseSection = () => {
+  return (
+    <section id="services" className="py-32 bg-background relative overflow-hidden">
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-[hsl(140_30%_6%)] pointer-events-none" />
+      
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
+          <div>
+            <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block animate-fade-up">
+              Expertise
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight max-w-xl animate-fade-up-delay-1">
+              Comprehensive design solutions to elevate your brand.
+            </h2>
+          </div>
+          <a 
+            href="#services" 
+            className="text-muted-foreground hover:text-foreground transition-colors duration-300 flex items-center gap-2 group animate-fade-up-delay-2"
+          >
+            See all services
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+          </a>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {services.map((service, index) => (
+            <div
+              key={service.title}
+              className="group glass p-8 rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_40px_hsl(142_76%_36%/0.1)] animate-fade-up"
+              style={{ animationDelay: `${(index + 1) * 100}ms` }}
+            >
+              {/* Icon */}
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
+                <service.icon className="w-6 h-6 text-primary" />
+              </div>
+
+              {/* Content */}
+              <h3 className="text-xl font-semibold text-foreground mb-3">
+                {service.title}
+              </h3>
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                {service.description}
+              </p>
+
+              {/* Features & Arrow */}
+              <div className="flex items-end justify-between">
+                <ul className="space-y-1">
+                  {service.features.map((feature) => (
+                    <li key={feature} className="text-sm text-muted-foreground/70 flex items-center gap-2">
+                      <span className="w-1 h-1 rounded-full bg-primary" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <div className="w-10 h-10 rounded-lg border border-border/50 flex items-center justify-center group-hover:border-primary/50 group-hover:bg-primary/10 transition-all duration-300">
+                  <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ExpertiseSection;
