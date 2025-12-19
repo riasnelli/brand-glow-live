@@ -21,13 +21,15 @@ const HeroSection = () => {
         </div>
 
         {/* Main heading */}
-        <h1 className="animate-fade-up-delay-1 text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight max-w-4xl mx-auto mb-6">
-          I build brands that{' '}
-          <span className="text-gradient">people remember.</span>
+        <h1 className="animate-fade-up-delay-1 text-5xl md:text-6xl lg:text-8xl font-bold leading-[1.1] max-w-5xl mx-auto mb-8">
+          <span className="text-foreground">I build brands that</span>
+          <br />
+          <span className="text-foreground">people </span>
+          <span className="bg-gradient-to-r from-foreground via-muted-foreground/70 to-muted-foreground/40 bg-clip-text text-transparent">remember.</span>
         </h1>
 
         {/* Subheading */}
-        <p className="animate-fade-up-delay-2 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="animate-fade-up-delay-2 text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto mb-12 leading-relaxed">
           Freelance branding designer helping startups and businesses stand out with minimal, bold, and strategic visual identities.
         </p>
 
