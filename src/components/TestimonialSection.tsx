@@ -25,7 +25,10 @@ const TestimonialSection = () => {
   return (
     <section className="py-32 bg-background relative overflow-hidden">
       {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(140_30%_6%)] to-background pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220_30%_8%)] via-background to-[hsl(220_35%_6%)] pointer-events-none" />
+      {/* Dual corner glows */}
+      <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[hsl(220_50%_30%/0.1)] rounded-full blur-[120px] pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
