@@ -22,10 +22,10 @@ const Navigation = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 py-4 px-6">
+      <header className="fixed top-0 left-0 right-0 z-50 py-4 px-4 md:px-6">
         <div className="container mx-auto">
           <div 
-            className={`flex items-center justify-between px-8 py-4 rounded-full transition-all duration-500 border border-white/10 backdrop-blur-xl ${
+            className={`flex items-center justify-between px-6 md:px-8 py-4 rounded-full transition-all duration-500 border border-white/10 backdrop-blur-xl ${
               scrolled 
                 ? 'bg-[hsl(140_30%_8%/0.85)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]' 
                 : 'bg-[hsl(140_30%_10%/0.6)] shadow-[0_4px_24px_rgba(0,0,0,0.2)]'
