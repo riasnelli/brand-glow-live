@@ -1,4 +1,4 @@
-import { ArrowRight, Mail, MapPin, Clock } from 'lucide-react';
+import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const ContactSection = () => {
@@ -46,6 +46,22 @@ const ContactSection = () => {
               </div>
             </a>
 
+            {/* Phone Card */}
+            <a 
+              href="tel:+919497127222" 
+              className="group glass p-6 rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-500 flex items-center gap-6 cursor-pointer"
+            >
+              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                <Phone className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">Call me at</p>
+                <p className="text-foreground font-medium group-hover:text-primary transition-colors duration-300">
+                  +91 9497 127 222
+                </p>
+              </div>
+            </a>
+
             {/* Location Card */}
             <div className="glass p-6 rounded-2xl border border-border/50 flex items-center gap-6">
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -54,21 +70,7 @@ const ContactSection = () => {
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Based in</p>
                 <p className="text-foreground font-medium">
-                  San Francisco, CA
-                </p>
-              </div>
-            </div>
-
-            {/* Availability Card */}
-            <div className="glass p-6 rounded-2xl border border-border/50 flex items-center gap-6">
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Clock className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Availability</p>
-                <p className="text-foreground font-medium flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  Open for projects
+                  India
                 </p>
               </div>
             </div>
