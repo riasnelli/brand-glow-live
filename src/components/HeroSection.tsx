@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronDown } from 'lucide-react';
+import FloatingParticles from './FloatingParticles';
 
 const HeroSection = () => {
   return (
@@ -9,6 +10,9 @@ const HeroSection = () => {
       
       {/* Glow effect */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+      
+      {/* Floating particles */}
+      <FloatingParticles count={20} />
       
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center pt-32 pb-16">

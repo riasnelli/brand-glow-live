@@ -1,5 +1,6 @@
 import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import FloatingParticles from './FloatingParticles';
 
 const ContactSection = () => {
   return (
@@ -10,6 +11,8 @@ const ContactSection = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/8 rounded-full blur-[100px] pointer-events-none" />
       {/* Secondary accent glow */}
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[hsl(220_60%_40%/0.08)] rounded-full blur-[100px] pointer-events-none" />
+      {/* Floating particles */}
+      <FloatingParticles count={10} />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
