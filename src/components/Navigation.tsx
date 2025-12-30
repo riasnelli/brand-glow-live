@@ -66,16 +66,18 @@ const Navigation = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`text-sm transition-all duration-300 relative ${
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById(link.id);
+                    element?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className={`text-sm transition-all duration-300 ${
                     activeSection === link.id
                       ? 'text-primary font-medium'
                       : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
                   {link.name}
-                  {activeSection === link.id && (
-                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full animate-scale-in" />
-                  )}
                 </a>
               ))}
             </nav>
