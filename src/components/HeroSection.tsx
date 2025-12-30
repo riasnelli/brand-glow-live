@@ -23,40 +23,43 @@ const HeroSection = () => {
       
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center pt-32 pb-16">
-        {/* Availability badge */}
-        <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 mb-8">
-          <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
-          <span className="text-xs font-medium text-primary tracking-wider">
-            AVAILABLE FOR PROJECTS
-          </span>
+        {/* Glassmorphism card */}
+        <div className="backdrop-blur-xl bg-background/40 dark:bg-background/30 border border-border/30 rounded-3xl p-8 md:p-12 lg:p-16 shadow-2xl shadow-primary/5 max-w-4xl mx-auto">
+          {/* Availability badge */}
+          <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-8">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
+            <span className="text-xs font-medium text-primary tracking-wider">
+              AVAILABLE FOR PROJECTS
+            </span>
+          </div>
+
+          {/* Main heading */}
+          <h1 className="animate-fade-up-delay-1 text-4xl md:text-5xl lg:text-7xl font-bold leading-[1.1] mx-auto mb-8">
+            <span className="text-foreground">I build brands that</span>
+            <br />
+            <span className="text-foreground">people </span>
+            <span className="bg-gradient-to-r from-foreground via-muted-foreground/70 to-muted-foreground/40 bg-clip-text text-transparent">remember.</span>
+          </h1>
+
+          {/* Subheading */}
+          <p className="animate-fade-up-delay-2 text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto mb-12 leading-relaxed">
+            Freelance branding designer helping startups and businesses stand out with minimal, bold, and strategic visual identities.
+          </p>
+
+          {/* CTAs */}
+          <div className="animate-fade-up-delay-3 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button variant="hero" size="xl">
+              Start a Project
+              <ArrowRight className="w-5 h-5" />
+            </Button>
+            <Button variant="heroDark" size="xl">
+              View Work
+            </Button>
+          </div>
         </div>
 
-        {/* Main heading */}
-        <h1 className="animate-fade-up-delay-1 text-5xl md:text-6xl lg:text-8xl font-bold leading-[1.1] max-w-5xl mx-auto mb-8">
-          <span className="text-foreground">I build brands that</span>
-          <br />
-          <span className="text-foreground">people </span>
-          <span className="bg-gradient-to-r from-foreground via-muted-foreground/70 to-muted-foreground/40 bg-clip-text text-transparent">remember.</span>
-        </h1>
-
-        {/* Subheading */}
-        <p className="animate-fade-up-delay-2 text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto mb-12 leading-relaxed">
-          Freelance branding designer helping startups and businesses stand out with minimal, bold, and strategic visual identities.
-        </p>
-
-        {/* CTAs */}
-        <div className="animate-fade-up-delay-3 flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-          <Button variant="hero" size="xl">
-            Start a Project
-            <ArrowRight className="w-5 h-5" />
-          </Button>
-          <Button variant="heroDark" size="xl">
-            View Work
-          </Button>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="animate-fade-up-delay-4 flex flex-col items-center gap-2 text-muted-foreground">
+        {/* Scroll indicator - outside card */}
+        <div className="animate-fade-up-delay-4 flex flex-col items-center gap-2 text-muted-foreground mt-12">
           <span className="text-xs tracking-[0.3em] uppercase">Scroll</span>
           <ChevronDown className="w-5 h-5 animate-bounce-slow" />
         </div>
