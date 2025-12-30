@@ -4,20 +4,38 @@ import MobileMenu from './MobileMenu';
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      
+      // Detect active section
+      const sections = ['work', 'services', 'about', 'contact'];
+      let current = '';
+      
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            current = section;
+            break;
+          }
+        }
+      }
+      setActiveSection(current);
     };
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Work', href: '#work' },
-    { name: 'Services', href: '#services' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Work', href: '#work', id: 'work' },
+    { name: 'Services', href: '#services', id: 'services' },
+    { name: 'About', href: '#about', id: 'about' },
+    { name: 'Contact', href: '#contact', id: 'contact' },
   ];
 
   return (
@@ -48,9 +66,16 @@ const Navigation = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
+                  className={`text-sm transition-all duration-300 relative ${
+                    activeSection === link.id
+                      ? 'text-primary font-medium'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
                 >
                   {link.name}
+                  {activeSection === link.id && (
+                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full animate-scale-in" />
+                  )}
                 </a>
               ))}
             </nav>
