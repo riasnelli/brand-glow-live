@@ -1,18 +1,22 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import FloatingParticles from './FloatingParticles';
+import heroBg from '@/assets/hero-bg.jpg';
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-background to-background" />
+      {/* Animated background image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30 dark:opacity-20 animate-slow-drift"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      />
       
-      {/* Glow effect */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+      {/* Gradient overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
       
-      {/* Secondary glow for depth */}
-      <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+      {/* Soft glow accent */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/15 rounded-full blur-[100px] pointer-events-none animate-pulse-slow" />
       
       {/* Floating particles */}
       <FloatingParticles count={20} />
