@@ -32,7 +32,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
     <>
       {/* Fullscreen overlay with circle clip-path animation */}
       <div
-        className={`fixed inset-0 z-[100] bg-gradient-to-br from-[hsl(160_25%_8%)] via-[hsl(180_20%_10%)] to-[hsl(200_25%_6%)] transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+        className={`fixed inset-0 z-[100] bg-card transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${
           isOpen
             ? 'clip-path-circle-open opacity-100'
             : 'clip-path-circle-closed opacity-0 pointer-events-none'
@@ -50,7 +50,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
           </span>
           <button
             onClick={onClose}
-            className="text-foreground p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className="text-foreground p-2 hover:bg-muted/50 rounded-lg transition-colors"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
@@ -81,7 +81,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
         {/* Bottom Contact Buttons */}
         <div 
-          className="absolute bottom-0 left-0 right-0 flex border-t border-white/10 transition-all duration-500"
+          className="absolute bottom-0 left-0 right-0 flex border-t border-border/30 transition-all duration-500"
           style={{
             transitionDelay: isOpen ? '500ms' : '0ms',
             transform: isOpen ? 'translateY(0)' : 'translateY(100%)',
@@ -90,13 +90,13 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
         >
           <a
             href="tel:+919497127222"
-            className="flex-1 py-6 text-center text-foreground hover:bg-white/5 transition-colors border-r border-white/10"
+            className="flex-1 py-6 text-center text-foreground hover:bg-muted/30 transition-colors border-r border-border/30"
           >
             Call
           </a>
           <a
             href="mailto:hello@makeyourbrand.live"
-            className="flex-1 py-6 text-center text-foreground hover:bg-white/5 transition-colors"
+            className="flex-1 py-6 text-center text-foreground hover:bg-muted/30 transition-colors"
           >
             Mail
           </a>

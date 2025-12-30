@@ -13,7 +13,7 @@ const logos = [
 
 const LogoMarquee = () => {
   return (
-    <section className="relative py-8 border-y border-border/30 bg-secondary/20 overflow-hidden">
+    <section className="relative py-8 border-y border-border/30 bg-muted/20 overflow-hidden">
       <div className="flex animate-marquee">
         {[...logos, ...logos].map((logo, index) => (
           <div

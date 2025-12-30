@@ -5,25 +5,25 @@ const projects = [
     title: 'Lumina Financial',
     category: 'Fintech Branding & Identity',
     year: '2023',
-    gradient: 'from-[hsl(200_30%_15%)] to-[hsl(200_40%_8%)]',
+    gradient: 'from-primary/20 to-primary/5',
   },
   {
     title: 'Aero Systems',
     category: 'Aerospace Rebranding',
     year: '2023',
-    gradient: 'from-[hsl(220_30%_18%)] to-[hsl(220_40%_10%)]',
+    gradient: 'from-muted to-muted/50',
   },
   {
     title: 'Velvet & Oak',
     category: 'Luxury Retail Strategy',
     year: '2022',
-    gradient: 'from-[hsl(30_20%_15%)] to-[hsl(30_30%_8%)]',
+    gradient: 'from-primary/15 to-muted/30',
   },
   {
     title: 'Carbon Core',
     category: 'Eco-Tech Visual System',
     year: '2022',
-    gradient: 'from-[hsl(160_30%_12%)] to-[hsl(160_40%_6%)]',
+    gradient: 'from-primary/25 to-primary/10',
   },
 ];
 
@@ -31,7 +31,7 @@ const SelectedWorksSection = () => {
   return (
     <section id="work" className="py-32 bg-background relative overflow-hidden">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_30%_8%)] via-background to-background pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-muted/30 via-background to-background pointer-events-none" />
       {/* Background pattern */}
       <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
       {/* Corner glow */}
@@ -82,7 +82,7 @@ const SelectedWorksSection = () => {
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500" />
                 
                 {/* Shine effect on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-background/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
               </div>
 
               {/* Project Info */}

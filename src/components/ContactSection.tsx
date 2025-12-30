@@ -1,16 +1,17 @@
 import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FloatingParticles from './FloatingParticles';
+import ThemeToggle from './ThemeToggle';
 
 const ContactSection = () => {
   return (
     <section id="contact" className="py-32 bg-background relative overflow-hidden">
       {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_35%_4%)] via-background to-background pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-muted/50 via-background to-background pointer-events-none" />
       {/* Gradient glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/8 rounded-full blur-[100px] pointer-events-none" />
       {/* Secondary accent glow */}
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[hsl(220_60%_40%/0.08)] rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
       {/* Floating particles */}
       <FloatingParticles count={10} />
       
@@ -86,10 +87,13 @@ const ContactSection = () => {
 
         {/* Footer */}
         <div className="mt-32 pt-8 border-t border-border/30">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <p className="text-muted-foreground text-sm">
-              © 2024 MakeYourBrand.Live. All rights reserved.
-            </p>
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="flex flex-col gap-3">
+              <p className="text-muted-foreground text-sm">
+                © 2024 MakeYourBrand.Live. All rights reserved.
+              </p>
+              <ThemeToggle />
+            </div>
             <div className="flex items-center gap-8">
               <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">
                 Twitter

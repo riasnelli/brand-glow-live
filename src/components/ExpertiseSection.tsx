@@ -31,7 +31,7 @@ const ExpertiseSection = () => {
   return (
     <section id="services" className="py-32 bg-background relative overflow-hidden">
       {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-[hsl(220_30%_8%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-muted/30 pointer-events-none" />
       {/* Radial glow */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
       
@@ -60,7 +60,7 @@ const ExpertiseSection = () => {
           {services.map((service, index) => (
             <div
               key={service.title}
-              className="group glass p-8 rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_40px_hsl(142_76%_36%/0.1)] animate-fade-up"
+              className="group glass p-8 rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_40px_hsl(var(--primary)/0.1)] animate-fade-up"
               style={{ animationDelay: `${(index + 1) * 100}ms` }}
             >
               {/* Icon */}
