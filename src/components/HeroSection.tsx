@@ -24,7 +24,7 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center pt-32 pb-16">
         {/* Glassmorphism card */}
-        <div className="backdrop-blur-xl bg-background/40 dark:bg-background/30 border border-border/30 rounded-3xl p-8 md:p-12 lg:p-16 shadow-2xl shadow-primary/5 max-w-4xl mx-auto">
+        <div className="backdrop-blur-xl bg-background/40 dark:bg-background/30 border border-border/30 rounded-3xl p-8 md:p-12 lg:p-16 shadow-2xl shadow-primary/5 max-w-4xl mx-auto animate-float">
           {/* Availability badge */}
           <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-8">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
