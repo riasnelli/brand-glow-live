@@ -8,7 +8,8 @@ interface Particle {
   duration: number;
   delay: number;
   opacity: number;
-  type: 'circle' | 'diamond' | 'ring';
+  type: 'circle' | 'diamond' | 'ring' | 'star';
+  floatRange: number;
 }
 
 interface FloatingParticlesProps {
@@ -16,72 +17,87 @@ interface FloatingParticlesProps {
   className?: string;
 }
 
-const FloatingParticles = ({ count = 15, className = '' }: FloatingParticlesProps) => {
+const FloatingParticles = ({ count = 25, className = '' }: FloatingParticlesProps) => {
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
-    const types: Particle['type'][] = ['circle', 'diamond', 'ring'];
+    const types: Particle['type'][] = ['circle', 'diamond', 'ring', 'star'];
     const generated: Particle[] = Array.from({ length: count }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 6 + 2,
-      duration: Math.random() * 20 + 15,
-      delay: Math.random() * -20,
-      opacity: Math.random() * 0.3 + 0.1,
+      size: Math.random() * 8 + 3,
+      duration: Math.random() * 15 + 10,
+      delay: Math.random() * -15,
+      opacity: Math.random() * 0.4 + 0.15,
       type: types[Math.floor(Math.random() * types.length)],
+      floatRange: Math.random() * 30 + 20,
     }));
     setParticles(generated);
   }, [count]);
 
   const renderShape = (particle: Particle) => {
-    const baseClasses = 'absolute animate-float';
+    const baseStyle = {
+      left: `${particle.x}%`,
+      top: `${particle.y}%`,
+      animationDuration: `${particle.duration}s`,
+      animationDelay: `${particle.delay}s`,
+      '--float-range': `${particle.floatRange}px`,
+    } as React.CSSProperties;
     
     switch (particle.type) {
       case 'circle':
         return (
           <div
-            className={`${baseClasses} rounded-full bg-primary`}
+            className="absolute rounded-full bg-primary animate-particle-float"
             style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
+              ...baseStyle,
               width: `${particle.size}px`,
               height: `${particle.size}px`,
               opacity: particle.opacity,
-              animationDuration: `${particle.duration}s`,
-              animationDelay: `${particle.delay}s`,
+              boxShadow: `0 0 ${particle.size * 2}px hsl(var(--primary) / 0.3)`,
             }}
           />
         );
       case 'diamond':
         return (
           <div
-            className={`${baseClasses} bg-primary rotate-45`}
+            className="absolute bg-primary rotate-45 animate-particle-spin"
             style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
+              ...baseStyle,
               width: `${particle.size}px`,
               height: `${particle.size}px`,
-              opacity: particle.opacity * 0.7,
-              animationDuration: `${particle.duration}s`,
-              animationDelay: `${particle.delay}s`,
+              opacity: particle.opacity * 0.8,
             }}
           />
         );
       case 'ring':
         return (
           <div
-            className={`${baseClasses} rounded-full border border-primary bg-transparent`}
+            className="absolute rounded-full border-2 border-primary bg-transparent animate-particle-pulse"
             style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              width: `${particle.size * 2}px`,
-              height: `${particle.size * 2}px`,
-              opacity: particle.opacity * 0.5,
-              animationDuration: `${particle.duration}s`,
-              animationDelay: `${particle.delay}s`,
+              ...baseStyle,
+              width: `${particle.size * 2.5}px`,
+              height: `${particle.size * 2.5}px`,
+              opacity: particle.opacity * 0.6,
             }}
           />
+        );
+      case 'star':
+        return (
+          <div
+            className="absolute animate-particle-twinkle"
+            style={{
+              ...baseStyle,
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
+              opacity: particle.opacity,
+            }}
+          >
+            <svg viewBox="0 0 24 24" fill="hsl(var(--primary))" className="w-full h-full">
+              <path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41L12 0Z" />
+            </svg>
+          </div>
         );
     }
   };
