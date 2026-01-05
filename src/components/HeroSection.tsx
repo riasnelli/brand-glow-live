@@ -1,15 +1,30 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronDown } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import FloatingParticles from './FloatingParticles';
 import heroBg from '@/assets/hero-bg.jpg';
 
 const HeroSection = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Animated background image */}
+      {/* Parallax background image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 dark:opacity-40 animate-pulse-slow"
-        style={{ backgroundImage: `url(${heroBg})` }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 dark:opacity-40 will-change-transform"
+        style={{ 
+          backgroundImage: `url(${heroBg})`,
+          transform: `translateY(${scrollY * 0.4}px) scale(1.1)`
+        }}
       />
       
       {/* Gradient overlay for text readability */}
