@@ -28,7 +28,9 @@ const HeroSection = () => {
       />
       
       {/* Gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background dark:bg-none" />
+      {/* Dark mode radial gradient - black edges to dark blue center */}
+      <div className="absolute inset-0 hidden dark:block bg-[radial-gradient(ellipse_at_center,_transparent_0%,_transparent_30%,_rgba(0,0,0,0.4)_60%,_rgba(0,0,0,0.8)_100%)]" />
       
       {/* Floating particles */}
       <FloatingParticles count={20} />
