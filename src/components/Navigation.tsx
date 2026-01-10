@@ -41,12 +41,12 @@ const Navigation = () => {
   return (
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-2 px-3 md:px-4' : 'py-4 px-4 md:px-6'}`}>
-        <div className={`mx-auto transition-all duration-500 ${scrolled ? 'max-w-xl' : 'container'}`}>
+        <div className={`mx-auto transition-all duration-500 ${scrolled ? 'max-w-2xl' : 'container'}`}>
           <div 
-            className={`relative flex items-center justify-between rounded-full transition-all duration-500 backdrop-blur-2xl ${
+            className={`relative flex items-center justify-between rounded-full transition-all duration-500 ease-out backdrop-blur-2xl ${
               scrolled 
-                ? 'px-4 md:px-6 py-2 bg-card/90 border border-border/60 shadow-xl dark:bg-card/80 dark:border-primary/30 scale-100' 
-                : 'px-6 md:px-8 py-4 bg-card/40 border border-border/30 shadow-md dark:bg-card/30'
+                ? 'px-5 md:px-8 py-3 bg-card/90 border border-border/60 shadow-xl dark:bg-card/80 dark:border-primary/30 scale-[0.98]' 
+                : 'px-6 md:px-8 py-4 bg-card/40 border border-border/30 shadow-md dark:bg-card/30 scale-100'
             }`}
           >
             {/* Gradient overlay for glass depth */}
@@ -55,12 +55,12 @@ const Navigation = () => {
             <div className={`absolute inset-0 rounded-full pointer-events-none transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-50'}`} style={{ background: 'radial-gradient(ellipse at 50% 0%, hsl(var(--primary) / 0.08) 0%, transparent 60%)' }} />
             <a 
               href="/" 
-              className={`relative z-10 font-semibold text-foreground tracking-tight hover:text-primary transition-all duration-300 ${scrolled ? 'text-sm' : 'text-lg'}`}
+              className={`relative z-10 font-semibold text-foreground tracking-tight hover:text-primary transition-all duration-300 ${scrolled ? 'text-base' : 'text-lg'}`}
             >
               MakeYourBrand.Live
             </a>
-            
-            <nav className={`hidden md:flex items-center relative z-10 transition-all duration-300 ${scrolled ? 'gap-6' : 'gap-10'}`}>
+
+            <nav className={`hidden md:flex items-center relative z-10 transition-all duration-300 ${scrolled ? 'gap-8' : 'gap-10'}`}>
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -70,7 +70,7 @@ const Navigation = () => {
                     const element = document.getElementById(link.id);
                     element?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className={`transition-all duration-300 ${scrolled ? 'text-xs' : 'text-sm'} ${
+                  className={`transition-all duration-300 text-sm ${
                     activeSection === link.id
                       ? 'text-primary font-medium'
                       : 'text-muted-foreground hover:text-foreground'
