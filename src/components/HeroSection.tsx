@@ -18,22 +18,23 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Parallax background image */}
+      {/* Light mode: Parallax background image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 dark:opacity-40 will-change-transform"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 dark:hidden will-change-transform"
         style={{ 
           backgroundImage: `url(${heroBg})`,
           transform: `translateY(${scrollY * 0.4}px) scale(1.1)`
         }}
       />
       
-      {/* Gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background dark:bg-none" />
-      {/* Dark mode radial gradient - black edges to dark blue center */}
-      <div className="absolute inset-0 hidden dark:block bg-[radial-gradient(ellipse_at_center,_transparent_0%,_transparent_30%,_rgba(0,0,0,0.4)_60%,_rgba(0,0,0,0.8)_100%)]" />
+      {/* Dark mode: Jet black radial gradient - black edges to dark blue center */}
+      <div className="absolute inset-0 hidden dark:block bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,_hsl(var(--background))_0%,_hsl(220_30%_8%)_40%,_hsl(0_0%_0%)_70%,_hsl(0_0%_0%)_100%)]" />
       
-      {/* Floating particles */}
-      <FloatingParticles count={20} />
+      {/* Light mode gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background dark:hidden" />
+      
+      {/* Floating particles - more in dark mode */}
+      <FloatingParticles count={30} />
       
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center pt-32 pb-16 max-w-5xl">
