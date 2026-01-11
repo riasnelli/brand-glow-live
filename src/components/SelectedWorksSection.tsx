@@ -1,6 +1,17 @@
-import { ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowRight, Loader2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
-const projects = [
+interface InstagramPost {
+  id: string;
+  type: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
+  imageUrl: string;
+  permalink: string;
+  caption: string;
+  timestamp: string;
+}
+
+const defaultProjects = [
   {
     title: 'Lumina Financial',
     category: 'Fintech Branding & Identity',
@@ -28,6 +39,41 @@ const projects = [
 ];
 
 const SelectedWorksSection = () => {
+  const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchInstagramFeed = async () => {
+      try {
+        setLoading(true);
+        const { data, error } = await supabase.functions.invoke('instagram-feed', {
+          body: {},
+        });
+
+        if (error || data?.error) {
+          console.error('Instagram fetch error:', error || data?.error);
+          setInstagramPosts([]);
+        } else {
+          // Get only the first 4 posts
+          setInstagramPosts((data.media || []).slice(0, 4));
+        }
+      } catch (err) {
+        console.error('Error fetching Instagram feed:', err);
+        setInstagramPosts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchInstagramFeed();
+  }, []);
+
+  // Merge Instagram posts with default project metadata
+  const projects = defaultProjects.map((project, index) => ({
+    ...project,
+    instagramPost: instagramPosts[index] || null,
+  }));
+
   return (
     <section id="work" className="py-32 bg-background relative overflow-hidden">
       {/* Background gradient */}
@@ -61,28 +107,46 @@ const SelectedWorksSection = () => {
         {/* Projects Grid - Masonry-like layout */}
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
-            <div
+            <a
               key={project.title}
-              className={`group relative animate-fade-up ${index % 2 === 1 ? 'md:mt-16' : ''}`}
+              href={project.instagramPost?.permalink || '#work'}
+              target={project.instagramPost ? '_blank' : '_self'}
+              rel="noopener noreferrer"
+              className={`group relative animate-fade-up block ${index % 2 === 1 ? 'md:mt-16' : ''}`}
               style={{ animationDelay: `${(index + 1) * 100}ms` }}
             >
               {/* Project Card */}
               <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4 cursor-pointer">
-                {/* Gradient Background with dot pattern */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`} />
-                <div 
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    backgroundImage: `radial-gradient(circle, hsl(var(--muted-foreground) / 0.3) 1px, transparent 1px)`,
-                    backgroundSize: '16px 16px',
-                  }}
-                />
+                {/* Instagram Image or Gradient Background */}
+                {loading ? (
+                  <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} flex items-center justify-center`}>
+                    <Loader2 className="w-8 h-8 animate-spin text-primary/50" />
+                  </div>
+                ) : project.instagramPost?.imageUrl ? (
+                  <img
+                    src={project.instagramPost.imageUrl}
+                    alt={project.instagramPost.caption?.slice(0, 100) || project.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  <>
+                    <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`} />
+                    <div 
+                      className="absolute inset-0 opacity-20"
+                      style={{
+                        backgroundImage: `radial-gradient(circle, hsl(var(--muted-foreground) / 0.3) 1px, transparent 1px)`,
+                        backgroundSize: '16px 16px',
+                      }}
+                    />
+                  </>
+                )}
                 
                 {/* Hover overlay */}
-                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
                 
                 {/* Shine effect on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-background/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
               </div>
 
               {/* Project Info */}
@@ -99,7 +163,7 @@ const SelectedWorksSection = () => {
                   {project.year}
                 </span>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
