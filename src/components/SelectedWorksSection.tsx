@@ -11,32 +11,32 @@ interface InstagramPost {
   timestamp: string;
 }
 
-const defaultProjects = [
-  {
-    title: 'Lumina Financial',
-    category: 'Fintech Branding & Identity',
-    year: '2023',
-    gradient: 'from-primary/20 to-primary/5',
-  },
-  {
-    title: 'Aero Systems',
-    category: 'Aerospace Rebranding',
-    year: '2023',
-    gradient: 'from-muted to-muted/50',
-  },
-  {
-    title: 'Velvet & Oak',
-    category: 'Luxury Retail Strategy',
-    year: '2022',
-    gradient: 'from-primary/15 to-muted/30',
-  },
-  {
-    title: 'Carbon Core',
-    category: 'Eco-Tech Visual System',
-    year: '2022',
-    gradient: 'from-primary/25 to-primary/10',
-  },
+const gradients = [
+  'from-primary/20 to-primary/5',
+  'from-muted to-muted/50',
+  'from-primary/15 to-muted/30',
+  'from-primary/25 to-primary/10',
 ];
+
+// Parse hashtags from caption: first hashtag = title, second = subtitle
+const parseHashtags = (caption: string | undefined): { title: string; subtitle: string } => {
+  if (!caption) return { title: 'Untitled Project', subtitle: 'Creative Work' };
+  
+  // Match hashtags - handles hashtags with spaces like "#Aravind's Burger Factory"
+  const hashtagRegex = /#([^#\n]+?)(?=\s*#|\s*\n|$)/g;
+  const matches = [...caption.matchAll(hashtagRegex)];
+  
+  const title = matches[0]?.[1]?.trim() || 'Untitled Project';
+  const subtitle = matches[1]?.[1]?.trim() || 'Creative Work';
+  
+  return { title, subtitle };
+};
+
+// Extract year from timestamp
+const getYear = (timestamp: string | undefined): string => {
+  if (!timestamp) return new Date().getFullYear().toString();
+  return new Date(timestamp).getFullYear().toString();
+};
 
 const SelectedWorksSection = () => {
   const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
@@ -68,11 +68,25 @@ const SelectedWorksSection = () => {
     fetchInstagramFeed();
   }, []);
 
-  // Merge Instagram posts with default project metadata
-  const projects = defaultProjects.map((project, index) => ({
-    ...project,
-    instagramPost: instagramPosts[index] || null,
-  }));
+  // Build projects from Instagram posts with parsed metadata
+  const projects = instagramPosts.length > 0
+    ? instagramPosts.map((post, index) => {
+        const { title, subtitle } = parseHashtags(post.caption);
+        return {
+          title,
+          category: subtitle,
+          year: getYear(post.timestamp),
+          gradient: gradients[index % gradients.length],
+          instagramPost: post,
+        };
+      })
+    : [0, 1, 2, 3].map((index) => ({
+        title: 'Loading...',
+        category: 'Please wait',
+        year: new Date().getFullYear().toString(),
+        gradient: gradients[index],
+        instagramPost: null as InstagramPost | null,
+      }));
 
   return (
     <section id="work" className="py-32 bg-background relative overflow-hidden">
