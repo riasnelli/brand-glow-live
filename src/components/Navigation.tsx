@@ -43,11 +43,12 @@ const Navigation = () => {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-2 px-3 md:px-4' : 'py-4 px-4 md:px-6'}`}>
         <div className={`mx-auto transition-all duration-500 ${scrolled ? 'max-w-2xl' : 'container'}`}>
           <div 
-            className={`relative flex items-center justify-between rounded-full transition-all duration-500 ease-out backdrop-blur-2xl ${
+            className={`relative flex items-center justify-between rounded-full transition-all duration-500 ease-out ${
               scrolled 
-                ? 'px-5 md:px-8 py-3 bg-card/90 border border-border/60 shadow-xl dark:bg-card/80 dark:border-primary/30 scale-[0.98]' 
-                : 'px-6 md:px-8 py-4 bg-card/40 border border-border/30 shadow-md dark:bg-card/30 scale-100'
+                ? 'px-5 md:px-8 py-3 bg-card/90 border border-border/60 shadow-xl dark:bg-card/80 dark:border-primary/30 scale-[0.98] backdrop-blur-xl' 
+                : 'px-6 md:px-8 py-4 bg-card/40 border border-border/30 shadow-md dark:bg-card/30 scale-100 backdrop-blur-md'
             }`}
+            style={{ transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.6s ease-out' }}
           >
             {/* Gradient overlay for glass depth */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-b from-background/10 to-transparent pointer-events-none" />
