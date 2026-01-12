@@ -54,8 +54,8 @@ const SelectedWorksSection = () => {
           console.error('Instagram fetch error:', error || data?.error);
           setInstagramPosts([]);
         } else {
-          // Get only the first 4 posts
-          setInstagramPosts((data.media || []).slice(0, 4));
+          // Get only the first 6 posts
+          setInstagramPosts((data.media || []).slice(0, 6));
         }
       } catch (err) {
         console.error('Error fetching Instagram feed:', err);
@@ -80,11 +80,11 @@ const SelectedWorksSection = () => {
           instagramPost: post,
         };
       })
-    : [0, 1, 2, 3].map((index) => ({
+    : [0, 1, 2, 3, 4, 5].map((index) => ({
         title: 'Loading...',
         category: 'Please wait',
         year: new Date().getFullYear().toString(),
-        gradient: gradients[index],
+        gradient: gradients[index % gradients.length],
         instagramPost: null as InstagramPost | null,
       }));
 
