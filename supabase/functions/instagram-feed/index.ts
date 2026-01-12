@@ -23,6 +23,47 @@ const getCorsHeaders = (origin: string | null) => ({
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 })
 
+// ========== Simple in-memory rate limiting ==========
+// Limits: 30 requests per minute per origin
+const RATE_LIMIT_WINDOW_MS = 60_000
+const RATE_LIMIT_MAX_REQUESTS = 30
+
+interface RateLimitEntry {
+  count: number
+  windowStart: number
+}
+
+const rateLimitStore = new Map<string, RateLimitEntry>()
+
+function isRateLimited(key: string): boolean {
+  const now = Date.now()
+  const entry = rateLimitStore.get(key)
+
+  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+    // New window
+    rateLimitStore.set(key, { count: 1, windowStart: now })
+    return false
+  }
+
+  if (entry.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return true
+  }
+
+  entry.count++
+  return false
+}
+
+// Clean up old entries periodically (every 5 minutes)
+setInterval(() => {
+  const now = Date.now()
+  for (const [key, entry] of rateLimitStore.entries()) {
+    if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS * 2) {
+      rateLimitStore.delete(key)
+    }
+  }
+}, 300_000)
+
+// ========== Interfaces ==========
 interface InstagramMedia {
   id: string
   media_type: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM'
@@ -44,6 +85,7 @@ interface InstagramResponse {
   }
 }
 
+// ========== Main Handler ==========
 serve(async (req) => {
   const origin = req.headers.get('origin')
   const corsHeaders = getCorsHeaders(origin)
@@ -53,22 +95,41 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders })
   }
 
+  // Rate limiting by origin (or IP fallback)
+  const rateLimitKey = origin || req.headers.get('x-forwarded-for') || 'unknown'
+  if (isRateLimited(rateLimitKey)) {
+    console.warn(`Rate limit exceeded for: ${rateLimitKey}`)
+    return new Response(
+      JSON.stringify({ error: 'Too many requests. Please try again later.' }),
+      { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+    )
+  }
+
   try {
     const accessToken = Deno.env.get('INSTAGRAM_ACCESS_TOKEN')
     
     if (!accessToken) {
       console.error('INSTAGRAM_ACCESS_TOKEN not configured')
       return new Response(
-        JSON.stringify({ error: 'Instagram access token not configured' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: 'Service temporarily unavailable' }),
+        { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
 
     // Parse and validate limit query param (1-50, default 12)
     const url = new URL(req.url)
-    const rawLimit = url.searchParams.get('limit') || '12'
-    const parsedLimit = parseInt(rawLimit, 10)
-    const limit = Number.isNaN(parsedLimit) ? 12 : Math.min(50, Math.max(1, parsedLimit))
+    const rawLimit = url.searchParams.get('limit')
+
+    // Strict validation: reject non-numeric values
+    if (rawLimit !== null && !/^\d+$/.test(rawLimit)) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid limit parameter. Must be a number between 1 and 50.' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    const parsedLimit = rawLimit ? parseInt(rawLimit, 10) : 12
+    const limit = Math.min(50, Math.max(1, parsedLimit))
 
     // Fetch media from Instagram Graph API
     const instagramUrl = `https://graph.instagram.com/me/media?fields=id,media_type,media_url,thumbnail_url,permalink,caption,timestamp&limit=${limit}&access_token=${accessToken}`
@@ -78,11 +139,14 @@ serve(async (req) => {
     const response = await fetch(instagramUrl)
     
     if (!response.ok) {
+      // Log full error details server-side only
       const errorData = await response.json()
-      console.error('Instagram API error:', errorData)
+      console.error('Instagram API error:', JSON.stringify(errorData))
+      
+      // Return generic error to client (no internal details)
       return new Response(
-        JSON.stringify({ error: 'Failed to fetch Instagram feed', details: errorData }),
-        { status: response.status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: 'Failed to fetch Instagram feed' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
 
@@ -106,10 +170,12 @@ serve(async (req) => {
     )
 
   } catch (error: unknown) {
+    // Log full error server-side only
     console.error('Error fetching Instagram feed:', error)
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    
+    // Return generic error to client
     return new Response(
-      JSON.stringify({ error: 'Internal server error', message: errorMessage }),
+      JSON.stringify({ error: 'Internal server error' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
   }
