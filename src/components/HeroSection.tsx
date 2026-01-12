@@ -27,8 +27,8 @@ const HeroSection = () => {
         }}
       />
       
-      {/* Dark mode: Jet black radial gradient - black edges to dark blue center */}
-      <div className="absolute inset-0 hidden dark:block bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,_hsl(var(--background))_0%,_hsl(220_30%_8%)_40%,_hsl(0_0%_0%)_70%,_hsl(0_0%_0%)_100%)]" />
+      {/* Dark mode: Light green gradient at top fading to dark */}
+      <div className="absolute inset-0 hidden dark:block bg-[linear-gradient(to_bottom,_hsl(140_25%_15%)_0%,_hsl(160_20%_10%)_8%,_hsl(180_15%_6%)_20%,_hsl(220_20%_4%)_40%,_hsl(0_0%_2%)_70%,_hsl(0_0%_0%)_100%)]" />
       
       {/* Light mode gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background dark:hidden" />
