@@ -127,7 +127,14 @@ const SelectedWorksSection = () => {
         </div>
 
         {/* Projects Grid - Masonry-like layout */}
-        {!loading && projects.length === 0 ? (
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-16 gap-4">
+            <span className="text-muted-foreground text-sm">Loading projects...</span>
+            <div className="w-48 h-1 bg-muted rounded-full overflow-hidden">
+              <div className="h-full w-1/2 bg-primary/50 rounded-full animate-[shimmer_1.5s_ease-in-out_infinite]" />
+            </div>
+          </div>
+        ) : projects.length === 0 ? (
           <div className="text-muted-foreground">
             No work to show right now.
           </div>
