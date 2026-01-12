@@ -1,9 +1,27 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+// Allowed origins for CORS
+const allowedOrigins = [
+  'https://makeyourbrand.live',
+  'https://www.makeyourbrand.live',
+  'https://lovable.app',
+  'https://lovable.dev',
+]
+
+// Match lovableproject.com subdomains for dev previews
+const isAllowedOrigin = (origin: string | null): boolean => {
+  if (!origin) return false
+  if (allowedOrigins.includes(origin)) return true
+  // Allow Lovable preview URLs
+  if (/^https:\/\/[a-z0-9-]+\.lovableproject\.com$/.test(origin)) return true
+  if (/^https:\/\/[a-z0-9-]+\.lovable\.app$/.test(origin)) return true
+  return false
 }
+
+const getCorsHeaders = (origin: string | null) => ({
+  'Access-Control-Allow-Origin': isAllowedOrigin(origin) ? origin! : allowedOrigins[0],
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+})
 
 interface InstagramMedia {
   id: string
@@ -27,6 +45,9 @@ interface InstagramResponse {
 }
 
 serve(async (req) => {
+  const origin = req.headers.get('origin')
+  const corsHeaders = getCorsHeaders(origin)
+
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
@@ -43,9 +64,11 @@ serve(async (req) => {
       )
     }
 
-    // Parse query params for limit
+    // Parse and validate limit query param (1-50, default 12)
     const url = new URL(req.url)
-    const limit = url.searchParams.get('limit') || '12'
+    const rawLimit = url.searchParams.get('limit') || '12'
+    const parsedLimit = parseInt(rawLimit, 10)
+    const limit = Number.isNaN(parsedLimit) ? 12 : Math.min(50, Math.max(1, parsedLimit))
 
     // Fetch media from Instagram Graph API
     const instagramUrl = `https://graph.instagram.com/me/media?fields=id,media_type,media_url,thumbnail_url,permalink,caption,timestamp&limit=${limit}&access_token=${accessToken}`
