@@ -68,25 +68,33 @@ const SelectedWorksSection = () => {
     fetchInstagramFeed();
   }, []);
 
-  // Build projects from Instagram posts with parsed metadata
-  const projects = instagramPosts.length > 0
-    ? instagramPosts.map((post, index) => {
-        const { title, subtitle } = parseHashtags(post.caption);
-        return {
-          title,
-          category: subtitle,
-          year: getYear(post.timestamp),
-          gradient: gradients[index % gradients.length],
-          instagramPost: post,
-        };
-      })
-    : [0, 1, 2, 3, 4, 5].map((index) => ({
-        title: 'Loading...',
-        category: 'Please wait',
-        year: new Date().getFullYear().toString(),
-        gradient: gradients[index % gradients.length],
-        instagramPost: null as InstagramPost | null,
-      }));
+  type ProjectItem = {
+    key: string;
+    title: string;
+    category: string;
+    year: string;
+    gradient: string;
+    instagramPost: InstagramPost | null;
+  };
+
+  // Build projects from Instagram posts with parsed metadata.
+  // No placeholders: render ONLY real posts (max 6) once loaded.
+  const projects: ProjectItem[] = loading
+    ? []
+    : (instagramPosts || [])
+        .filter((post) => Boolean(post?.imageUrl))
+        .slice(0, 6)
+        .map((post, index) => {
+          const { title, subtitle } = parseHashtags(post.caption);
+          return {
+            key: post.id ?? `post-${index}`,
+            title,
+            category: subtitle,
+            year: getYear(post.timestamp),
+            gradient: gradients[index % gradients.length],
+            instagramPost: post,
+          };
+        });
 
   return (
     <section id="work" className="py-32 bg-background relative overflow-hidden">
@@ -119,16 +127,21 @@ const SelectedWorksSection = () => {
         </div>
 
         {/* Projects Grid - Masonry-like layout */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <a
-              key={project.title}
-              href={project.instagramPost?.permalink || '#work'}
-              target={project.instagramPost ? '_blank' : '_self'}
-              rel="noopener noreferrer"
-              className={`group relative animate-fade-up block ${index % 2 === 1 ? 'md:mt-16' : ''}`}
-              style={{ animationDelay: `${(index + 1) * 100}ms` }}
-            >
+        {!loading && projects.length === 0 ? (
+          <div className="text-muted-foreground">
+            No work to show right now.
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 gap-8">
+            {projects.map((project, index) => (
+              <a
+                key={project.key}
+                href={project.instagramPost?.permalink || '#work'}
+                target={project.instagramPost ? '_blank' : '_self'}
+                rel="noopener noreferrer"
+                className={`group relative animate-fade-up block ${index % 2 === 1 ? 'md:mt-16' : ''}`}
+                style={{ animationDelay: `${(index + 1) * 100}ms` }}
+              >
               {/* Project Card */}
               <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4 cursor-pointer">
                 {/* Instagram Image or Gradient Background */}
@@ -177,9 +190,10 @@ const SelectedWorksSection = () => {
                   {project.year}
                 </span>
               </div>
-            </a>
-          ))}
-        </div>
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
