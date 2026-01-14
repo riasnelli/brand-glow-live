@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 interface InstagramPost {
   id: string;
@@ -9,6 +16,7 @@ interface InstagramPost {
   permalink: string;
   caption: string;
   timestamp: string;
+  carouselImages?: string[];
 }
 
 const gradients = [
@@ -54,8 +62,8 @@ const SelectedWorksSection = () => {
           console.error('Instagram fetch error:', error || data?.error);
           setInstagramPosts([]);
         } else {
-          // Get only the first 6 posts
-          setInstagramPosts((data.media || []).slice(0, 6));
+          // Get all posts
+          setInstagramPosts(data.media || []);
         }
       } catch (err) {
         console.error('Error fetching Instagram feed:', err);
@@ -77,13 +85,11 @@ const SelectedWorksSection = () => {
     instagramPost: InstagramPost | null;
   };
 
-  // Build projects from Instagram posts with parsed metadata.
-  // No placeholders: render ONLY real posts (max 6) once loaded.
+  // Build projects from all Instagram posts
   const projects: ProjectItem[] = loading
     ? []
     : (instagramPosts || [])
         .filter((post) => Boolean(post?.imageUrl))
-        .slice(0, 6)
         .map((post, index) => {
           const { title, subtitle } = parseHashtags(post.caption);
           return {
@@ -117,16 +123,14 @@ const SelectedWorksSection = () => {
               <span className="text-primary">Work</span>
             </h2>
           </div>
-          <a 
-            href="#work" 
-            className="text-muted-foreground hover:text-foreground transition-colors duration-300 flex items-center gap-2 group animate-fade-up-delay-2"
-          >
-            View All Projects
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-          </a>
+          <div className="flex items-center gap-2 text-muted-foreground animate-fade-up-delay-2">
+            <span className="text-sm">{projects.length} Projects</span>
+            <span className="text-primary">•</span>
+            <span className="text-sm">Swipe to explore</span>
+          </div>
         </div>
 
-        {/* Projects Grid - Masonry-like layout */}
+        {/* Projects Carousel */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-16 gap-4">
             <span className="text-muted-foreground text-sm">Loading projects...</span>
@@ -139,67 +143,99 @@ const SelectedWorksSection = () => {
             No work to show right now.
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <a
-                key={project.key}
-                href={project.instagramPost?.permalink || '#work'}
-                target={project.instagramPost ? '_blank' : '_self'}
-                rel="noopener noreferrer"
-                className={`group relative animate-fade-up block ${index % 2 === 1 ? 'md:mt-16' : ''}`}
-                style={{ animationDelay: `${(index + 1) * 100}ms` }}
-              >
-              {/* Project Card */}
-              <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4 cursor-pointer">
-                {/* Instagram Image or Gradient Background */}
-                {loading ? (
-                  <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} flex items-center justify-center`}>
-                    <Loader2 className="w-8 h-8 animate-spin text-primary/50" />
-                  </div>
-                ) : project.instagramPost?.imageUrl ? (
-                  <img
-                    src={project.instagramPost.imageUrl}
-                    alt={project.instagramPost.caption?.slice(0, 100) || project.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                ) : (
-                  <>
-                    <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`} />
-                    <div 
-                      className="absolute inset-0 opacity-20"
-                      style={{
-                        backgroundImage: `radial-gradient(circle, hsl(var(--muted-foreground) / 0.3) 1px, transparent 1px)`,
-                        backgroundSize: '16px 16px',
-                      }}
-                    />
-                  </>
-                )}
-                
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
-                
-                {/* Shine effect on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-              </div>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {projects.map((project, index) => (
+                <CarouselItem key={project.key} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <a
+                    href={project.instagramPost?.permalink || '#work'}
+                    target={project.instagramPost ? '_blank' : '_self'}
+                    rel="noopener noreferrer"
+                    className="group relative animate-fade-up block"
+                    style={{ animationDelay: `${(index + 1) * 50}ms` }}
+                  >
+                    {/* Project Card */}
+                    <div className="relative overflow-hidden rounded-2xl aspect-[4/5] mb-4 cursor-pointer">
+                      {/* Instagram Image */}
+                      {project.instagramPost?.imageUrl ? (
+                        <img
+                          src={project.instagramPost.imageUrl}
+                          alt={project.instagramPost.caption?.slice(0, 100) || project.title}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <>
+                          <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`} />
+                          <div 
+                            className="absolute inset-0 opacity-20"
+                            style={{
+                              backgroundImage: `radial-gradient(circle, hsl(var(--muted-foreground) / 0.3) 1px, transparent 1px)`,
+                              backgroundSize: '16px 16px',
+                            }}
+                          />
+                        </>
+                      )}
+                      
+                      {/* Carousel indicator for multi-image posts */}
+                      {project.instagramPost?.carouselImages && project.instagramPost.carouselImages.length > 0 && (
+                        <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1">
+                          <div className="flex gap-1">
+                            {[...Array(Math.min(project.instagramPost.carouselImages.length + 1, 5))].map((_, i) => (
+                              <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/70" />
+                            ))}
+                            {project.instagramPost.carouselImages.length > 4 && (
+                              <span className="text-white/70 text-xs ml-1">+{project.instagramPost.carouselImages.length - 4}</span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500" />
+                      
+                      {/* View indicator on hover */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="bg-white/10 backdrop-blur-sm rounded-full p-4 border border-white/20">
+                          <ArrowRight className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
+                    </div>
 
-              {/* Project Info */}
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-1 group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {project.category}
-                  </p>
-                </div>
-                <span className="text-xs text-muted-foreground/50 px-3 py-1 rounded-full border border-border/30">
-                  {project.year}
-                </span>
+                    {/* Project Info */}
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors duration-300 truncate">
+                          {project.title}
+                        </h3>
+                        <p className="text-muted-foreground text-sm truncate">
+                          {project.category}
+                        </p>
+                      </div>
+                      <span className="text-xs text-muted-foreground/50 px-2 py-1 rounded-full border border-border/30 ml-2 flex-shrink-0">
+                        {project.year}
+                      </span>
+                    </div>
+                  </a>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            
+            {/* Custom Navigation */}
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <CarouselPrevious className="relative inset-auto translate-y-0 bg-muted/50 hover:bg-muted border-border/50 hover:border-primary/50 transition-all duration-300" />
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <span>Drag or use arrows</span>
               </div>
-              </a>
-            ))}
-          </div>
+              <CarouselNext className="relative inset-auto translate-y-0 bg-muted/50 hover:bg-muted border-border/50 hover:border-primary/50 transition-all duration-300" />
+            </div>
+          </Carousel>
         )}
       </div>
     </section>
