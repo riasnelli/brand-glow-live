@@ -94,28 +94,28 @@ const ProjectImageCarousel = ({
           {/* Left Arrow */}
           <button
             onClick={goToPrevious}
-            className={`absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center transition-all duration-300 ${
+            className={`absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white shadow-md flex items-center justify-center transition-all duration-300 ${
               isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
             }`}
             aria-label="Previous image"
           >
-            <ChevronLeft className="w-5 h-5 text-gray-700" />
+            <ChevronLeft className="w-3.5 h-3.5 text-gray-700" />
           </button>
 
           {/* Right Arrow */}
           <button
             onClick={goToNext}
-            className={`absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center transition-all duration-300 ${
+            className={`absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white shadow-md flex items-center justify-center transition-all duration-300 ${
               isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2'
             }`}
             aria-label="Next image"
           >
-            <ChevronRight className="w-5 h-5 text-gray-700" />
+            <ChevronRight className="w-3.5 h-3.5 text-gray-700" />
           </button>
 
           {/* Dot Navigation */}
           <div
-            className={`absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 transition-all duration-300 ${
+            className={`absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 transition-all duration-300 ${
               isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
             }`}
           >
@@ -123,9 +123,9 @@ const ProjectImageCarousel = ({
               <button
                 key={index}
                 onClick={(e) => goToSlide(e, index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
                   index === currentIndex
-                    ? 'bg-white w-2.5 h-2.5'
+                    ? 'bg-white w-2 h-2'
                     : 'bg-white/50 hover:bg-white/70'
                 }`}
                 aria-label={`Go to image ${index + 1}`}
