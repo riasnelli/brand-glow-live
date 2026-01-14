@@ -1,13 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
 
 interface InstagramPost {
   id: string;
@@ -30,7 +23,6 @@ const gradients = [
 const parseHashtags = (caption: string | undefined): { title: string; subtitle: string } => {
   if (!caption) return { title: 'Untitled Project', subtitle: 'Creative Work' };
   
-  // Match hashtags - handles hashtags with spaces like "#Aravind's Burger Factory"
   const hashtagRegex = /#([^#\n]+?)(?=\s*#|\s*\n|$)/g;
   const matches = [...caption.matchAll(hashtagRegex)];
   
@@ -44,6 +36,109 @@ const parseHashtags = (caption: string | undefined): { title: string; subtitle: 
 const getYear = (timestamp: string | undefined): string => {
   if (!timestamp) return new Date().getFullYear().toString();
   return new Date(timestamp).getFullYear().toString();
+};
+
+// Mini carousel component for each project card
+const ProjectImageCarousel = ({ 
+  images, 
+  alt, 
+  permalink 
+}: { 
+  images: string[]; 
+  alt: string; 
+  permalink: string;
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const goToPrevious = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const goToNext = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const goToSlide = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentIndex(index);
+  };
+
+  return (
+    <div 
+      className="relative w-full h-full"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Images */}
+      {images.map((image, index) => (
+        <img
+          key={index}
+          src={image}
+          alt={`${alt} - ${index + 1}`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            index === currentIndex ? 'opacity-100' : 'opacity-0'
+          }`}
+          loading="lazy"
+        />
+      ))}
+
+      {/* Navigation Arrows - Only show on hover and if more than 1 image */}
+      {images.length > 1 && (
+        <>
+          {/* Left Arrow */}
+          <button
+            onClick={goToPrevious}
+            className={`absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center transition-all duration-300 ${
+              isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
+            }`}
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="w-5 h-5 text-gray-700" />
+          </button>
+
+          {/* Right Arrow */}
+          <button
+            onClick={goToNext}
+            className={`absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center transition-all duration-300 ${
+              isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2'
+            }`}
+            aria-label="Next image"
+          >
+            <ChevronRight className="w-5 h-5 text-gray-700" />
+          </button>
+
+          {/* Dot Navigation */}
+          <div
+            className={`absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 transition-all duration-300 ${
+              isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            }`}
+          >
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={(e) => goToSlide(e, index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === currentIndex
+                    ? 'bg-white w-2.5 h-2.5'
+                    : 'bg-white/50 hover:bg-white/70'
+                }`}
+                aria-label={`Go to image ${index + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500 pointer-events-none" />
+    </div>
+  );
 };
 
 const SelectedWorksSection = () => {
@@ -62,8 +157,8 @@ const SelectedWorksSection = () => {
           console.error('Instagram fetch error:', error || data?.error);
           setInstagramPosts([]);
         } else {
-          // Get all posts
-          setInstagramPosts(data.media || []);
+          // Get first 6 posts
+          setInstagramPosts((data.media || []).slice(0, 6));
         }
       } catch (err) {
         console.error('Error fetching Instagram feed:', err);
@@ -83,15 +178,22 @@ const SelectedWorksSection = () => {
     year: string;
     gradient: string;
     instagramPost: InstagramPost | null;
+    allImages: string[];
   };
 
-  // Build projects from all Instagram posts
+  // Build projects from Instagram posts with all images
   const projects: ProjectItem[] = loading
     ? []
     : (instagramPosts || [])
         .filter((post) => Boolean(post?.imageUrl))
+        .slice(0, 6)
         .map((post, index) => {
           const { title, subtitle } = parseHashtags(post.caption);
+          // Combine main image with carousel images
+          const allImages = post.carouselImages && post.carouselImages.length > 0
+            ? [post.imageUrl, ...post.carouselImages]
+            : [post.imageUrl];
+          
           return {
             key: post.id ?? `post-${index}`,
             title,
@@ -99,6 +201,7 @@ const SelectedWorksSection = () => {
             year: getYear(post.timestamp),
             gradient: gradients[index % gradients.length],
             instagramPost: post,
+            allImages,
           };
         });
 
@@ -123,14 +226,16 @@ const SelectedWorksSection = () => {
               <span className="text-primary">Work</span>
             </h2>
           </div>
-          <div className="flex items-center gap-2 text-muted-foreground animate-fade-up-delay-2">
-            <span className="text-sm">{projects.length} Projects</span>
-            <span className="text-primary">•</span>
-            <span className="text-sm">Swipe to explore</span>
-          </div>
+          <a 
+            href="#work" 
+            className="text-muted-foreground hover:text-foreground transition-colors duration-300 flex items-center gap-2 group animate-fade-up-delay-2"
+          >
+            View All Projects
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+          </a>
         </div>
 
-        {/* Projects Carousel */}
+        {/* Projects Grid - Masonry-like layout */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-16 gap-4">
             <span className="text-muted-foreground text-sm">Loading projects...</span>
@@ -143,99 +248,59 @@ const SelectedWorksSection = () => {
             No work to show right now.
           </div>
         ) : (
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
-              {projects.map((project, index) => (
-                <CarouselItem key={project.key} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <a
-                    href={project.instagramPost?.permalink || '#work'}
-                    target={project.instagramPost ? '_blank' : '_self'}
-                    rel="noopener noreferrer"
-                    className="group relative animate-fade-up block"
-                    style={{ animationDelay: `${(index + 1) * 50}ms` }}
-                  >
-                    {/* Project Card */}
-                    <div className="relative overflow-hidden rounded-2xl aspect-[4/5] mb-4 cursor-pointer">
-                      {/* Instagram Image */}
-                      {project.instagramPost?.imageUrl ? (
-                        <img
-                          src={project.instagramPost.imageUrl}
-                          alt={project.instagramPost.caption?.slice(0, 100) || project.title}
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <>
-                          <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`} />
-                          <div 
-                            className="absolute inset-0 opacity-20"
-                            style={{
-                              backgroundImage: `radial-gradient(circle, hsl(var(--muted-foreground) / 0.3) 1px, transparent 1px)`,
-                              backgroundSize: '16px 16px',
-                            }}
-                          />
-                        </>
-                      )}
-                      
-                      {/* Carousel indicator for multi-image posts */}
-                      {project.instagramPost?.carouselImages && project.instagramPost.carouselImages.length > 0 && (
-                        <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1">
-                          <div className="flex gap-1">
-                            {[...Array(Math.min(project.instagramPost.carouselImages.length + 1, 5))].map((_, i) => (
-                              <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/70" />
-                            ))}
-                            {project.instagramPost.carouselImages.length > 4 && (
-                              <span className="text-white/70 text-xs ml-1">+{project.instagramPost.carouselImages.length - 4}</span>
-                            )}
-                          </div>
-                        </div>
-                      )}
-                      
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500" />
-                      
-                      {/* View indicator on hover */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="bg-white/10 backdrop-blur-sm rounded-full p-4 border border-white/20">
-                          <ArrowRight className="w-6 h-6 text-white" />
-                        </div>
-                      </div>
-                    </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {projects.map((project, index) => (
+              <a
+                key={project.key}
+                href={project.instagramPost?.permalink || '#work'}
+                target={project.instagramPost ? '_blank' : '_self'}
+                rel="noopener noreferrer"
+                className={`group relative animate-fade-up block ${index % 2 === 1 ? 'md:mt-16' : ''}`}
+                style={{ animationDelay: `${(index + 1) * 100}ms` }}
+              >
+                {/* Project Card */}
+                <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4 cursor-pointer">
+                  {/* Image Carousel */}
+                  {project.allImages.length > 0 ? (
+                    <ProjectImageCarousel
+                      images={project.allImages}
+                      alt={project.title}
+                      permalink={project.instagramPost?.permalink || '#'}
+                    />
+                  ) : (
+                    <>
+                      <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`} />
+                      <div 
+                        className="absolute inset-0 opacity-20"
+                        style={{
+                          backgroundImage: `radial-gradient(circle, hsl(var(--muted-foreground) / 0.3) 1px, transparent 1px)`,
+                          backgroundSize: '16px 16px',
+                        }}
+                      />
+                    </>
+                  )}
+                  
+                  {/* Shine effect on hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                </div>
 
-                    {/* Project Info */}
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors duration-300 truncate">
-                          {project.title}
-                        </h3>
-                        <p className="text-muted-foreground text-sm truncate">
-                          {project.category}
-                        </p>
-                      </div>
-                      <span className="text-xs text-muted-foreground/50 px-2 py-1 rounded-full border border-border/30 ml-2 flex-shrink-0">
-                        {project.year}
-                      </span>
-                    </div>
-                  </a>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            
-            {/* Custom Navigation */}
-            <div className="flex items-center justify-center gap-4 mt-8">
-              <CarouselPrevious className="relative inset-auto translate-y-0 bg-muted/50 hover:bg-muted border-border/50 hover:border-primary/50 transition-all duration-300" />
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span>Drag or use arrows</span>
-              </div>
-              <CarouselNext className="relative inset-auto translate-y-0 bg-muted/50 hover:bg-muted border-border/50 hover:border-primary/50 transition-all duration-300" />
-            </div>
-          </Carousel>
+                {/* Project Info */}
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="text-xl font-semibold text-foreground mb-1 group-hover:text-primary transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      {project.category}
+                    </p>
+                  </div>
+                  <span className="text-xs text-muted-foreground/50 px-3 py-1 rounded-full border border-border/30">
+                    {project.year}
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
         )}
       </div>
     </section>
