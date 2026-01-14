@@ -5,6 +5,11 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+interface CarouselChild {
+  media_url: string;
+  media_type: string;
+}
+
 interface InstagramMedia {
   id: string;
   media_type: string;
@@ -13,6 +18,9 @@ interface InstagramMedia {
   caption?: string;
   timestamp: string;
   thumbnail_url?: string;
+  children?: {
+    data: CarouselChild[];
+  };
 }
 
 interface InstagramResponse {
@@ -43,9 +51,9 @@ serve(async (req) => {
       );
     }
 
-    // Fetch media from Instagram Graph API
-    const fields = "id,media_type,media_url,permalink,caption,timestamp,thumbnail_url";
-    const url = `https://graph.instagram.com/me/media?fields=${fields}&access_token=${accessToken}&limit=12`;
+    // Fetch media from Instagram Graph API - get all available posts
+    const fields = "id,media_type,media_url,permalink,caption,timestamp,thumbnail_url,children{media_url,media_type}";
+    const url = `https://graph.instagram.com/me/media?fields=${fields}&access_token=${accessToken}&limit=50`;
 
     console.log("Fetching Instagram feed...");
     const response = await fetch(url);
@@ -61,15 +69,26 @@ serve(async (req) => {
 
     const data: InstagramResponse = await response.json();
 
-    // Transform the data to a cleaner format
-    const media = data.data.map((item) => ({
-      id: item.id,
-      type: item.media_type,
-      imageUrl: item.media_type === "VIDEO" ? item.thumbnail_url : item.media_url,
-      permalink: item.permalink,
-      caption: item.caption,
-      timestamp: item.timestamp,
-    }));
+    // Transform the data to a cleaner format, including carousel children
+    const media = data.data.map((item) => {
+      // For carousel albums, get all child images
+      let carouselImages: string[] = [];
+      if (item.media_type === "CAROUSEL_ALBUM" && item.children?.data) {
+        carouselImages = item.children.data
+          .filter(child => child.media_type !== "VIDEO")
+          .map(child => child.media_url);
+      }
+      
+      return {
+        id: item.id,
+        type: item.media_type,
+        imageUrl: item.media_type === "VIDEO" ? item.thumbnail_url : item.media_url,
+        permalink: item.permalink,
+        caption: item.caption,
+        timestamp: item.timestamp,
+        carouselImages: carouselImages.length > 0 ? carouselImages : undefined,
+      };
+    });
 
     console.log(`Successfully fetched ${media.length} Instagram posts`);
 
