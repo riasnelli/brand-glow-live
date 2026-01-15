@@ -57,6 +57,7 @@ export function ShaderBackground({ children }: ShaderBackgroundProps) {
       <MeshGradient
         className="absolute inset-0 w-full h-full"
         speed={isActive ? 0.25 : 0.1}
+        colors={["#001a0d", "#002915", "#00401f", "#000a05"]}
       />
 
       {children}
