@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useCallback } from "react"
 import { MeshGradient } from "@paper-design/shaders-react"
 
 interface ShaderBackgroundProps {
@@ -12,24 +12,42 @@ interface ShaderBackgroundProps {
 export function ShaderBackground({ children }: ShaderBackgroundProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isActive, setIsActive] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!containerRef.current) return
+    
+    const rect = containerRef.current.getBoundingClientRect()
+    // Normalize mouse position to -0.3 to 0.3 range for subtle movement
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 0.6
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 0.6
+    
+    setMousePosition({ x, y })
+  }, [])
 
   useEffect(() => {
     const handleMouseEnter = () => setIsActive(true)
-    const handleMouseLeave = () => setIsActive(false)
+    const handleMouseLeave = () => {
+      setIsActive(false)
+      // Smoothly reset position when mouse leaves
+      setMousePosition({ x: 0, y: 0 })
+    }
 
     const container = containerRef.current
     if (container) {
       container.addEventListener("mouseenter", handleMouseEnter)
       container.addEventListener("mouseleave", handleMouseLeave)
+      container.addEventListener("mousemove", handleMouseMove)
     }
 
     return () => {
       if (container) {
         container.removeEventListener("mouseenter", handleMouseEnter)
         container.removeEventListener("mouseleave", handleMouseLeave)
+        container.removeEventListener("mousemove", handleMouseMove)
       }
     }
-  }, [])
+  }, [handleMouseMove])
 
   return (
     <div ref={containerRef} className="relative w-full h-full overflow-hidden">
@@ -53,15 +71,24 @@ export function ShaderBackground({ children }: ShaderBackgroundProps) {
         </defs>
       </svg>
 
-      {/* Background Shaders - More visible green tones */}
+      {/* Background Shaders - Mouse responsive */}
       <MeshGradient
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full transition-all duration-300 ease-out"
         speed={isActive ? 0.25 : 0.1}
         colors={["#003318", "#004d25", "#006633", "#001a0d"]}
+        offsetX={mousePosition.x}
+        offsetY={mousePosition.y}
+        distortion={isActive ? 0.5 : 0.3}
+        swirl={isActive ? 0.4 : 0.2}
       />
       
-      {/* Neon green glow edges */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Neon green glow edges - also respond to mouse */}
+      <div 
+        className="absolute inset-0 pointer-events-none transition-transform duration-500 ease-out"
+        style={{ 
+          transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)` 
+        }}
+      >
         {/* Top edge glow */}
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#00ff6640] via-[#00ff6615] to-transparent" />
         {/* Bottom edge glow */}
