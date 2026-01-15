@@ -1,39 +1,22 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronDown } from 'lucide-react';
-import { useEffect, useState } from 'react';
 import FloatingParticles from './FloatingParticles';
-import heroBg from '@/assets/hero-bg.jpg';
+import { ShaderBackground } from '@/components/ui/hero-shader';
 
 const HeroSection = () => {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Light mode: Parallax background image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 dark:hidden will-change-transform"
-        style={{ 
-          backgroundImage: `url(${heroBg})`,
-          transform: `translateY(${scrollY * 0.4}px) scale(1.1)`
-        }}
-      />
+      {/* Animated Shader Background */}
+      <div className="absolute inset-0">
+        <ShaderBackground>
+          <div className="absolute inset-0" />
+        </ShaderBackground>
+      </div>
       
-      {/* Dark mode: Dark background with green glow behind nav area */}
-      <div className="absolute inset-0 hidden dark:block bg-[radial-gradient(ellipse_60%_20%_at_50%_0%,_hsl(150_30%_18%)_0%,_hsl(160_20%_10%)_40%,_transparent_70%),_linear-gradient(to_bottom,_hsl(220_20%_4%)_0%,_hsl(0_0%_2%)_50%,_hsl(0_0%_0%)_100%)]" />
+      {/* Gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background pointer-events-none" />
       
-      {/* Light mode gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background dark:hidden" />
-      
-      {/* Floating particles - more in dark mode */}
+      {/* Floating particles */}
       <FloatingParticles count={30} />
       
       {/* Content */}
