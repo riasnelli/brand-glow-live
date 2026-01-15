@@ -42,24 +42,27 @@ const getYear = (timestamp: string | undefined): string => {
 const ProjectImageCarousel = ({ 
   images, 
   alt, 
-  permalink 
 }: { 
   images: string[]; 
   alt: string; 
-  permalink: string;
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  const goToPrevious = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
+
+  const goToPrevious = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
-  const goToNext = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const goToNext = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
@@ -69,11 +72,38 @@ const ProjectImageCarousel = ({
     setCurrentIndex(index);
   };
 
+  // Touch handlers for swipe gestures
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe && images.length > 1) {
+      goToNext();
+    } else if (isRightSwipe && images.length > 1) {
+      goToPrevious();
+    }
+  };
+
   return (
     <div 
-      className="relative w-full h-full"
+      className="relative w-full h-full touch-pan-y"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
     >
       {/* Images */}
       {images.map((image, index) => (
@@ -85,6 +115,7 @@ const ProjectImageCarousel = ({
             index === currentIndex ? 'opacity-100' : 'opacity-0'
           }`}
           loading="lazy"
+          draggable={false}
         />
       ))}
 
@@ -189,9 +220,9 @@ const SelectedWorksSection = () => {
         .slice(0, 6)
         .map((post, index) => {
           const { title, subtitle } = parseHashtags(post.caption);
-          // Combine main image with carousel images
+          // Use carousel images if available, otherwise use main image
           const allImages = post.carouselImages && post.carouselImages.length > 0
-            ? [post.imageUrl, ...post.carouselImages]
+            ? post.carouselImages
             : [post.imageUrl];
           
           return {
@@ -265,7 +296,6 @@ const SelectedWorksSection = () => {
                     <ProjectImageCarousel
                       images={project.allImages}
                       alt={project.title}
-                      permalink={project.instagramPost?.permalink || '#'}
                     />
                   ) : (
                     <>
