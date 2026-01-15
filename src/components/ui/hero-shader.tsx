@@ -53,12 +53,29 @@ export function ShaderBackground({ children }: ShaderBackgroundProps) {
         </defs>
       </svg>
 
-      {/* Background Shaders */}
+      {/* Background Shaders - More visible green tones */}
       <MeshGradient
         className="absolute inset-0 w-full h-full"
         speed={isActive ? 0.25 : 0.1}
-        colors={["#001a0d", "#002915", "#00401f", "#000a05"]}
+        colors={["#003318", "#004d25", "#006633", "#001a0d"]}
       />
+      
+      {/* Neon green glow edges */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Top edge glow */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#00ff6640] via-[#00ff6615] to-transparent" />
+        {/* Bottom edge glow */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#00ff6630] via-[#00ff6610] to-transparent" />
+        {/* Left edge glow */}
+        <div className="absolute top-0 left-0 bottom-0 w-24 bg-gradient-to-r from-[#00ff6625] via-[#00ff6608] to-transparent" />
+        {/* Right edge glow */}
+        <div className="absolute top-0 right-0 bottom-0 w-24 bg-gradient-to-l from-[#00ff6625] via-[#00ff6608] to-transparent" />
+        {/* Corner glows */}
+        <div className="absolute top-0 left-0 w-48 h-48 bg-[radial-gradient(circle_at_top_left,_#00ff6650_0%,_transparent_70%)]" />
+        <div className="absolute top-0 right-0 w-48 h-48 bg-[radial-gradient(circle_at_top_right,_#00ff6650_0%,_transparent_70%)]" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-[radial-gradient(circle_at_bottom_left,_#00ff6640_0%,_transparent_70%)]" />
+        <div className="absolute bottom-0 right-0 w-48 h-48 bg-[radial-gradient(circle_at_bottom_right,_#00ff6640_0%,_transparent_70%)]" />
+      </div>
 
       {children}
     </div>
