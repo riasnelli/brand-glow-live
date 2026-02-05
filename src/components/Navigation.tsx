@@ -41,25 +41,27 @@ const Navigation = () => {
   return (
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-2 px-3 md:px-4' : 'py-4 px-4 md:px-6'}`}>
-       <div className="w-full">
+        <div className={`mx-auto transition-all duration-500 ${scrolled ? 'max-w-2xl' : 'container'}`}>
           <div 
-           className={`relative flex items-center justify-between transition-all duration-500 ease-out ${
+            className={`relative flex items-center justify-between rounded-full transition-all duration-500 ease-out ${
               scrolled 
-               ? 'px-6 md:px-12 py-3 bg-primary/10 border-t-2 border-primary/50 backdrop-blur-xl' 
-               : 'px-6 md:px-12 py-4 bg-primary/5 border-t-2 border-primary/30 backdrop-blur-md'
+                ? 'px-5 md:px-8 py-3 bg-card/90 border border-border/60 shadow-xl dark:bg-card/80 dark:border-primary/30 scale-[0.98] backdrop-blur-xl' 
+                : 'px-6 md:px-8 py-4 bg-card/40 border border-border/30 shadow-md dark:bg-card/30 scale-100 backdrop-blur-md'
             }`}
             style={{ transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.6s ease-out' }}
           >
-           {/* Gradient overlay */}
-           <div className="absolute inset-0 bg-gradient-to-b from-primary/20 to-transparent pointer-events-none" />
+            {/* Gradient overlay for glass depth */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-background/10 to-transparent pointer-events-none" />
+            {/* Inner glow */}
+            <div className={`absolute inset-0 rounded-full pointer-events-none transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-50'}`} style={{ background: 'radial-gradient(ellipse at 50% 0%, hsl(var(--primary) / 0.08) 0%, transparent 60%)' }} />
             <a 
               href="/" 
-             className="relative z-10 font-semibold text-foreground tracking-tight hover:text-primary transition-all duration-300 text-lg"
+              className={`relative z-10 font-semibold text-foreground tracking-tight hover:text-primary transition-all duration-300 ${scrolled ? 'text-base' : 'text-lg'}`}
             >
               MakeYourBrand.Live
             </a>
 
-           <nav className="hidden md:flex items-center relative z-10 gap-10">
+            <nav className={`hidden md:flex items-center relative z-10 transition-all duration-300 ${scrolled ? 'gap-8' : 'gap-10'}`}>
               {navLinks.map((link) => (
                 <a
                   key={link.name}
