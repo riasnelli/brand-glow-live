@@ -58,9 +58,9 @@ const Navigation = () => {
               href="/" 
               className={`relative z-10 font-semibold text-white tracking-tight hover:text-primary transition-all duration-300 ${scrolled ? 'text-base' : 'text-lg'}`}
             >
-              <span className="flex items-center gap-0">
+              <span className="flex items-end gap-0">
                 MakeYourBrand
-                <span className="relative mx-1 flex items-center justify-center">
+                <span className="relative mx-1 mb-1 flex items-center justify-center">
                   <span className="absolute w-1.5 h-1.5 rounded-full bg-primary/40 animate-ping" />
                   <span className="relative w-1.5 h-1.5 rounded-full bg-primary" />
                 </span>
