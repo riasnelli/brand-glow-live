@@ -34,15 +34,8 @@ const HeroSection = () => {
           <span className="text-foreground">I build</span>
           {/* Animated capsule placeholder */}
           <span className="inline-flex items-center align-middle mx-2 md:mx-3">
-            <span className="relative w-16 h-8 md:w-24 md:h-10 lg:w-32 lg:h-12 rounded-full overflow-hidden">
-              <span className="absolute inset-0 bg-gradient-to-r from-primary via-primary/60 to-primary animate-pulse" />
-              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_2s_infinite]" 
-                style={{ 
-                  backgroundSize: '200% 100%',
-                  animation: 'shimmer 2s infinite linear'
-                }} 
-              />
-              <span className="absolute inset-[2px] rounded-full bg-gradient-to-br from-primary/80 via-primary/40 to-primary/60" />
+           <span className="relative w-16 h-8 md:w-24 md:h-10 lg:w-32 lg:h-12 rounded-full overflow-hidden border-t-2 border-primary/50 bg-primary/10">
+             <span className="absolute inset-0 bg-gradient-to-b from-primary/20 to-transparent" />
             </span>
           </span>
           <span className="text-foreground">brands that</span>
