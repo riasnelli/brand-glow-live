@@ -58,7 +58,14 @@ const Navigation = () => {
               href="/" 
               className={`relative z-10 font-semibold text-white tracking-tight hover:text-primary transition-all duration-300 ${scrolled ? 'text-base' : 'text-lg'}`}
             >
-              MakeYourBrand.Live
+              <span className="flex items-center gap-0">
+                MakeYourBrand
+                <span className="relative mx-1 flex items-center justify-center">
+                  <span className="absolute w-3 h-3 rounded-full bg-primary/40 animate-ping" />
+                  <span className="relative w-3 h-3 rounded-full bg-primary shadow-[0_0_8px_2px_hsl(var(--primary)/0.6)]" />
+                </span>
+                Live
+              </span>
             </a>
 
             <nav className={`hidden md:flex items-center relative z-10 transition-all duration-300 ${scrolled ? 'gap-8' : 'gap-10'}`}>
