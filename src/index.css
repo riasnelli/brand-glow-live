@@ -16,39 +16,39 @@
     --popover: 210 40% 98%;
     --popover-foreground: 220 30% 15%;
 
-    --primary: 205 85% 50%;
+    --primary: 228 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 220 30% 20%;
+    --secondary: 228 40% 96%;
+    --secondary-foreground: 228 30% 20%;
 
-    --muted: 210 30% 94%;
-    --muted-foreground: 220 15% 45%;
+    --muted: 228 30% 94%;
+    --muted-foreground: 228 15% 45%;
 
-    --accent: 205 85% 50%;
+    --accent: 228 100% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 210 20% 88%;
-    --input: 210 20% 88%;
-    --ring: 205 85% 50%;
+    --border: 228 20% 88%;
+    --input: 228 20% 88%;
+    --ring: 228 100% 50%;
 
     --radius: 0.75rem;
 
     /* Light mode design tokens */
-    --gradient-hero: linear-gradient(180deg, hsl(210 40% 98%) 0%, hsl(0 0% 100%) 100%);
-    --gradient-glow: radial-gradient(ellipse at 50% 0%, hsl(205 85% 50% / 0.2) 0%, transparent 60%);
+    --gradient-hero: linear-gradient(180deg, hsl(228 40% 98%) 0%, hsl(0 0% 100%) 100%);
+    --gradient-glow: radial-gradient(ellipse at 50% 0%, hsl(228 100% 50% / 0.2) 0%, transparent 60%);
     --glass-bg: hsl(0 0% 100% / 0.7);
-    --glass-border: hsl(210 20% 80% / 0.4);
-    --shadow-glow: 0 0 60px hsl(205 85% 50% / 0.15);
-    --shadow-card: 0 25px 50px -12px hsl(220 30% 15% / 0.1);
+    --glass-border: hsl(228 20% 80% / 0.4);
+    --shadow-glow: 0 0 60px hsl(228 100% 50% / 0.15);
+    --shadow-card: 0 25px 50px -12px hsl(228 30% 15% / 0.1);
     
     /* Section gradient colors - light mode */
-    --section-dark: 210 40% 96%;
-    --section-darker: 210 40% 94%;
-    --section-accent: 210 50% 92%;
+    --section-dark: 228 40% 96%;
+    --section-darker: 228 40% 94%;
+    --section-accent: 228 50% 92%;
   }
 
   .dark {
