@@ -23,8 +23,8 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-6 text-center pt-32 pb-16 max-w-5xl">
         {/* Availability badge */}
         <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-8">
-          <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
-          <span className="text-xs font-medium text-primary tracking-wider">
+          <span className="w-2 h-2 rounded-full bg-[hsl(142_76%_56%)] animate-pulse-glow" />
+          <span className="text-xs font-medium text-[hsl(142_76%_56%)] tracking-wider">
             AVAILABLE FOR PROJECTS
           </span>
         </div>
