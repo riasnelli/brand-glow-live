@@ -2,7 +2,7 @@ import { Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "NelliDESiGN understood the Dubai market from day one. The brand identity they created elevated our presence and gave us instant credibility with regional investors.",
+    quote: "MakeYourBrand.Live understood the Dubai market from day one. The brand identity they created elevated our presence and gave us instant credibility with regional investors.",
     author: "Ahmed Al Rashid",
     role: "CEO, Nexus Capital Dubai",
     company: "Nexus",

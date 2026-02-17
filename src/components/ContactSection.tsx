@@ -40,7 +40,7 @@ const ContactSection = () => {
           <div className="space-y-8 animate-fade-up-delay-2">
             {/* Email Card */}
             <a 
-              href="mailto:hello@nellidesign.com" 
+              href="mailto:hello@makeyourbrand.live" 
               className="group glass p-6 rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-500 flex items-center gap-6 cursor-pointer"
             >
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
@@ -49,12 +49,12 @@ const ContactSection = () => {
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Email me at</p>
                 <p className="text-foreground font-medium group-hover:text-primary transition-colors duration-300">
-                  hello@nellidesign.com
+                  hello@makeyourbrand.live
                 </p>
               </div>
             </a>
 
-            {/* Website Card */}
+            {/* NelliDESiGN Link */}
             <a 
               href="https://www.nellidesign.com" 
               target="_blank"
@@ -65,9 +65,9 @@ const ContactSection = () => {
                 <ArrowRight className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Visit portfolio</p>
+                <p className="text-sm text-muted-foreground mb-1">A service by</p>
                 <p className="text-foreground font-medium group-hover:text-primary transition-colors duration-300">
-                  www.nellidesign.com
+                  NelliDESiGN — www.nellidesign.com
                 </p>
               </div>
             </a>
@@ -92,7 +92,7 @@ const ContactSection = () => {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex flex-col gap-3">
               <p className="text-muted-foreground text-sm">
-                © 2025 NelliDESiGN. All rights reserved.
+                © 2025 MakeYourBrand.Live — A service by NelliDESiGN. All rights reserved.
               </p>
               <ThemeToggle />
             </div>
