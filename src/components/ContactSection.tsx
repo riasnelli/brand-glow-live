@@ -1,4 +1,4 @@
-import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, Mail, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FloatingParticles from './FloatingParticles';
 import ThemeToggle from './ThemeToggle';
@@ -23,11 +23,11 @@ const ContactSection = () => {
               Let's Work Together
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-8 animate-fade-up-delay-1">
-              Ready to build a brand that{' '}
-              <span className="text-primary">stands out?</span>
+              Ready to elevate your{' '}
+              <span className="text-primary">Dubai brand?</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-10 max-w-md leading-relaxed animate-fade-up-delay-2">
-              Let's discuss your project and create something memorable together. I'm currently accepting new projects for Q1 2024.
+              Let's discuss how 15+ years of international design expertise can transform your brand for the Dubai market. Currently accepting new projects.
             </p>
             
             <Button variant="hero" size="xl" className="group animate-fade-up-delay-3">
@@ -40,7 +40,7 @@ const ContactSection = () => {
           <div className="space-y-8 animate-fade-up-delay-2">
             {/* Email Card */}
             <a 
-              href="mailto:hello@makeyourbrand.live" 
+              href="mailto:hello@nellidesign.com" 
               className="group glass p-6 rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-500 flex items-center gap-6 cursor-pointer"
             >
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
@@ -49,23 +49,25 @@ const ContactSection = () => {
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Email me at</p>
                 <p className="text-foreground font-medium group-hover:text-primary transition-colors duration-300">
-                  hello@makeyourbrand.live
+                  hello@nellidesign.com
                 </p>
               </div>
             </a>
 
-            {/* Phone Card */}
+            {/* Website Card */}
             <a 
-              href="tel:+919497127222" 
+              href="https://www.nellidesign.com" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="group glass p-6 rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-500 flex items-center gap-6 cursor-pointer"
             >
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                <Phone className="w-6 h-6 text-primary" />
+                <ArrowRight className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Call me at</p>
+                <p className="text-sm text-muted-foreground mb-1">Visit portfolio</p>
                 <p className="text-foreground font-medium group-hover:text-primary transition-colors duration-300">
-                  +91 9497 127 222
+                  www.nellidesign.com
                 </p>
               </div>
             </a>
@@ -76,9 +78,9 @@ const ContactSection = () => {
                 <MapPin className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Based in</p>
+                <p className="text-sm text-muted-foreground mb-1">Serving Dubai from</p>
                 <p className="text-foreground font-medium">
-                  India
+                  Kochi, India · Available Remotely
                 </p>
               </div>
             </div>
@@ -90,7 +92,7 @@ const ContactSection = () => {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex flex-col gap-3">
               <p className="text-muted-foreground text-sm">
-                © 2024 MakeYourBrand.Live. All rights reserved.
+                © 2025 NelliDESiGN. All rights reserved.
               </p>
               <ThemeToggle />
             </div>

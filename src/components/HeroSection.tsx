@@ -25,13 +25,13 @@ const HeroSection = () => {
         <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-8">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
           <span className="text-xs font-medium text-primary tracking-wider">
-            AVAILABLE FOR PROJECTS
+            NOW ACCEPTING DUBAI PROJECTS
           </span>
         </div>
 
         {/* Main heading */}
         <h1 className="animate-fade-up-delay-1 text-5xl md:text-6xl lg:text-8xl font-bold leading-[1.1] mx-auto mb-8">
-          <span className="text-foreground">I build</span>
+          <span className="text-foreground">Your Dubai brand</span>
           {/* Animated capsule placeholder */}
           <span className="inline-flex items-center align-middle mx-2 md:mx-3">
             <span className="relative w-16 h-8 md:w-24 md:h-10 lg:w-32 lg:h-12 rounded-full overflow-hidden">
@@ -45,15 +45,15 @@ const HeroSection = () => {
               <span className="absolute inset-[2px] rounded-full bg-gradient-to-br from-primary/80 via-primary/40 to-primary/60" />
             </span>
           </span>
-          <span className="text-foreground">brands that</span>
+          <span className="text-foreground">deserves</span>
           <br />
-          <span className="text-foreground">people </span>
-          <span className="bg-gradient-to-r from-foreground via-muted-foreground/70 to-muted-foreground/40 bg-clip-text text-transparent">remember.</span>
+          <span className="text-foreground">world-class </span>
+          <span className="bg-gradient-to-r from-foreground via-muted-foreground/70 to-muted-foreground/40 bg-clip-text text-transparent">design.</span>
         </h1>
 
         {/* Subheading */}
         <p className="animate-fade-up-delay-2 text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto mb-12 leading-relaxed">
-          Freelance branding designer helping startups and businesses stand out with minimal, bold, and strategic visual identities.
+          Freelance branding designer with 15+ years of international experience — helping Dubai startups, SMEs, and enterprises build bold, strategic visual identities that command attention.
         </p>
 
         {/* CTAs */}

@@ -3,27 +3,27 @@ import { Lightbulb, Palette, PenTool, BookOpen, ArrowUpRight } from 'lucide-reac
 const services = [
   {
     icon: Lightbulb,
-    title: 'Brand Strategy',
-    description: "Defining your brand's core purpose, positioning, and voice to build a solid foundation for growth and connection.",
-    features: ['Market Research', 'Brand Positioning'],
+    title: 'Brand Strategy for Dubai',
+    description: "Positioning your brand to thrive in Dubai's competitive market. From market research to strategic brand architecture tailored for the UAE business landscape.",
+    features: ['UAE Market Research', 'Competitive Positioning'],
   },
   {
     icon: Palette,
     title: 'Visual Identity Design',
-    description: 'Creating a cohesive visual language including color palettes, typography, and imagery that speaks to your audience.',
+    description: 'Crafting premium visual systems — color palettes, typography, and imagery — that resonate with Dubai\'s discerning audiences and global standards.',
     features: ['Color Systems', 'Typography Selection'],
   },
   {
     icon: PenTool,
     title: 'Logo Design',
-    description: "Crafting memorable and versatile logos that serve as the cornerstone of your brand's visual presence.",
-    features: ['Logomark', 'Wordmark'],
+    description: "Designing iconic, versatile logos that reflect ambition and sophistication — built to stand out across Dubai's dynamic business ecosystem.",
+    features: ['Logomark', 'Wordmark & Bilingual'],
   },
   {
     icon: BookOpen,
     title: 'Brand Guidelines',
-    description: 'Documenting rules and standards to ensure consistency across all media and communication channels.',
-    features: ['Usage Rules', 'Application Examples'],
+    description: 'Comprehensive brand documentation ensuring flawless consistency across every touchpoint — from business cards to Dubai Mall billboards.',
+    features: ['Usage Standards', 'Multi-Channel Application'],
   },
 ];
 
@@ -43,7 +43,7 @@ const ExpertiseSection = () => {
               Expertise
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight max-w-xl animate-fade-up-delay-1">
-              Comprehensive design solutions to elevate your brand.
+              Premium branding solutions for Dubai businesses.
             </h2>
           </div>
           <a 
