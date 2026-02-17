@@ -2,22 +2,22 @@ import { Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "Working with this team transformed our brand completely. The strategic approach and attention to detail resulted in an identity that truly represents who we are.",
-    author: "Sarah Chen",
-    role: "CEO, Lumina Financial",
-    company: "Lumina",
+    quote: "NelliDESiGN understood the Dubai market from day one. The brand identity they created elevated our presence and gave us instant credibility with regional investors.",
+    author: "Ahmed Al Rashid",
+    role: "CEO, Nexus Capital Dubai",
+    company: "Nexus",
   },
   {
-    quote: "The process was incredibly smooth. From discovery to delivery, every step was thoughtful and purposeful. Our new brand has received amazing feedback.",
-    author: "Marcus Rivera",
-    role: "Founder, Aero Systems",
-    company: "Aero",
+    quote: "From strategy to final delivery, every detail was polished and purposeful. Our rebrand attracted attention across the UAE and opened new partnership doors.",
+    author: "Priya Sharma",
+    role: "Founder, Aura Wellness",
+    company: "Aura",
   },
   {
-    quote: "They didn't just design a logo—they built a complete visual system that scales beautifully across all our touchpoints. Highly recommended.",
-    author: "Emily Watson",
-    role: "Creative Director, Velvet & Oak",
-    company: "V&O",
+    quote: "Working with a designer who has 15+ years of global experience made all the difference. They built a brand system that works beautifully across all our Dubai touchpoints.",
+    author: "James Mitchell",
+    role: "Managing Director, Sterling Properties",
+    company: "Sterling",
   },
 ];
 

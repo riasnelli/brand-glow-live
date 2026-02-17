@@ -4,22 +4,22 @@ const steps = [
   {
     number: '01',
     title: 'Discover',
-    description: 'We dive deep into your market, competitors, and audience to uncover the strategic gap your brand can own.',
+    description: 'Understanding your Dubai market, competitors, and target audience to identify the strategic opportunity your brand can own.',
   },
   {
     number: '02',
     title: 'Define',
-    description: 'Synthesizing research into a clear brand direction, core messaging, and a voice that speaks to your users.',
+    description: 'Translating research into a clear brand direction, messaging, and voice that resonates with UAE consumers and global stakeholders.',
   },
   {
     number: '03',
     title: 'Design',
-    description: 'Crafting the visual identity system—logo, typography, colors, and layout—with precision and creativity.',
+    description: 'Crafting the complete visual identity — logo, typography, colors — with the precision and sophistication Dubai demands.',
   },
   {
     number: '04',
     title: 'Deliver',
-    description: 'Packaging everything into comprehensive brand guidelines and assets, ensuring consistent application everywhere.',
+    description: 'Handing over production-ready brand assets and comprehensive guidelines, ensuring flawless execution across all channels.',
   },
 ];
 
@@ -53,7 +53,7 @@ const ProcessSection = () => {
           </div>
           <div className="flex items-end animate-fade-up-delay-2">
             <p className="text-lg text-muted-foreground leading-relaxed max-w-md">
-              A streamlined four-step framework designed to uncover your brand's potential and launch it with impact.
+              A proven four-step framework refined over 15+ years — designed to deliver brands that win in Dubai's fast-paced market.
             </p>
           </div>
         </div>

@@ -1,14 +1,14 @@
 import { Circle, Diamond, Hexagon, Octagon } from 'lucide-react';
 
 const logos = [
-  { name: 'Acme Corp', Icon: Circle },
-  { name: 'Nebula', Icon: Diamond },
-  { name: 'Vertex', Icon: Hexagon },
-  { name: 'Orbit', Icon: Octagon },
-  { name: 'Acme Corp', Icon: Circle },
-  { name: 'Nebula', Icon: Diamond },
-  { name: 'Vertex', Icon: Hexagon },
-  { name: 'Orbit', Icon: Octagon },
+  { name: 'Dubai Startups', Icon: Circle },
+  { name: 'UAE Enterprises', Icon: Diamond },
+  { name: 'MENA Brands', Icon: Hexagon },
+  { name: 'Global Clients', Icon: Octagon },
+  { name: 'Dubai Startups', Icon: Circle },
+  { name: 'UAE Enterprises', Icon: Diamond },
+  { name: 'MENA Brands', Icon: Hexagon },
+  { name: 'Global Clients', Icon: Octagon },
 ];
 
 const LogoMarquee = () => {
