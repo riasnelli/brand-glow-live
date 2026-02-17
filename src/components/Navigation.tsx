@@ -59,8 +59,11 @@ const Navigation = () => {
               className={`relative z-10 font-semibold text-white tracking-tight hover:text-primary transition-all duration-300 ${scrolled ? 'text-base' : 'text-lg'}`}
             >
               <span className="flex items-end gap-0">
-                Nelli
-                <span className="text-primary">DESiGN</span>
+                MakeYourBrand
+                <span className="relative mx-1 mb-[0.4em] flex items-center justify-center">
+                  <span className="relative w-1.5 h-1.5 rounded-full bg-primary animate-[pulse-dot_2s_ease-in-out_infinite]" />
+                </span>
+                Live
               </span>
             </a>
 
