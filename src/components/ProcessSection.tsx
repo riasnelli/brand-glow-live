@@ -81,7 +81,7 @@ const ProcessSection = () => {
                 </h3>
                 
                 {/* Description */}
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="text-muted-foreground text-[20px] leading-relaxed">
                   {step.description}
                 </p>
               </div>

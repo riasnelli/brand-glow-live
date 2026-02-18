@@ -72,7 +72,7 @@ const ExpertiseSection = () => {
               <h3 className="text-xl font-semibold text-foreground mb-3">
                 {service.title}
               </h3>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
+              <p className="text-muted-foreground mb-6 leading-relaxed text-[20px]">
                 {service.description}
               </p>
 
