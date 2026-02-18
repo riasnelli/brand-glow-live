@@ -25,7 +25,7 @@ const HeroSection = () => {
         <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-8">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
           <span className="text-xs font-medium text-primary tracking-wider">
-            NOW ACCEPTING DUBAI PROJECTS
+            NOW ACCEPTING NEW PROJECTS
           </span>
         </div>
 
@@ -53,7 +53,7 @@ const HeroSection = () => {
 
         {/* Subheading */}
         <p className="animate-fade-up-delay-2 text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto mb-12 leading-relaxed">
-          Freelance branding designer with 15+ years of international experience — helping Dubai startups, SMEs, and enterprises build bold, strategic visual identities that command attention.
+          Freelance branding designer with 15+ years of international experience — helping startups, SMEs, and enterprises build bold, strategic visual identities that command attention.
         </p>
 
         {/* CTAs */}

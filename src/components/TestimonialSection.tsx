@@ -2,19 +2,19 @@ import { Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "MakeYourBrand.Live understood the Dubai market from day one. The brand identity they created elevated our presence and gave us instant credibility with regional investors.",
+    quote: "MakeYourBrand.Live understood our market from day one. The brand identity they created elevated our presence and gave us instant credibility with investors.",
     author: "Ahmed Al Rashid",
-    role: "CEO, Nexus Capital Dubai",
+    role: "CEO, Nexus Capital",
     company: "Nexus",
   },
   {
-    quote: "From strategy to final delivery, every detail was polished and purposeful. Our rebrand attracted attention across the UAE and opened new partnership doors.",
+    quote: "From strategy to final delivery, every detail was polished and purposeful. Our rebrand attracted attention across the region and opened new partnership doors.",
     author: "Priya Sharma",
     role: "Founder, Aura Wellness",
     company: "Aura",
   },
   {
-    quote: "Working with a designer who has 15+ years of global experience made all the difference. They built a brand system that works beautifully across all our Dubai touchpoints.",
+    quote: "Working with a designer who has 15+ years of global experience made all the difference. They built a brand system that works beautifully across all our touchpoints.",
     author: "James Mitchell",
     role: "Managing Director, Sterling Properties",
     company: "Sterling",

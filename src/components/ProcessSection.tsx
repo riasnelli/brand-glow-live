@@ -4,17 +4,17 @@ const steps = [
   {
     number: '01',
     title: 'Discover',
-    description: 'Understanding your Dubai market, competitors, and target audience to identify the strategic opportunity your brand can own.',
+    description: 'Understanding your market, competitors, and target audience to identify the strategic opportunity your brand can own.',
   },
   {
     number: '02',
     title: 'Define',
-    description: 'Translating research into a clear brand direction, messaging, and voice that resonates with UAE consumers and global stakeholders.',
+    description: 'Translating research into a clear brand direction, messaging, and voice that resonates with your consumers and global stakeholders.',
   },
   {
     number: '03',
     title: 'Design',
-    description: 'Crafting the complete visual identity — logo, typography, colors — with the precision and sophistication Dubai demands.',
+    description: 'Crafting the complete visual identity — logo, typography, colors — with precision and sophistication your brand demands.',
   },
   {
     number: '04',
@@ -53,7 +53,7 @@ const ProcessSection = () => {
           </div>
           <div className="flex items-end animate-fade-up-delay-2">
             <p className="text-lg text-muted-foreground leading-relaxed max-w-md">
-              A proven four-step framework refined over 15+ years — designed to deliver brands that win in Dubai's fast-paced market.
+              A proven four-step framework refined over 15+ years — designed to deliver brands that win in fast-paced markets.
             </p>
           </div>
         </div>
