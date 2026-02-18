@@ -3,26 +3,26 @@ import { Lightbulb, Palette, PenTool, BookOpen, ArrowUpRight } from 'lucide-reac
 const services = [
   {
     icon: Lightbulb,
-    title: 'Brand Strategy for Dubai',
-    description: "Positioning your brand to thrive in Dubai's competitive market. From market research to strategic brand architecture tailored for the UAE business landscape.",
-    features: ['UAE Market Research', 'Competitive Positioning'],
+    title: 'Brand Strategy',
+    description: "Positioning your brand to thrive in competitive markets. From market research to strategic brand architecture tailored for your business landscape.",
+    features: ['Market Research', 'Competitive Positioning'],
   },
   {
     icon: Palette,
     title: 'Visual Identity Design',
-    description: 'Crafting premium visual systems — color palettes, typography, and imagery — that resonate with Dubai\'s discerning audiences and global standards.',
+    description: 'Crafting premium visual systems — color palettes, typography, and imagery — that resonate with discerning audiences and global standards.',
     features: ['Color Systems', 'Typography Selection'],
   },
   {
     icon: PenTool,
     title: 'Logo Design',
-    description: "Designing iconic, versatile logos that reflect ambition and sophistication — built to stand out across Dubai's dynamic business ecosystem.",
+    description: "Designing iconic, versatile logos that reflect ambition and sophistication — built to stand out across dynamic business ecosystems.",
     features: ['Logomark', 'Wordmark & Bilingual'],
   },
   {
     icon: BookOpen,
     title: 'Brand Guidelines',
-    description: 'Comprehensive brand documentation ensuring flawless consistency across every touchpoint — from business cards to Dubai Mall billboards.',
+    description: 'Comprehensive brand documentation ensuring flawless consistency across every touchpoint — from business cards to large-scale campaigns.',
     features: ['Usage Standards', 'Multi-Channel Application'],
   },
 ];
@@ -43,7 +43,7 @@ const ExpertiseSection = () => {
               Expertise
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight max-w-xl animate-fade-up-delay-1">
-              Premium branding solutions for Dubai businesses.
+              Premium branding solutions for ambitious businesses.
             </h2>
           </div>
           <a 

@@ -24,10 +24,10 @@ const ContactSection = () => {
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-8 animate-fade-up-delay-1">
               Ready to elevate your{' '}
-              <span className="text-primary">Dubai brand?</span>
+              <span className="text-primary">brand?</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-10 max-w-md leading-relaxed animate-fade-up-delay-2">
-              Let's discuss how 15+ years of international design expertise can transform your brand for the Dubai market. Currently accepting new projects.
+              Let's discuss how 15+ years of international design expertise can transform your brand. Currently accepting new projects.
             </p>
             
             <Button variant="hero" size="xl" className="group animate-fade-up-delay-3">
@@ -78,7 +78,7 @@ const ContactSection = () => {
                 <MapPin className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Serving Dubai from</p>
+                <p className="text-sm text-muted-foreground mb-1">Based in</p>
                 <p className="text-foreground font-medium">
                   Kochi, India · Available Remotely
                 </p>

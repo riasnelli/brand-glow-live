@@ -1,13 +1,13 @@
 import { Circle, Diamond, Hexagon, Octagon } from 'lucide-react';
 
 const logos = [
-  { name: 'Dubai Startups', Icon: Circle },
-  { name: 'UAE Enterprises', Icon: Diamond },
-  { name: 'MENA Brands', Icon: Hexagon },
+  { name: 'Startups', Icon: Circle },
+  { name: 'Enterprises', Icon: Diamond },
+  { name: 'Regional Brands', Icon: Hexagon },
   { name: 'Global Clients', Icon: Octagon },
-  { name: 'Dubai Startups', Icon: Circle },
-  { name: 'UAE Enterprises', Icon: Diamond },
-  { name: 'MENA Brands', Icon: Hexagon },
+  { name: 'Startups', Icon: Circle },
+  { name: 'Enterprises', Icon: Diamond },
+  { name: 'Regional Brands', Icon: Hexagon },
   { name: 'Global Clients', Icon: Octagon },
 ];
 
