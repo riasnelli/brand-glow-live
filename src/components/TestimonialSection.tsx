@@ -55,7 +55,7 @@ const TestimonialSection = () => {
               </div>
 
               {/* Quote Text */}
-              <p className="text-muted-foreground leading-relaxed mb-8 text-sm">
+              <p className="text-muted-foreground leading-relaxed mb-8 text-[20px]">
                 "{testimonial.quote}"
               </p>
 
