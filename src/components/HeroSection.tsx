@@ -20,7 +20,7 @@ const HeroSection = () => {
       <FloatingParticles count={30} />
       
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center pt-32 pb-16 max-w-5xl">
+      <div className="relative z-10 container mx-auto px-6 text-center pt-32 pb-16 max-w-6xl">
         {/* Availability badge */}
         <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-8">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
@@ -45,9 +45,7 @@ const HeroSection = () => {
               <span className="absolute inset-[2px] rounded-full bg-gradient-to-br from-primary/80 via-primary/40 to-primary/60" />
             </span>
           </span>
-          <span className="text-foreground">deserves</span>
-          <br />
-          <span className="text-foreground">world-class </span>
+          <span className="text-foreground">deserves world-class </span>
           <span className="bg-gradient-to-r from-primary via-foreground to-muted-foreground/60 bg-clip-text text-transparent">design</span>
         </h1>
 
