@@ -41,7 +41,7 @@ const Navigation = () => {
   return (
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-2 px-3 md:px-4' : 'py-4 px-4 md:px-6'}`}>
-        <div className={`mx-auto transition-all duration-500 ${scrolled ? 'max-w-2xl' : 'container'}`}>
+        <div className={`mx-auto transition-all duration-500 ${scrolled ? 'max-w-2xl' : 'max-w-[1050px]'}`}>
           <div 
             className={`relative flex items-center justify-between rounded-full transition-all duration-500 ease-out ${
               scrolled 
