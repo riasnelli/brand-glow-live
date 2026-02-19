@@ -31,7 +31,7 @@ const HeroSection = () => {
 
         {/* Main heading */}
         <h1 className="animate-fade-up-delay-1 text-5xl md:text-6xl lg:text-8xl font-bold leading-[1.1] mx-auto mb-8">
-          <span className="text-foreground">Your brand</span>
+          <span className="text-foreground">Brand.</span>
           {/* Animated capsule placeholder */}
           <span className="inline-flex items-center align-middle mx-2 md:mx-3">
             <span className="relative w-16 h-8 md:w-24 md:h-10 lg:w-32 lg:h-12 rounded-full overflow-hidden">
@@ -45,8 +45,8 @@ const HeroSection = () => {
               <span className="absolute inset-[2px] rounded-full bg-gradient-to-br from-primary/80 via-primary/40 to-primary/60" />
             </span>
           </span>
-          <span className="text-foreground">deserves world-class </span>
-          <span className="bg-gradient-to-r from-primary via-foreground to-muted-foreground/60 bg-clip-text text-transparent">design</span>
+          <br />
+          <span className="bg-gradient-to-r from-primary via-foreground to-muted-foreground/60 bg-clip-text text-transparent">Designed Better.</span>
         </h1>
 
         {/* Subheading */}
