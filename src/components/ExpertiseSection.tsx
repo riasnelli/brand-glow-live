@@ -42,8 +42,8 @@ const ExpertiseSection = () => {
             <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block animate-fade-up">
               Expertise
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight max-w-md animate-fade-up-delay-1" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Premium branding solutions for ambitious businesses.
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight max-w-2xl animate-fade-up-delay-1" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Premium branding solutions<br className="hidden md:block" /> for ambitious businesses.
             </h2>
           </div>
           <a 
