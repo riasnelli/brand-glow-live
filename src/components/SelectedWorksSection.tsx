@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface InstagramPost {
   id: string;
@@ -175,6 +176,7 @@ const ProjectImageCarousel = ({
 const SelectedWorksSection = () => {
   const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const fetchInstagramFeed = async () => {
@@ -250,18 +252,18 @@ const SelectedWorksSection = () => {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
           <div>
             <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block animate-fade-up">
-              Case Studies
+              {t('works.label')}
             </span>
             <h2 className="text-4xl md:text-5xl font-bold animate-fade-up-delay-1">
-              <span className="text-foreground">Selected </span>
-              <span className="text-primary">Work</span>
+              <span className="text-foreground">{t('works.heading1')}</span>
+              <span className="text-primary">{t('works.heading2')}</span>
             </h2>
           </div>
           <a 
             href="#work" 
             className="text-muted-foreground hover:text-foreground transition-colors duration-300 flex items-center gap-2 group animate-fade-up-delay-2"
           >
-            View All Projects
+            {t('works.viewAll')}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
           </a>
         </div>
@@ -269,15 +271,13 @@ const SelectedWorksSection = () => {
         {/* Projects Grid - Masonry-like layout */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-16 gap-4">
-            <span className="text-muted-foreground text-sm">Loading projects...</span>
+            <span className="text-muted-foreground text-sm">{t('works.loading')}</span>
             <div className="w-48 h-1 bg-muted rounded-full overflow-hidden">
               <div className="h-full w-1/2 bg-primary/50 rounded-full animate-[shimmer_1.5s_ease-in-out_infinite]" />
             </div>
           </div>
         ) : projects.length === 0 ? (
-          <div className="text-muted-foreground">
-            No work to show right now.
-          </div>
+          <div className="text-muted-foreground">{t('works.empty')}</div>
         ) : (
           <div className="grid md:grid-cols-2 gap-8">
             {projects.map((project, index) => (

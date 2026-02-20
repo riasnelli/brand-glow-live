@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
 import MobileMenu from './MobileMenu';
+import LanguageToggle from './LanguageToggle';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
       
-      // Detect active section
       const sections = ['work', 'services', 'about', 'contact'];
       let current = '';
       
@@ -32,10 +34,10 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Work', href: '#work', id: 'work' },
-    { name: 'Services', href: '#services', id: 'services' },
-    { name: 'About', href: '#about', id: 'about' },
-    { name: 'Contact', href: '#contact', id: 'contact' },
+    { name: t('nav.work'), href: '#work', id: 'work' },
+    { name: t('nav.services'), href: '#services', id: 'services' },
+    { name: t('nav.about'), href: '#about', id: 'about' },
+    { name: t('nav.contact'), href: '#contact', id: 'contact' },
   ];
 
   return (
@@ -50,9 +52,7 @@ const Navigation = () => {
             }`}
             style={{ transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.6s ease-out' }}
           >
-            {/* Gradient overlay for glass depth */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
-            {/* Inner glow */}
             <div className={`absolute inset-0 rounded-full pointer-events-none transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-60'}`} style={{ background: 'radial-gradient(ellipse at 50% 0%, hsl(var(--primary) / 0.15) 0%, transparent 60%)' }} />
             <a 
               href="/" 
@@ -67,10 +67,10 @@ const Navigation = () => {
               </span>
             </a>
 
-            <nav className={`hidden md:flex items-center relative z-10 transition-all duration-300 ${scrolled ? 'gap-8' : 'gap-10'}`}>
+            <nav className={`hidden md:flex items-center relative z-10 transition-all duration-300 ${scrolled ? 'gap-6' : 'gap-8'}`}>
               {navLinks.map((link) => (
                 <a
-                  key={link.name}
+                  key={link.id}
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
@@ -86,16 +86,20 @@ const Navigation = () => {
                   {link.name}
                 </a>
               ))}
+              <LanguageToggle />
             </nav>
 
-            <button 
-              onClick={() => setIsOpen(true)}
-              className="md:hidden relative z-10 text-foreground p-2 hover:bg-muted/50 rounded-lg transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16" />
-              </svg>
-            </button>
+            <div className="md:hidden relative z-10 flex items-center gap-2">
+              <LanguageToggle />
+              <button 
+                onClick={() => setIsOpen(true)}
+                className="text-foreground p-2 hover:bg-muted/50 rounded-lg transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </header>

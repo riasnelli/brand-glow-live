@@ -1,17 +1,20 @@
 import { Circle, Diamond, Hexagon, Octagon } from 'lucide-react';
-
-const logos = [
-  { name: 'Startups', Icon: Circle },
-  { name: 'Enterprises', Icon: Diamond },
-  { name: 'Regional Brands', Icon: Hexagon },
-  { name: 'Global Clients', Icon: Octagon },
-  { name: 'Startups', Icon: Circle },
-  { name: 'Enterprises', Icon: Diamond },
-  { name: 'Regional Brands', Icon: Hexagon },
-  { name: 'Global Clients', Icon: Octagon },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const LogoMarquee = () => {
+  const { t } = useLanguage();
+
+  const logos = [
+    { name: t('marquee.startups'), Icon: Circle },
+    { name: t('marquee.enterprises'), Icon: Diamond },
+    { name: t('marquee.regional'), Icon: Hexagon },
+    { name: t('marquee.global'), Icon: Octagon },
+    { name: t('marquee.startups'), Icon: Circle },
+    { name: t('marquee.enterprises'), Icon: Diamond },
+    { name: t('marquee.regional'), Icon: Hexagon },
+    { name: t('marquee.global'), Icon: Octagon },
+  ];
+
   return (
     <section className="relative py-8 border-y border-border/30 bg-muted/20 overflow-hidden">
       <div className="flex animate-marquee">
