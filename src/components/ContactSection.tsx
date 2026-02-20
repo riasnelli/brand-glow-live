@@ -65,9 +65,9 @@ const ContactSection = () => {
                 <ArrowRight className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1">A service by</p>
+                <p className="text-sm text-muted-foreground mb-1">From the House of</p>
                 <p className="text-foreground font-medium group-hover:text-primary transition-colors duration-300">
-                  NelliDESiGN — www.nellidesign.com
+                  NelliDESiGN
                 </p>
               </div>
             </a>
@@ -92,7 +92,7 @@ const ContactSection = () => {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex flex-col gap-3">
               <p className="text-muted-foreground text-sm">
-                © 2025 MakeYourBrand.Live — A service by NelliDESiGN. All rights reserved.
+                © 2026 MakeYourBrand.Live — From the House of NelliDESiGN. All rights reserved.
               </p>
               <ThemeToggle />
             </div>
