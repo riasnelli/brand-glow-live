@@ -5,7 +5,7 @@ import { ShaderBackground } from '@/components/ui/hero-shader';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const HeroSection = () => {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -25,7 +25,7 @@ const HeroSection = () => {
           </span>
         </div>
 
-        <h1 className="animate-fade-up-delay-1 text-5xl md:text-6xl lg:text-8xl font-bold leading-[1.1] mx-auto mb-8">
+        <h1 className={`animate-fade-up-delay-1 text-5xl md:text-6xl lg:text-8xl font-bold leading-[1.1] mx-auto mb-8 ${isRTL ? 'font-hero-ar' : ''}`}>
           <span className="text-foreground">{t('hero.heading1')}</span>
           <span className="inline-flex items-center align-middle mx-2 md:mx-3">
             <span className="relative w-16 h-8 md:w-24 md:h-10 lg:w-32 lg:h-12 rounded-full overflow-hidden">
