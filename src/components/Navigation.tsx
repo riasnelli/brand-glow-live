@@ -47,16 +47,16 @@ const Navigation = () => {
           <div 
             className={`relative flex items-center justify-between rounded-full transition-all duration-500 ease-out ${
               scrolled 
-                ? 'px-5 md:px-8 py-3 bg-black border border-primary/60 shadow-xl shadow-primary/10 scale-[0.98] backdrop-blur-xl' 
-                : 'px-6 md:px-8 py-4 bg-black/95 border border-primary/40 shadow-lg shadow-primary/5 scale-100 backdrop-blur-md'
+                ? 'px-5 md:px-8 py-3 bg-background/60 dark:bg-background/50 border border-border/50 dark:border-primary/30 shadow-xl shadow-black/10 dark:shadow-primary/10 scale-[0.98] backdrop-blur-2xl backdrop-saturate-150' 
+                : 'px-6 md:px-8 py-4 bg-background/50 dark:bg-background/40 border border-border/40 dark:border-primary/20 shadow-lg shadow-black/5 dark:shadow-primary/5 scale-100 backdrop-blur-xl backdrop-saturate-125'
             }`}
             style={{ transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.6s ease-out' }}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
-            <div className={`absolute inset-0 rounded-full pointer-events-none transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-60'}`} style={{ background: 'radial-gradient(ellipse at 50% 0%, hsl(var(--primary) / 0.15) 0%, transparent 60%)' }} />
+            <div className={`absolute inset-0 rounded-full pointer-events-none transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-60'}`} style={{ background: 'radial-gradient(ellipse at 50% 0%, hsl(var(--primary) / 0.1) 0%, transparent 60%)' }} />
             <a 
               href="/" 
-              className={`relative z-10 font-semibold text-white tracking-tight hover:text-primary transition-all duration-300 ${scrolled ? 'text-base' : 'text-lg'}`}
+              className={`relative z-10 font-semibold text-foreground tracking-tight hover:text-primary transition-all duration-300 ${scrolled ? 'text-base' : 'text-lg'}`}
             >
               <span className="flex items-end gap-0">
                 MakeYourBrand
