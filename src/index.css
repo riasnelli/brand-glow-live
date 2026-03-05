@@ -6,49 +6,49 @@
 
 @layer base {
   :root {
-    /* Light mode - White background with blue accents */
+    /* Light mode - Pure monochrome */
     --background: 0 0% 100%;
-    --foreground: 220 30% 15%;
+    --foreground: 0 0% 8%;
 
-    --card: 210 40% 98%;
-    --card-foreground: 220 30% 15%;
+    --card: 0 0% 97%;
+    --card-foreground: 0 0% 8%;
 
-    --popover: 210 40% 98%;
-    --popover-foreground: 220 30% 15%;
+    --popover: 0 0% 97%;
+    --popover-foreground: 0 0% 8%;
 
-    --primary: 185.6 75.9% 56.1%;
-    --primary-foreground: 220 30% 6%;
+    --primary: 0 0% 12%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 186 20% 96%;
-    --secondary-foreground: 186 30% 20%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 20%;
 
-    --muted: 186 15% 94%;
-    --muted-foreground: 186 10% 45%;
+    --muted: 0 0% 93%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 185.6 75.9% 56.1%;
-    --accent-foreground: 220 30% 6%;
+    --accent: 0 0% 12%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 186 15% 88%;
-    --input: 186 15% 88%;
-    --ring: 185.6 75.9% 56.1%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 0 0% 12%;
 
     --radius: 0.75rem;
 
     /* Light mode design tokens */
-    --gradient-hero: linear-gradient(180deg, hsl(186 20% 98%) 0%, hsl(0 0% 100%) 100%);
-    --gradient-glow: radial-gradient(ellipse at 50% 0%, hsl(185.6 75.9% 56.1% / 0.2) 0%, transparent 60%);
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 97%) 0%, hsl(0 0% 100%) 100%);
+    --gradient-glow: radial-gradient(ellipse at 50% 0%, hsl(0 0% 0% / 0.05) 0%, transparent 60%);
     --glass-bg: hsl(0 0% 100% / 0.7);
-    --glass-border: hsl(186 15% 80% / 0.4);
-    --shadow-glow: 0 0 60px hsl(185.6 75.9% 56.1% / 0.15);
-    --shadow-card: 0 25px 50px -12px hsl(186 30% 15% / 0.1);
+    --glass-border: hsl(0 0% 80% / 0.4);
+    --shadow-glow: 0 0 60px hsl(0 0% 0% / 0.08);
+    --shadow-card: 0 25px 50px -12px hsl(0 0% 0% / 0.1);
     
     /* Section gradient colors - light mode */
-    --section-dark: 186 20% 96%;
-    --section-darker: 186 20% 94%;
-    --section-accent: 186 30% 92%;
+    --section-dark: 0 0% 96%;
+    --section-darker: 0 0% 94%;
+    --section-accent: 0 0% 92%;
   }
 
   .dark {
