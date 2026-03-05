@@ -47,21 +47,21 @@ const Navigation = () => {
           <div 
             className={`relative flex items-center justify-between rounded-full transition-all duration-500 ease-out ${
               scrolled 
-                ? 'px-5 md:px-8 py-3 bg-background/60 dark:bg-background/50 border border-border/50 dark:border-primary/30 shadow-xl shadow-black/10 dark:shadow-primary/10 scale-[0.98] backdrop-blur-2xl backdrop-saturate-150' 
-                : 'px-6 md:px-8 py-4 bg-background/50 dark:bg-background/40 border border-border/40 dark:border-primary/20 shadow-lg shadow-black/5 dark:shadow-primary/5 scale-100 backdrop-blur-xl backdrop-saturate-125'
+                ? 'px-5 md:px-8 py-3 bg-background/60 dark:bg-background/50 border border-foreground/10 dark:border-primary/30 shadow-xl shadow-black/10 dark:shadow-primary/10 scale-[0.98] backdrop-blur-2xl backdrop-saturate-150' 
+                : 'px-6 md:px-8 py-4 bg-background/50 dark:bg-background/40 border border-foreground/8 dark:border-primary/20 shadow-lg shadow-black/5 dark:shadow-primary/5 scale-100 backdrop-blur-xl backdrop-saturate-125'
             }`}
             style={{ transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.6s ease-out' }}
           >
-            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
-            <div className={`absolute inset-0 rounded-full pointer-events-none transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-60'}`} style={{ background: 'radial-gradient(ellipse at 50% 0%, hsl(var(--primary) / 0.1) 0%, transparent 60%)' }} />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-foreground/[0.02] dark:from-primary/5 to-transparent pointer-events-none" />
+            <div className={`absolute inset-0 rounded-full pointer-events-none transition-opacity duration-500 dark:block hidden ${scrolled ? 'opacity-100' : 'opacity-60'}`} style={{ background: 'radial-gradient(ellipse at 50% 0%, hsl(var(--primary) / 0.1) 0%, transparent 60%)' }} />
             <a 
               href="/" 
-              className={`relative z-10 font-semibold text-foreground tracking-tight hover:text-primary transition-all duration-300 ${scrolled ? 'text-base' : 'text-lg'}`}
+              className={`relative z-10 font-semibold text-foreground tracking-tight hover:text-foreground/70 dark:hover:text-primary transition-all duration-300 ${scrolled ? 'text-base' : 'text-lg'}`}
             >
               <span className="flex items-end gap-0">
                 MakeYourBrand
                 <span className="relative mx-1 mb-[0.4em] flex items-center justify-center">
-                  <span className="relative w-1.5 h-1.5 rounded-full bg-primary animate-[pulse-dot_2s_ease-in-out_infinite]" />
+                  <span className="relative w-1.5 h-1.5 rounded-full bg-foreground dark:bg-primary animate-[pulse-dot_2s_ease-in-out_infinite]" />
                 </span>
                 Live
               </span>
@@ -79,7 +79,7 @@ const Navigation = () => {
                   }}
                   className={`transition-all duration-300 text-sm ${
                     activeSection === link.id
-                      ? 'text-primary font-medium'
+                      ? 'text-foreground dark:text-primary font-medium'
                       : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
