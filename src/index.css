@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Sora:wght@100;200;300;400;500;600;700;800&family=Noto+Sans+Arabic:wght@100;200;300;400;500;600;700;800;900&family=Noto+Kufi+Arabic:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+Arabic:wght@100;200;300;400;500;600;700;800;900&family=Noto+Kufi+Arabic:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -112,7 +112,7 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Sora', sans-serif;
+    font-family: 'Epilogue', sans-serif;
   }
 
   [dir="rtl"] body {
