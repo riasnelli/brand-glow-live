@@ -42,7 +42,7 @@ const ExpertiseSection = () => {
             <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block animate-fade-up">
               {t('expertise.label')}
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight max-w-2xl animate-fade-up-delay-1" style={{ fontFamily: isRTL ? "'Noto Sans Arabic', sans-serif" : "'Playfair Display', serif" }}>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight max-w-2xl animate-fade-up-delay-1" style={{ fontFamily: isRTL ? "'Noto Sans Arabic', sans-serif" : "'Epilogue', sans-serif" }}>
               {t('expertise.heading')}
             </h2>
           </div>
