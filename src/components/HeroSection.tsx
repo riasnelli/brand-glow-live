@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import FloatingParticles from './FloatingParticles';
 import { ShaderBackground } from '@/components/ui/hero-shader';
 import { useLanguage } from '@/contexts/LanguageContext';
+import ProjectFormDialog from './ProjectFormDialog';
 
 const HeroSection = () => {
   const { t, isRTL } = useLanguage();
+  const [formOpen, setFormOpen] = useState(false);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
