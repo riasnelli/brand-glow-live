@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import { ArrowRight, Mail, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FloatingParticles from './FloatingParticles';
 import ThemeToggle from './ThemeToggle';
 import { useLanguage } from '@/contexts/LanguageContext';
+import ProjectFormDialog from './ProjectFormDialog';
 
 const ContactSection = () => {
   const { t } = useLanguage();
+  const [formOpen, setFormOpen] = useState(false);
 
   return (
     <section id="contact" className="py-32 bg-background relative overflow-hidden">
@@ -28,10 +31,11 @@ const ContactSection = () => {
               {t('contact.subheading')}
             </p>
             
-            <Button variant="hero" size="xl" className="group animate-fade-up-delay-3">
+            <Button variant="hero" size="xl" className="group animate-fade-up-delay-3" onClick={() => setFormOpen(true)}>
               {t('contact.cta')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </Button>
+            <ProjectFormDialog open={formOpen} onOpenChange={setFormOpen} />
           </div>
 
           <div className="space-y-8 animate-fade-up-delay-2">
