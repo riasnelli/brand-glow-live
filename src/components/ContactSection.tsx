@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import { ArrowRight, Mail, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FloatingParticles from './FloatingParticles';
 import ThemeToggle from './ThemeToggle';
 import { useLanguage } from '@/contexts/LanguageContext';
+import ProjectFormDialog from './ProjectFormDialog';
 
 const ContactSection = () => {
   const { t } = useLanguage();
+  const [formOpen, setFormOpen] = useState(false);
 
   return (
     <section id="contact" className="py-32 bg-background relative overflow-hidden">
