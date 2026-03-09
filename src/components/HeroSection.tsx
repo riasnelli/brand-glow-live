@@ -62,6 +62,7 @@ const HeroSection = () => {
           <ChevronDown className="w-5 h-5 animate-bounce-slow" />
         </div>
       </div>
+      <ProjectFormDialog open={formOpen} onOpenChange={setFormOpen} />
     </section>
   );
 };
