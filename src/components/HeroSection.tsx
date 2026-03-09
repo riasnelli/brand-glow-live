@@ -48,7 +48,7 @@ const HeroSection = () => {
         </p>
 
         <div className="animate-fade-up-delay-3 flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-          <Button variant="hero" size="xl">
+          <Button variant="hero" size="xl" onClick={() => setFormOpen(true)}>
             {t('hero.cta1')}
             <ArrowRight className="w-5 h-5" />
           </Button>
