@@ -271,3 +271,136 @@
 .animate-float {
   animation: float linear infinite;
 }
+
+/* Day/Night Theme Toggle */
+.theme-toggle {
+  --toggle-w: clamp(140px, 32vmin, 340px);
+  --toggle-ar: 8 / 3;
+  --toggle-radius: 9999px;
+  --speed: 0.5s;
+  --ease: cubic-bezier(.4, -0.3, .6, 1.3);
+
+  position: relative;
+  width: var(--toggle-w);
+  aspect-ratio: var(--toggle-ar);
+  border-radius: var(--toggle-radius);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+.toggle__content {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.toggle__backdrop {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transition: background var(--speed) ease;
+}
+
+.toggle__backdrop--day {
+  background: linear-gradient(135deg, hsl(199 95% 68%), hsl(199 90% 55%));
+}
+
+.toggle__backdrop--night {
+  background: linear-gradient(135deg, hsl(220 40% 18%), hsl(230 35% 12%));
+}
+
+.toggle__stars {
+  position: absolute;
+  inset: 0;
+  transition: opacity var(--speed) ease;
+}
+
+.toggle__stars svg circle {
+  animation: twinkle 3s ease-in-out infinite alternate;
+}
+.toggle__stars svg circle:nth-child(2n) { animation-delay: 0.5s; }
+.toggle__stars svg circle:nth-child(3n) { animation-delay: 1s; }
+.toggle__stars svg circle:nth-child(4n) { animation-delay: 1.5s; }
+
+@keyframes twinkle {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.toggle__clouds {
+  position: absolute;
+  inset: 0;
+  transition: opacity var(--speed) ease, transform var(--speed) ease;
+}
+
+.toggle__orb {
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  transition: left var(--speed) var(--ease), background var(--speed) ease, box-shadow var(--speed) ease;
+  z-index: 2;
+}
+
+.toggle__orb--sun {
+  left: 8%;
+  background: linear-gradient(135deg, hsl(47 91% 58%), hsl(40 95% 55%));
+  box-shadow:
+    0 0 12px 4px hsl(47 91% 58% / 0.5),
+    0 0 24px 8px hsl(47 91% 58% / 0.2);
+}
+
+.toggle__orb--moon {
+  left: calc(92% - 30%);
+  background: linear-gradient(135deg, hsl(212 13% 82%), hsl(220 15% 90%));
+  box-shadow:
+    0 0 12px 4px hsl(212 13% 82% / 0.3),
+    0 0 24px 8px hsl(212 13% 82% / 0.1);
+}
+
+.toggle__craters {
+  position: absolute;
+  inset: 0;
+  transition: opacity var(--speed) ease;
+}
+
+.toggle__crater {
+  position: absolute;
+  border-radius: 50%;
+  background: hsl(221 16% 68%);
+}
+
+.toggle__crater--1 {
+  width: 22%;
+  height: 22%;
+  top: 22%;
+  left: 55%;
+}
+
+.toggle__crater--2 {
+  width: 16%;
+  height: 16%;
+  top: 55%;
+  left: 28%;
+}
+
+.toggle__crater--3 {
+  width: 12%;
+  height: 12%;
+  top: 38%;
+  left: 38%;
+}
