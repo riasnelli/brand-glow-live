@@ -89,7 +89,7 @@ export default {
         },
         "pulse-dot": {
           "0%, 100%": { transform: "scale(1)" },
-          "50%": { transform: "scale(1.5)" },
+          "50%": { transform: "scale(1.3)" },
         },
       },
       animation: {
