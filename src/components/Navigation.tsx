@@ -60,7 +60,7 @@ const Navigation = () => {
             >
               <span className="flex items-end gap-0">
                 MakeYourBrand
-                <span className="relative mx-1 mb-[0.4em] flex items-center justify-center">
+                <span className="relative mx-1 inline-flex items-center justify-center self-center">
                   <span className="relative w-1.5 h-1.5 rounded-full bg-foreground dark:bg-primary animate-[pulse-dot_2s_ease-in-out_infinite]" />
                 </span>
                 Live
