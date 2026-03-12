@@ -72,7 +72,7 @@ Sent from makeyourbrand.live project inquiry form
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "MakeYourBrand.Live <noreply@makeyourbrand.live>",
+        from: "MakeYourBrand.Live <onboarding@resend.dev>",
         to: ["hello@makeyourbrand.live"],
         reply_to: email,
         subject: `New Project Inquiry: ${brandName || name}`,
