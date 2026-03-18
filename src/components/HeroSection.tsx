@@ -52,7 +52,10 @@ const HeroSection = () => {
             {t('hero.cta1')}
             <ArrowRight className="w-5 h-5" />
           </Button>
-          <Button variant="heroDark" size="xl">
+          <Button variant="heroDark" size="xl" onClick={() => {
+            const el = document.getElementById('work');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}>
             {t('hero.cta2')}
           </Button>
         </div>
