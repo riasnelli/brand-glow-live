@@ -134,6 +134,22 @@ const translations: Record<Language, Record<string, string>> = {
     'privacy.security.desc': 'We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used, or accessed in an unauthorized way, altered, or disclosed.',
     'privacy.contact.title': '5. Contact Us',
     'privacy.contact.desc': 'If you have any questions about this privacy policy or our privacy practices, please contact us.',
+
+    // FAQ
+    'faq.label': 'FAQ',
+    'faq.heading': 'Frequently Asked Questions',
+    'faq.q1': 'What branding services do you offer in Dubai?',
+    'faq.a1': 'I offer comprehensive branding services including brand strategy, logo design, visual identity design, and brand guidelines. Each project is tailored to help Dubai-based startups, SMEs, and enterprises build a distinctive market presence.',
+    'faq.q2': 'How much does branding cost in Dubai?',
+    'faq.a2': 'Branding packages are customized based on your project scope and business needs. I offer flexible pricing for startups through to enterprise-level engagements. Get in touch for a personalized quote.',
+    'faq.q3': 'How long does a branding project take?',
+    'faq.a3': 'A typical branding project takes 4–8 weeks depending on scope — from initial discovery and strategy through to final delivery of all brand assets and guidelines.',
+    'faq.q4': 'Do you work with businesses outside Dubai?',
+    'faq.a4': 'Yes! While I specialize in the Dubai and UAE market, I work with clients globally. With 15+ years of international experience, I understand diverse markets and can deliver remotely.',
+    'faq.q5': 'What makes your branding approach different?',
+    'faq.a5': 'I combine 15+ years of international design experience with deep understanding of the Dubai business landscape. Every brand I create is strategically positioned, not just visually appealing — built to compete and win in your market.',
+    'faq.q6': 'Do you design bilingual Arabic-English logos?',
+    'faq.a6': 'Absolutely. Bilingual logo design is one of my specialties. I create logos that work beautifully in both Arabic and English, ensuring brand consistency across all communications in the UAE market.',
   },
   ar: {
     // Nav
