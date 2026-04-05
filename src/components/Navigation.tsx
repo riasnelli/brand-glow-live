@@ -59,11 +59,11 @@ const Navigation = () => {
               className={`relative z-10 font-semibold text-foreground tracking-tight hover:text-foreground/70 dark:hover:text-primary transition-all duration-300 ${scrolled ? 'text-base' : 'text-lg'}`}
             >
               <span className="flex items-end gap-0">
-                MakeYourBrand
+                {t('nav.siteTitle')}
                 <span className="relative mx-1 inline-flex items-center justify-center self-center">
                   <span className="relative w-1.5 h-1.5 rounded-full bg-foreground dark:bg-primary animate-[pulse-dot_2s_ease-in-out_infinite]" />
                 </span>
-                Live
+                {t('nav.siteTitleSuffix')}
               </span>
             </a>
 
