@@ -159,6 +159,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.services': 'خدماتنا',
     'nav.about': 'من نحن',
     'nav.contact': 'تواصل معنا',
+    'nav.siteTitle': 'ميك يور براند',
+    'nav.siteTitleSuffix': 'لايف',
 
     // Hero
     'hero.badge': 'نقبل مشاريع جديدة الآن',
