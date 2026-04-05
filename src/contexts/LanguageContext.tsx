@@ -16,6 +16,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.services': 'Services',
     'nav.about': 'About',
     'nav.contact': 'Contact',
+    'nav.siteTitle': 'MakeYourBrand',
+    'nav.siteTitleSuffix': 'Live',
 
     // Hero
     'hero.badge': 'NOW ACCEPTING NEW PROJECTS',
