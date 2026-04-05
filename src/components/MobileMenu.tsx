@@ -41,7 +41,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
       >
         <div className="flex items-center justify-between px-6 py-6">
           <span className="text-lg font-semibold text-foreground tracking-tight">
-            MakeYourBrand.Live
+            {t('nav.siteTitle')} • {t('nav.siteTitleSuffix')}
           </span>
           <button onClick={onClose} className="text-foreground p-2 hover:bg-muted/50 rounded-lg transition-colors">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

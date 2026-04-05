@@ -16,6 +16,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.services': 'Services',
     'nav.about': 'About',
     'nav.contact': 'Contact',
+    'nav.siteTitle': 'MakeYourBrand',
+    'nav.siteTitleSuffix': 'Live',
 
     // Hero
     'hero.badge': 'NOW ACCEPTING NEW PROJECTS',
@@ -157,6 +159,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.services': 'خدماتنا',
     'nav.about': 'من نحن',
     'nav.contact': 'تواصل معنا',
+    'nav.siteTitle': 'ميك يور براند',
+    'nav.siteTitleSuffix': 'لايف',
 
     // Hero
     'hero.badge': 'نقبل مشاريع جديدة الآن',
@@ -244,7 +248,7 @@ const translations: Record<Language, Record<string, string>> = {
     'contact.nellidesign': 'NelliDESiGN',
     'contact.basedIn': 'مقرنا في',
     'contact.location': 'كوتشي، الهند · متاحون عن بُعد',
-    'contact.copyright': '© 2026 MakeYourBrand.Live — من بيت NelliDESiGN. جميع الحقوق محفوظة.',
+    'contact.copyright': '© 2026 ميك يور براند • لايف — من بيت NelliDESiGN. جميع الحقوق محفوظة.',
 
     // Mobile Menu
     'mobile.works': 'أعمالنا',
