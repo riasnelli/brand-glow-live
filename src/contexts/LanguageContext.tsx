@@ -248,7 +248,7 @@ const translations: Record<Language, Record<string, string>> = {
     'contact.nellidesign': 'NelliDESiGN',
     'contact.basedIn': 'مقرنا في',
     'contact.location': 'كوتشي، الهند · متاحون عن بُعد',
-    'contact.copyright': '© 2026 MakeYourBrand.Live — من بيت NelliDESiGN. جميع الحقوق محفوظة.',
+    'contact.copyright': '© 2026 ميك يور براند • لايف — من بيت NelliDESiGN. جميع الحقوق محفوظة.',
 
     // Mobile Menu
     'mobile.works': 'أعمالنا',
