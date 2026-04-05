@@ -22,7 +22,7 @@ const ContactSection = () => {
             <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-6 block animate-fade-up">
               {t('contact.label')}
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-8 animate-fade-up-delay-1">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.2] mb-8 animate-fade-up-delay-1">
               {t('contact.heading1')}
               <span className="text-primary">{t('contact.heading2')}</span>
             </h2>

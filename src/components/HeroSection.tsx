@@ -21,7 +21,7 @@ const HeroSection = () => {
       <FloatingParticles count={30} />
       
       <div className="relative z-10 container mx-auto px-6 text-center pt-32 pb-16 max-w-6xl">
-        <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-8">
+        <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-8">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
           <span className="text-xs font-medium text-primary tracking-wider">
             {t('hero.badge')}
