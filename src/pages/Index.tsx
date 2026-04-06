@@ -1,12 +1,19 @@
+import { lazy, Suspense } from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
-import LogoMarquee from '@/components/LogoMarquee';
-import ExpertiseSection from '@/components/ExpertiseSection';
-import SelectedWorksSection from '@/components/SelectedWorksSection';
-import ProcessSection from '@/components/ProcessSection';
-import TestimonialSection from '@/components/TestimonialSection';
-import FAQSection from '@/components/FAQSection';
-import ContactSection from '@/components/ContactSection';
+
+// Lazy load below-the-fold components
+const LogoMarquee = lazy(() => import('@/components/LogoMarquee'));
+const ExpertiseSection = lazy(() => import('@/components/ExpertiseSection'));
+const SelectedWorksSection = lazy(() => import('@/components/SelectedWorksSection'));
+const ProcessSection = lazy(() => import('@/components/ProcessSection'));
+const TestimonialSection = lazy(() => import('@/components/TestimonialSection'));
+const FAQSection = lazy(() => import('@/components/FAQSection'));
+const ContactSection = lazy(() => import('@/components/ContactSection'));
+
+const SectionFallback = () => (
+  <div className="py-32" aria-hidden="true" />
+);
 
 const Index = () => {
   return (
@@ -14,13 +21,27 @@ const Index = () => {
       <Navigation />
       <main>
         <HeroSection />
-        <LogoMarquee />
-        <ExpertiseSection />
-        <SelectedWorksSection />
-        <ProcessSection />
-        <TestimonialSection />
-        <FAQSection />
-        <ContactSection />
+        <Suspense fallback={<SectionFallback />}>
+          <LogoMarquee />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <ExpertiseSection />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <SelectedWorksSection />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <ProcessSection />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <TestimonialSection />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <FAQSection />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <ContactSection />
+        </Suspense>
       </main>
     </div>
   );
