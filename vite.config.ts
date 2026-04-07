@@ -23,7 +23,6 @@ export default defineConfig(({ mode }) => ({
           'vendor-ui': ['@radix-ui/react-dialog', '@radix-ui/react-accordion', '@radix-ui/react-toast', '@radix-ui/react-tooltip'],
           'vendor-query': ['@tanstack/react-query'],
           'vendor-supabase': ['@supabase/supabase-js'],
-          'vendor-shader': ['@paper-design/shaders-react'],
         },
       },
     },

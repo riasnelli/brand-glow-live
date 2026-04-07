@@ -112,10 +112,13 @@ const ProjectImageCarousel = ({
           key={index}
           src={image}
           alt={`${alt} - ${index + 1}`}
+          width={600}
+          height={450}
           className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 grayscale dark:grayscale-0 group-hover:grayscale-0 ${
             index === currentIndex ? 'opacity-100' : 'opacity-0'
           }`}
           loading="lazy"
+          decoding="async"
           draggable={false}
         />
       ))}

@@ -18,7 +18,7 @@ const HeroSection = () => {
         </ShaderBackground>
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background pointer-events-none" />
-      <FloatingParticles count={30} />
+      <FloatingParticles count={12} />
       
       <div className="relative z-10 container mx-auto px-6 text-center pt-32 pb-16 max-w-6xl">
         <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-3 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-8">
