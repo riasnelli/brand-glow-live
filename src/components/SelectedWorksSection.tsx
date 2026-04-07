@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
+import { ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -39,6 +39,151 @@ const getYear = (timestamp: string | undefined): string => {
   return new Date(timestamp).getFullYear().toString();
 };
 
+// Lightbox component
+const ImageLightbox = ({
+  images,
+  initialIndex,
+  title,
+  permalink,
+  onClose,
+}: {
+  images: string[];
+  initialIndex: number;
+  title: string;
+  permalink: string;
+  onClose: () => void;
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const { t } = useLanguage();
+
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  }, [images.length]);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  }, [images.length]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') goToPrevious();
+      if (e.key === 'ArrowRight') goToNext();
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose, goToPrevious, goToNext]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (distance > 50) goToNext();
+    else if (distance < -50) goToPrevious();
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+        aria-label="Close"
+      >
+        <X className="w-5 h-5 text-white" />
+      </button>
+
+      {/* Counter */}
+      {images.length > 1 && (
+        <div className="absolute top-4 left-4 z-50 text-white/70 text-sm font-medium">
+          {currentIndex + 1} / {images.length}
+        </div>
+      )}
+
+      {/* Image */}
+      <div
+        className="relative max-w-[90vw] max-h-[85vh] flex items-center justify-center"
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        <img
+          src={images[currentIndex]}
+          alt={`${title} - ${currentIndex + 1}`}
+          className="max-w-full max-h-[85vh] object-contain rounded-lg"
+          draggable={false}
+        />
+
+        {/* Nav arrows */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={goToPrevious}
+              className="absolute left-2 md:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-5 h-5 text-white" />
+            </button>
+            <button
+              onClick={goToNext}
+              className="absolute right-2 md:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-5 h-5 text-white" />
+            </button>
+          </>
+        )}
+      </div>
+
+      {/* Bottom info */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+        {images.length > 1 && (
+          <div className="flex items-center gap-1.5">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentIndex(index);
+                }}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentIndex ? 'bg-white w-3' : 'bg-white/40 hover:bg-white/60'
+                }`}
+                aria-label={`Go to image ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
+        <a
+          href={permalink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white/60 hover:text-white text-xs transition-colors"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {t('works.viewAll')} →
+        </a>
+      </div>
+    </div>
+  );
+};
+
 // Mini carousel component for each project card
 const ProjectImageCarousel = ({ 
   images, 
@@ -52,7 +197,6 @@ const ProjectImageCarousel = ({
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  // Minimum swipe distance (in px)
   const minSwipeDistance = 50;
 
   const goToPrevious = (e?: React.MouseEvent) => {
@@ -73,7 +217,6 @@ const ProjectImageCarousel = ({
     setCurrentIndex(index);
   };
 
-  // Touch handlers for swipe gestures
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
@@ -85,16 +228,9 @@ const ProjectImageCarousel = ({
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
     const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-    
-    if (isLeftSwipe && images.length > 1) {
-      goToNext();
-    } else if (isRightSwipe && images.length > 1) {
-      goToPrevious();
-    }
+    if (distance > minSwipeDistance && images.length > 1) goToNext();
+    else if (distance < -minSwipeDistance && images.length > 1) goToPrevious();
   };
 
   return (
@@ -106,7 +242,6 @@ const ProjectImageCarousel = ({
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      {/* Images */}
       {images.map((image, index) => (
         <img
           key={index}
@@ -123,10 +258,8 @@ const ProjectImageCarousel = ({
         />
       ))}
 
-      {/* Navigation Arrows - Only show on hover and if more than 1 image */}
       {images.length > 1 && (
         <>
-          {/* Left Arrow */}
           <button
             onClick={goToPrevious}
             className={`absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white shadow-md flex items-center justify-center transition-all duration-300 ${
@@ -137,7 +270,6 @@ const ProjectImageCarousel = ({
             <ChevronLeft className="w-3.5 h-3.5 text-gray-700" />
           </button>
 
-          {/* Right Arrow */}
           <button
             onClick={goToNext}
             className={`absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white shadow-md flex items-center justify-center transition-all duration-300 ${
@@ -148,7 +280,6 @@ const ProjectImageCarousel = ({
             <ChevronRight className="w-3.5 h-3.5 text-gray-700" />
           </button>
 
-          {/* Dot Navigation */}
           <div
             className={`absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 transition-all duration-300 ${
               isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
@@ -170,7 +301,6 @@ const ProjectImageCarousel = ({
         </>
       )}
 
-      {/* Hover overlay */}
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500 pointer-events-none" />
     </div>
   );
@@ -179,6 +309,11 @@ const ProjectImageCarousel = ({
 const SelectedWorksSection = () => {
   const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [lightbox, setLightbox] = useState<{
+    images: string[];
+    title: string;
+    permalink: string;
+  } | null>(null);
   const { t } = useLanguage();
 
   useEffect(() => {
@@ -193,7 +328,6 @@ const SelectedWorksSection = () => {
           console.error('Instagram fetch error:', error || data?.error);
           setInstagramPosts([]);
         } else {
-          // Get first 6 posts
           setInstagramPosts((data.media || []).slice(0, 6));
         }
       } catch (err) {
@@ -217,7 +351,6 @@ const SelectedWorksSection = () => {
     allImages: string[];
   };
 
-  // Build projects from Instagram posts with all images
   const projects: ProjectItem[] = loading
     ? []
     : (instagramPosts || [])
@@ -225,7 +358,6 @@ const SelectedWorksSection = () => {
         .slice(0, 6)
         .map((post, index) => {
           const { title, subtitle } = parseHashtags(post.caption);
-          // Use carousel images if available, otherwise use main image
           const allImages = post.carouselImages && post.carouselImages.length > 0
             ? post.carouselImages
             : [post.imageUrl];
@@ -241,17 +373,25 @@ const SelectedWorksSection = () => {
           };
         });
 
+  const handleProjectClick = (e: React.MouseEvent, project: ProjectItem) => {
+    // If multiple images, open lightbox; otherwise go to Instagram
+    if (project.allImages.length > 1) {
+      e.preventDefault();
+      setLightbox({
+        images: project.allImages,
+        title: project.title,
+        permalink: project.instagramPost?.permalink || '#',
+      });
+    }
+  };
+
   return (
     <section id="work" className="py-32 bg-background relative overflow-hidden">
-      {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-muted/30 via-background to-background pointer-events-none" />
-      {/* Background pattern */}
       <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
-      {/* Corner glow */}
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10">
-        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
           <div>
             <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block animate-fade-up">
@@ -271,7 +411,6 @@ const SelectedWorksSection = () => {
           </a>
         </div>
 
-        {/* Projects Grid - Masonry-like layout */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-16 gap-4">
             <span className="text-muted-foreground text-sm">{t('works.loading')}</span>
@@ -291,10 +430,9 @@ const SelectedWorksSection = () => {
                 rel="noopener noreferrer"
                 className={`group relative animate-fade-up block ${index % 2 === 1 ? 'md:mt-16' : ''}`}
                 style={{ animationDelay: `${(index + 1) * 100}ms` }}
+                onClick={(e) => handleProjectClick(e, project)}
               >
-                {/* Project Card */}
                 <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4 cursor-pointer">
-                  {/* Image Carousel */}
                   {project.allImages.length > 0 ? (
                     <ProjectImageCarousel
                       images={project.allImages}
@@ -313,11 +451,9 @@ const SelectedWorksSection = () => {
                     </>
                   )}
                   
-                  {/* Shine effect on hover */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                 </div>
 
-                {/* Project Info */}
                 <div className="flex items-start justify-between">
                   <div>
                     <h3 className="text-xl font-semibold text-foreground mb-1 group-hover:text-primary transition-colors duration-300">
@@ -336,6 +472,17 @@ const SelectedWorksSection = () => {
           </div>
         )}
       </div>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <ImageLightbox
+          images={lightbox.images}
+          initialIndex={0}
+          title={lightbox.title}
+          permalink={lightbox.permalink}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </section>
   );
 };
