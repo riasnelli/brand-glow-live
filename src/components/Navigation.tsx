@@ -94,8 +94,9 @@ const Navigation = () => {
               <button 
                 onClick={() => setIsOpen(true)}
                 className="text-foreground p-2 hover:bg-muted/50 rounded-lg transition-colors"
+                aria-label="Open navigation menu"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16" />
                 </svg>
               </button>
