@@ -62,8 +62,8 @@ serve(async (req) => {
       const errorText = await response.text();
       console.error("Instagram API error:", errorText);
       return new Response(
-        JSON.stringify({ error: "Failed to fetch Instagram feed", details: errorText }),
-        { status: response.status, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        JSON.stringify({ error: "Unable to load feed. Please try again later." }),
+        { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
