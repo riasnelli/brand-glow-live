@@ -105,7 +105,7 @@ const translations: Record<Language, Record<string, string>> = {
     'contact.nellidesign': 'NelliDESiGN',
     'contact.basedIn': 'Based in',
     'contact.location': 'Kochi, India · Available Remotely',
-    'contact.copyright': '© 2026 MakeYourBrand.Live — From the House of NelliDESiGN. All rights reserved.',
+    'contact.copyright': '© 2026 MakeYourBrand.Live',
 
     // Mobile Menu
     'mobile.works': 'Works',
@@ -248,7 +248,7 @@ const translations: Record<Language, Record<string, string>> = {
     'contact.nellidesign': 'NelliDESiGN',
     'contact.basedIn': 'مقرنا في',
     'contact.location': 'كوتشي، الهند · متاحون عن بُعد',
-    'contact.copyright': '© 2026 ميك يور براند • لايف — من بيت NelliDESiGN. جميع الحقوق محفوظة.',
+    'contact.copyright': '© 2026 ميك يور براند • لايف',
 
     // Mobile Menu
     'mobile.works': 'أعمالنا',
