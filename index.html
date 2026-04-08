@@ -192,7 +192,18 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div style="min-height: 100vh; background-color: #0c0a09; color: #fafaf9; display: flex; flex-direction: column;">
+        <header style="width: 100%; position: fixed; top: 0; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; z-index: 50;">
+          <div style="font-size: 1.125rem; font-weight: 600; display: flex; align-items: flex-end; gap: 0;">
+            MakeYourBrand<span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background-color: #00ff66; margin: 0 4px; align-self: center;"></span>Live
+          </div>
+        </header>
+        <div style="flex: 1; display: flex; align-items: center; justify-content: center; opacity: 0;">
+          <div style="height: 50vh;"></div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
 
     <!-- Google Analytics - deferred loading -->

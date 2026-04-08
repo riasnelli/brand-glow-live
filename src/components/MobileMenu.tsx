@@ -43,7 +43,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
           <span className="text-lg font-semibold text-foreground tracking-tight">
             {t('nav.siteTitle')} • {t('nav.siteTitleSuffix')}
           </span>
-          <button onClick={onClose} className="text-foreground p-2 hover:bg-muted/50 rounded-lg transition-colors">
+          <button onClick={onClose} aria-label="Close menu" className="text-foreground p-2 hover:bg-muted/50 rounded-lg transition-colors">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
             </svg>
