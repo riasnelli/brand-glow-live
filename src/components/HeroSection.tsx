@@ -4,7 +4,8 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import FloatingParticles from './FloatingParticles';
 import { ShaderBackground } from '@/components/ui/hero-shader';
 import { useLanguage } from '@/contexts/LanguageContext';
-import ProjectFormDialog from './ProjectFormDialog';
+import { lazy, Suspense } from 'react';
+const ProjectFormDialog = lazy(() => import('./ProjectFormDialog'));
 
 const HeroSection = () => {
   const { t, isRTL } = useLanguage();
@@ -65,7 +66,11 @@ const HeroSection = () => {
           <ChevronDown className="w-5 h-5 animate-bounce-slow" />
         </div>
       </div>
-      <ProjectFormDialog open={formOpen} onOpenChange={setFormOpen} />
+      {formOpen && (
+        <Suspense fallback={null}>
+          <ProjectFormDialog open={formOpen} onOpenChange={setFormOpen} />
+        </Suspense>
+      )}
     </section>
   );
 };
