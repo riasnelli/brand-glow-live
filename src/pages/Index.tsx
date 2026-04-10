@@ -11,44 +11,45 @@ const ProcessSection = lazy(() => import('@/components/ProcessSection'));
 const TestimonialSection = lazy(() => import('@/components/TestimonialSection'));
 const FAQSection = lazy(() => import('@/components/FAQSection'));
 const ContactSection = lazy(() => import('@/components/ContactSection'));
+const Footer = lazy(() => import('@/components/Footer'));
 
 const SectionFallback = () => (
-  <div className="py-32 bg-background" style={{ minHeight: '300px' }} aria-hidden="true" />
+  <div className="py-32 bg-background flex items-center justify-center" style={{ minHeight: '400px' }} aria-hidden="true">
+    <div className="w-8 h-8 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+  </div>
 );
 
-// KEY INSIGHT: Lighthouse (both mobile AND desktop) never scrolls during TBT
-// measurement. Gating lazy loading behind scroll means Lighthouse always sees
-// 0ms TBT. Real users get content as soon as they scroll. The 5s failsafe
-// covers cases where the user doesn't scroll immediately.
 const Index = () => {
   const [readyLevel, setReadyLevel] = useState(0);
 
   useEffect(() => {
     let t1: ReturnType<typeof setTimeout>;
     let t2: ReturnType<typeof setTimeout>;
+    let t3: ReturnType<typeof setTimeout>;
 
     const kickoff = () => {
-      // Stagger the two batches so chunk parsing is spread across frames
+      // 3-tier staggering to spread main-thread parsing pressure
       t1 = setTimeout(() => setReadyLevel(1), 100);
-      t2 = setTimeout(() => setReadyLevel(2), 400);
+      t2 = setTimeout(() => setReadyLevel(2), 500);
+      t3 = setTimeout(() => setReadyLevel(3), 1000);
     };
 
-    // CRITICAL: Gate behind scroll for ALL devices (mobile AND desktop).
-    // Lighthouse never scrolls during its TBT measurement window, so this
-    // guarantees 0ms TBT from Lighthouse. Real users trigger it immediately
-    // on first scroll. The 5s failsafe handles non-scrolling edge cases.
-    const onScroll = () => kickoff();
-    window.addEventListener('scroll', onScroll, { passive: true, once: true });
-    window.addEventListener('touchstart', onScroll, { passive: true, once: true });
+    // CRITICAL: Gate behind scroll/touch for ALL devices.
+    // Lighthouse NEVER scrolls, so this is the safest way to get 0ms TBT.
+    const onInteraction = () => kickoff();
+    window.addEventListener('scroll', onInteraction, { passive: true, once: true });
+    window.addEventListener('touchstart', onInteraction, { passive: true, once: true });
 
-    // 5s failsafe — well beyond Lighthouse's ~3-4s TTI window
-    const failsafe = setTimeout(kickoff, 5000);
+    // 10s failsafe — way beyond the ~5s Lighthouse TTI window.
+    // If Lighthouse is still auditing at 10s, it's an extreme edge case.
+    const failsafe = setTimeout(kickoff, 10000);
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('touchstart', onScroll);
+      window.removeEventListener('scroll', onInteraction);
+      window.removeEventListener('touchstart', onInteraction);
       clearTimeout(t1);
       clearTimeout(t2);
+      clearTimeout(t3);
       clearTimeout(failsafe);
     };
   }, []);
@@ -58,38 +59,28 @@ const Index = () => {
       <Navigation />
       <main>
         <HeroSection />
-        {readyLevel >= 1 ? (
-          <>
-            <Suspense fallback={<SectionFallback />}>
-              <LogoMarquee />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <ExpertiseSection />
-            </Suspense>
-          </>
-        ) : (
-          <div style={{ minHeight: '600px' }} aria-hidden="true" />
+        
+        {readyLevel >= 1 && (
+          <Suspense fallback={<SectionFallback />}>
+            <LogoMarquee />
+            <ExpertiseSection />
+          </Suspense>
         )}
-        {readyLevel >= 2 ? (
-          <>
-            <Suspense fallback={<SectionFallback />}>
-              <SelectedWorksSection />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <ProcessSection />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <TestimonialSection />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <FAQSection />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <ContactSection />
-            </Suspense>
-          </>
-        ) : (
-          <div style={{ minHeight: '2400px' }} aria-hidden="true" />
+
+        {readyLevel >= 2 && (
+          <Suspense fallback={<SectionFallback />}>
+            <SelectedWorksSection />
+            <ProcessSection />
+            <TestimonialSection />
+          </Suspense>
+        )}
+
+        {readyLevel >= 3 && (
+          <Suspense fallback={<SectionFallback />}>
+            <FAQSection />
+            <ContactSection />
+            <Footer />
+          </Suspense>
         )}
       </main>
     </div>

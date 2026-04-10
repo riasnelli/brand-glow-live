@@ -8,7 +8,6 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
-import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -17,7 +16,6 @@ const App = () => (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <TooltipProvider>
         <Toaster />
-        <Sonner />
         <LanguageProvider>
           <BrowserRouter>
             <Routes>
@@ -26,7 +24,6 @@ const App = () => (
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
-            <Footer />
           </BrowserRouter>
         </LanguageProvider>
       </TooltipProvider>
