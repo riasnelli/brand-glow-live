@@ -20,18 +20,29 @@ const FloatingParticles = ({ count = 15, className = '' }: FloatingParticlesProp
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
-    const types: Particle['type'][] = ['circle', 'diamond', 'ring'];
-    const generated: Particle[] = Array.from({ length: count }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 6 + 2,
-      duration: Math.random() * 20 + 15,
-      delay: Math.random() * -20,
-      opacity: Math.random() * 0.3 + 0.1,
-      type: types[Math.floor(Math.random() * types.length)],
-    }));
-    setParticles(generated);
+    const generateParticles = () => {
+      const types: Particle['type'][] = ['circle', 'diamond', 'ring'];
+      const generated: Particle[] = Array.from({ length: count }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 6 + 2,
+        duration: Math.random() * 20 + 15,
+        delay: Math.random() * -20,
+        opacity: Math.random() * 0.3 + 0.1,
+        type: types[Math.floor(Math.random() * types.length)],
+      }));
+      setParticles(generated);
+    };
+
+    // Defer generation to reduce TBT during hydration
+    if ('requestIdleCallback' in window) {
+      const handle = (window as any).requestIdleCallback(generateParticles);
+      return () => (window as any).cancelIdleCallback(handle);
+    } else {
+      const timer = setTimeout(generateParticles, 100);
+      return () => clearTimeout(timer);
+    }
   }, [count]);
 
   const renderShape = (particle: Particle) => {

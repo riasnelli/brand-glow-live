@@ -1,7 +1,8 @@
 "use client"
 
 import type React from "react"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useRef } from "react"
+import { useTheme } from "next-themes"
 
 interface ShaderBackgroundProps {
   children: React.ReactNode
@@ -11,18 +12,12 @@ export function ShaderBackground({ children }: ShaderBackgroundProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   // The moving layer is addressed directly via DOM ref — no React re-renders on mousemove
   const layerRef = useRef<HTMLDivElement>(null)
-  const [isDark, setIsDark] = useState(false)
   const rafRef = useRef<number>(0)
 
-  useEffect(() => {
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-    checkTheme()
-    const observer = new MutationObserver(checkTheme)
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
-    return () => observer.disconnect()
-  }, [])
+  // useTheme() is provided by ThemeProvider already in the tree —
+  // eliminates MutationObserver setup + the observer→setState→re-render chain on mount
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
 
   useEffect(() => {
     const container = containerRef.current
