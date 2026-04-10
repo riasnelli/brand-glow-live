@@ -48,9 +48,10 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
           </span>
           <button
             onClick={onClose}
-            className="text-foreground p-2 hover:bg-muted/50 rounded-lg transition-colors"
-            aria-label="Close navigation menu"
+            className="text-foreground p-2 hover:bg-muted/50 rounded-lg transition-colors flex items-center justify-center"
+            aria-label={t('nav.close') || 'Close navigation menu'}
           >
+            <span className="sr-only">Close Menu</span>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
             </svg>
