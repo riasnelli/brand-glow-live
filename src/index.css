@@ -256,10 +256,3 @@
 .animate-marquee {
   will-change: transform;
 }
-
-/* Promote hero animated elements */
-.animate-pulse,
-.animate-bounce-slow,
-.animate-pulse-glow {
-  will-change: transform, opacity;
-}

@@ -19,10 +19,12 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-ui': ['@radix-ui/react-dialog', '@radix-ui/react-accordion', '@radix-ui/react-toast', '@radix-ui/react-tooltip'],
-          'vendor-query': ['@tanstack/react-query'],
-          'vendor-supabase': ['@supabase/supabase-js'],
+          'v-react': ['react', 'react-dom'],
+          'v-router': ['react-router-dom'],
+          'v-ui-core': ['@radix-ui/react-dialog', '@radix-ui/react-tooltip'],
+          'v-ui-extra': ['@radix-ui/react-accordion', '@radix-ui/react-toast'],
+          'v-query': ['@tanstack/react-query'],
+          'v-supabase': ['@supabase/supabase-js'],
         },
       },
     },
