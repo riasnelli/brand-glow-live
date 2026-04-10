@@ -263,12 +263,3 @@
 .animate-pulse-glow {
   will-change: transform, opacity;
 }
-
-/* Defer rendering of off-screen sections */
-#work,
-#services,
-#about,
-#contact {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 600px;
-}
