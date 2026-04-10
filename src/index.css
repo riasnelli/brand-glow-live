@@ -249,4 +249,26 @@
 
 .animate-float {
   animation: float linear infinite;
+  will-change: transform;
+}
+
+/* GPU compositing hints for marquee */
+.animate-marquee {
+  will-change: transform;
+}
+
+/* Promote hero animated elements */
+.animate-pulse,
+.animate-bounce-slow,
+.animate-pulse-glow {
+  will-change: transform, opacity;
+}
+
+/* Defer rendering of off-screen sections */
+#work,
+#services,
+#about,
+#contact {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
 }

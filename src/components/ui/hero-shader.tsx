@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useEffect, useState, useRef, useCallback } from "react"
+import { useEffect, useState, useRef } from "react"
 
 interface ShaderBackgroundProps {
   children: React.ReactNode
@@ -9,7 +9,8 @@ interface ShaderBackgroundProps {
 
 export function ShaderBackground({ children }: ShaderBackgroundProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  // The moving layer is addressed directly via DOM ref — no React re-renders on mousemove
+  const layerRef = useRef<HTMLDivElement>(null)
   const [isDark, setIsDark] = useState(false)
   const rafRef = useRef<number>(0)
 
@@ -23,36 +24,36 @@ export function ShaderBackground({ children }: ShaderBackgroundProps) {
     return () => observer.disconnect()
   }, [])
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!containerRef.current) return
-    cancelAnimationFrame(rafRef.current)
-    rafRef.current = requestAnimationFrame(() => {
-      const rect = containerRef.current!.getBoundingClientRect()
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 30
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 30
-      setMousePosition({ x, y })
-    })
-  }, [])
-
   useEffect(() => {
     const container = containerRef.current
-    if (container) {
-      container.addEventListener("mousemove", handleMouseMove, { passive: true })
+    if (!container) return
+
+    const handleMouseMove = (e: MouseEvent) => {
+      cancelAnimationFrame(rafRef.current)
+      rafRef.current = requestAnimationFrame(() => {
+        if (!layerRef.current || !containerRef.current) return
+        const rect = containerRef.current.getBoundingClientRect()
+        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 30
+        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 30
+        // Direct DOM mutation — no React setState, no re-render, no TBT cost
+        layerRef.current.style.transform = `translate(${x}px, ${y}px) scale(1.15)`
+      })
     }
+
+    container.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => {
-      if (container) {
-        container.removeEventListener("mousemove", handleMouseMove)
-      }
+      container.removeEventListener('mousemove', handleMouseMove)
       cancelAnimationFrame(rafRef.current)
     }
-  }, [handleMouseMove])
+  }, [])
 
   return (
     <div ref={containerRef} className="relative w-full h-full overflow-hidden">
-      {/* CSS-only mesh gradient background */}
+      {/* CSS-only mesh gradient background — moved by direct DOM style, not setState */}
       <div
+        ref={layerRef}
         className="absolute inset-0 transition-transform duration-700 ease-out"
-        style={{ transform: `translate(${mousePosition.x}px, ${mousePosition.y}px) scale(1.15)` }}
+        style={{ transform: 'translate(0px, 0px) scale(1.15)', willChange: 'transform' }}
       >
         {isDark ? (
           <>
