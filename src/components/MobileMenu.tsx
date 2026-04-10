@@ -30,6 +30,9 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
   return (
     <>
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
         className={`fixed inset-0 z-[100] bg-card transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${
           isOpen ? 'clip-path-circle-open opacity-100' : 'clip-path-circle-closed opacity-0 pointer-events-none'
         }`}
@@ -43,8 +46,12 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
           <span className="text-lg font-semibold text-foreground tracking-tight">
             {t('nav.siteTitle')} • {t('nav.siteTitleSuffix')}
           </span>
-          <button onClick={onClose} aria-label="Close menu" className="text-foreground p-2 hover:bg-muted/50 rounded-lg transition-colors">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button
+            onClick={onClose}
+            className="text-foreground p-2 hover:bg-muted/50 rounded-lg transition-colors"
+            aria-label="Close navigation menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
