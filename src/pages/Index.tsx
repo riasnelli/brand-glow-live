@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
+import { Toaster } from "@/components/ui/toaster";
 
 // Lazy load below-the-fold components — each in its own dynamic import
 // so Vite splits them into separate chunks parsed independently.
@@ -76,11 +77,14 @@ const Index = () => {
         )}
 
         {readyLevel >= 3 && (
-          <Suspense fallback={<SectionFallback />}>
-            <FAQSection />
-            <ContactSection />
-            <Footer />
-          </Suspense>
+          <>
+            <Suspense fallback={<SectionFallback />}>
+              <FAQSection />
+              <ContactSection />
+              <Footer />
+            </Suspense>
+            <Toaster />
+          </>
         )}
       </main>
     </div>
