@@ -1,30 +1,36 @@
-import { Circle, Diamond, Hexagon, Octagon } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import jollyflex from '@/assets/logos/jollyflex.png';
+import galaxy from '@/assets/logos/galaxy.png';
+import blooming from '@/assets/logos/blooming.png';
+import guardinex from '@/assets/logos/guardinex.png';
+import prakrti from '@/assets/logos/prakrti.png';
+import stgregorios from '@/assets/logos/stgregorios.png';
+
+const logos = [
+  { src: jollyflex, alt: 'JollyFlex USA' },
+  { src: galaxy, alt: 'Galaxy Glass Products' },
+  { src: blooming, alt: 'Blooming' },
+  { src: guardinex, alt: 'Guardinex' },
+  { src: prakrti, alt: 'Prakrti.me' },
+  { src: stgregorios, alt: 'St. Gregorios Cashew Industries' },
+];
 
 const LogoMarquee = () => {
-  const { t } = useLanguage();
-
-  const logos = [
-    { name: t('marquee.startups'), Icon: Circle },
-    { name: t('marquee.enterprises'), Icon: Diamond },
-    { name: t('marquee.regional'), Icon: Hexagon },
-    { name: t('marquee.global'), Icon: Octagon },
-    { name: t('marquee.startups'), Icon: Circle },
-    { name: t('marquee.enterprises'), Icon: Diamond },
-    { name: t('marquee.regional'), Icon: Hexagon },
-    { name: t('marquee.global'), Icon: Octagon },
-  ];
+  const doubled = [...logos, ...logos];
 
   return (
     <section className="relative py-8 border-y border-border/30 bg-muted/20 overflow-hidden">
       <div className="flex animate-marquee">
-        {[...logos, ...logos].map((logo, index) => (
+        {doubled.map((logo, index) => (
           <div
             key={index}
-            className="flex items-center gap-3 px-12 text-muted-foreground/60 hover:text-muted-foreground transition-colors duration-300"
+            className="flex items-center justify-center px-10 md:px-14 shrink-0"
           >
-            <logo.Icon className="w-6 h-6" strokeWidth={1.5} />
-            <span className="text-sm font-medium whitespace-nowrap">{logo.name}</span>
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              className="h-8 md:h-10 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-300 dark:invert"
+              loading="lazy"
+            />
           </div>
         ))}
       </div>
