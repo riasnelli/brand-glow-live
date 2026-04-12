@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import FloatingParticles from './FloatingParticles';
 import { ShaderBackground } from '@/components/ui/hero-shader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import ProjectFormDialog from './ProjectFormDialog';
+
+import work1 from '@/assets/works/work-1.png';
+import work2 from '@/assets/works/work-2.png';
+import work3 from '@/assets/works/work-3.png';
+import work4 from '@/assets/works/work-4.png';
+import work5 from '@/assets/works/work-5.png';
+
+const workImages = [work1, work2, work3, work4, work5];
 
 const HeroSection = () => {
   const { t, isRTL } = useLanguage();
