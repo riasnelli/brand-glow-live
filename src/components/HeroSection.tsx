@@ -17,6 +17,14 @@ const workImages = [work1, work2, work3, work4, work5];
 const HeroSection = () => {
   const { t, isRTL } = useLanguage();
   const [formOpen, setFormOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % workImages.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
