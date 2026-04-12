@@ -47,12 +47,16 @@ const HeroSection = () => {
         <h1 className={`animate-fade-up-delay-1 text-5xl md:text-6xl lg:text-8xl font-bold leading-[1.1] mx-auto mb-8 ${isRTL ? 'font-hero-ar' : ''}`}>
           <span className="text-foreground">{t('hero.heading1')}</span>
           <span className="inline-flex items-center align-middle mx-2 md:mx-3">
-            <span className="relative w-16 h-8 md:w-24 md:h-10 lg:w-32 lg:h-12 rounded-full overflow-hidden">
-              <span className="absolute inset-0 bg-gradient-to-r from-primary via-primary/60 to-primary animate-pulse" />
-              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_2s_infinite]" 
-                style={{ backgroundSize: '200% 100%', animation: 'shimmer 2s infinite linear' }} 
-              />
-              <span className="absolute inset-[2px] rounded-full bg-gradient-to-br from-primary/80 via-primary/40 to-primary/60" />
+            <span className="relative w-20 h-10 md:w-28 md:h-14 lg:w-40 lg:h-16 rounded-full overflow-hidden border-2 border-primary/30 shadow-lg">
+              {workImages.map((img, i) => (
+                <img
+                  key={i}
+                  src={img}
+                  alt={`Brand work ${i + 1}`}
+                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out"
+                  style={{ opacity: currentImage === i ? 1 : 0 }}
+                />
+              ))}
             </span>
           </span>
           <br />
