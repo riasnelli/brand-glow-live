@@ -28,7 +28,8 @@ const LogoMarquee = () => {
             <img
               src={logo.src}
               alt={logo.alt}
-              className="h-8 md:h-10 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-300 dark:invert"
+              className="h-8 md:h-10 w-auto object-contain opacity-50 hover:opacity-90 transition-opacity duration-300"
+              style={{ filter: 'brightness(0) invert(1)' }}
               loading="lazy"
             />
           </div>
