@@ -18,7 +18,7 @@ const LogoMarquee = () => {
   const doubled = [...logos, ...logos];
 
   return (
-    <section className="relative py-8 border-y border-border/30 bg-muted/20 overflow-hidden">
+    <section className="relative py-8 border-y border-border/30 bg-[hsl(220,30%,8%)] dark:bg-[hsl(220,30%,8%)] overflow-hidden">
       <div className="flex animate-marquee">
         {doubled.map((logo, index) => (
           <div
@@ -28,8 +28,7 @@ const LogoMarquee = () => {
             <img
               src={logo.src}
               alt={logo.alt}
-              className="h-8 md:h-10 w-auto object-contain opacity-50 hover:opacity-90 transition-opacity duration-300"
-              style={{ filter: 'brightness(0) invert(1)' }}
+              className="h-8 md:h-10 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-300"
               loading="lazy"
             />
           </div>
