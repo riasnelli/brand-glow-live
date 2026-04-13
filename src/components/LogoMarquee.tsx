@@ -29,6 +29,7 @@ const LogoMarquee = () => {
               src={logo.src}
               alt={logo.alt}
               className="h-8 md:h-10 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-300"
+              style={{ filter: 'invert(1)', mixBlendMode: 'screen' }}
               loading="lazy"
             />
           </div>
