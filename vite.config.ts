@@ -1,12 +1,12 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 const buildTimestamp = new Date().toISOString();
-const buildInfoPlugin = () => ({
+const buildInfoPlugin = (): Plugin => ({
   name: 'build-info-plugin',
-  generateBundle(this: { emitFile: (asset: { type: string; fileName: string; source: string }) => void }) {
+  generateBundle() {
     this.emitFile({
       type: 'asset',
       fileName: 'build-info.json',
