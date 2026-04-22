@@ -3,8 +3,14 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
+const buildTimestamp = new Date().toISOString();
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  define: {
+    'import.meta.env.VITE_APP_VERSION': JSON.stringify(buildTimestamp.slice(0, 10)),
+    'import.meta.env.VITE_APP_BUILD_ID': JSON.stringify(buildTimestamp),
+  },
   server: {
     host: "::",
     port: 8080,

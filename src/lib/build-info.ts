@@ -1,6 +1,6 @@
 export const CURRENT_BUILD_INFO = {
-  version: '2026.04.22',
-  buildId: 'deploy-checker-2026-04-22-01',
+  version: import.meta.env.VITE_APP_VERSION ?? 'dev',
+  buildId: import.meta.env.VITE_APP_BUILD_ID ?? 'dev-build',
   label: 'Deployment Checker Release',
 } as const;
 
