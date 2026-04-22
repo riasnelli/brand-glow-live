@@ -66,7 +66,19 @@ const readRemoteBuildInfo = async (domain: string) => {
     };
   }
 
-  const data = await response.json();
+  const contentType = response.headers.get('content-type') || '';
+  const raw = await response.text();
+
+  if (!contentType.includes('application/json')) {
+    return {
+      ok: false,
+      status: response.status,
+      error: 'Remote host returned HTML instead of a build marker JSON file',
+      preview: raw.slice(0, 120),
+    };
+  }
+
+  const data = JSON.parse(raw);
   return {
     ok: true,
     status: response.status,
