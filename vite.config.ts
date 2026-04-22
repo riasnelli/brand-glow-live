@@ -1,15 +1,35 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
+const buildTimestamp = new Date().toISOString();
+const buildInfoPlugin = (): Plugin => ({
+  name: 'build-info-plugin',
+  generateBundle() {
+    this.emitFile({
+      type: 'asset',
+      fileName: 'build-info.json',
+      source: JSON.stringify({
+        version: buildTimestamp.slice(0, 10),
+        buildId: buildTimestamp,
+        label: 'Deployment Checker Release',
+      }, null, 2),
+    });
+  },
+});
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  define: {
+    'import.meta.env.VITE_APP_VERSION': JSON.stringify(buildTimestamp.slice(0, 10)),
+    'import.meta.env.VITE_APP_BUILD_ID': JSON.stringify(buildTimestamp),
+  },
   server: {
     host: "::",
     port: 8080,
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), buildInfoPlugin(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

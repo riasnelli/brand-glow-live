@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
+import DeploymentChecker from '@/components/DeploymentChecker';
 import { Toaster } from "@/components/ui/toaster";
 
 // Lazy load below-the-fold components — each in its own dynamic import
@@ -63,6 +64,7 @@ const Index = () => {
       <Navigation />
       <main>
         <HeroSection />
+        <DeploymentChecker />
         
         {readyLevel >= 1 && (
           <Suspense fallback={<SectionFallback />}>
