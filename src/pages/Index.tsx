@@ -38,8 +38,10 @@ const Index = () => {
     // CRITICAL: Gate behind scroll/touch for ALL devices.
     // Lighthouse NEVER scrolls, so this is the safest way to get 0ms TBT.
     const onInteraction = () => kickoff();
+    const onPrimeSections = () => setReadyLevel((prev) => Math.max(prev, 2));
     window.addEventListener('scroll', onInteraction, { passive: true, once: true });
     window.addEventListener('touchstart', onInteraction, { passive: true, once: true });
+    window.addEventListener('prime-sections', onPrimeSections as EventListener);
 
     // 10s failsafe — way beyond the ~5s Lighthouse TTI window.
     // If Lighthouse is still auditing at 10s, it's an extreme edge case.
@@ -48,6 +50,7 @@ const Index = () => {
     return () => {
       window.removeEventListener('scroll', onInteraction);
       window.removeEventListener('touchstart', onInteraction);
+      window.removeEventListener('prime-sections', onPrimeSections as EventListener);
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);

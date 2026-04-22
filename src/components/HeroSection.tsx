@@ -19,6 +19,21 @@ const HeroSection = () => {
   const [formOpen, setFormOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
 
+  const scrollToWork = () => {
+    const scroll = () => {
+      document.getElementById('work')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    if (document.getElementById('work')) {
+      scroll();
+      return;
+    }
+
+    window.dispatchEvent(new CustomEvent('prime-sections'));
+    window.setTimeout(scroll, 80);
+    window.setTimeout(scroll, 220);
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % workImages.length);
@@ -72,10 +87,7 @@ const HeroSection = () => {
             {t('hero.cta1')}
             <ArrowRight className="w-5 h-5" />
           </Button>
-          <Button variant="heroDark" size="xl" onClick={() => {
-            const el = document.getElementById('work');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }}>
+          <Button variant="heroDark" size="xl" onClick={scrollToWork}>
             {t('hero.cta2')}
           </Button>
         </div>
