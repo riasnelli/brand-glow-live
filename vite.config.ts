@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 const buildTimestamp = new Date().toISOString();
 const buildInfoPlugin = () => ({
   name: 'build-info-plugin',
-  generateBundle() {
+  generateBundle(this: { emitFile: (asset: { type: string; fileName: string; source: string }) => void }) {
     this.emitFile({
       type: 'asset',
       fileName: 'build-info.json',
