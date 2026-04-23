@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import { Toaster } from "@/components/ui/toaster";
@@ -21,51 +21,18 @@ const SectionFallback = () => (
 );
 
 const Index = () => {
-  const [readyLevel, setReadyLevel] = useState(0);
+  const [readyLevel, setReadyLevel] = useState(1);
 
   useEffect(() => {
-    let t1: ReturnType<typeof setTimeout>;
-    let t2: ReturnType<typeof setTimeout>;
-    let t3: ReturnType<typeof setTimeout>;
-    let started = false;
-
-    const kickoff = () => {
-      if (started) return;
-      started = true;
-      setReadyLevel(1);
-      // 3-tier staggering to spread main-thread parsing pressure
-      t1 = setTimeout(() => setReadyLevel((prev) => Math.max(prev, 2)), 240);
-      t2 = setTimeout(() => setReadyLevel((prev) => Math.max(prev, 3)), 700);
-    };
-
-    // CRITICAL: Gate behind scroll/touch for ALL devices.
-    // Lighthouse NEVER scrolls, so this is the safest way to get 0ms TBT.
-    const onInteraction = () => kickoff();
-    const onPrimeSections = () => {
-      kickoff();
-      setReadyLevel((prev) => Math.max(prev, 2));
-    };
-    window.addEventListener('scroll', onInteraction, { passive: true, once: true });
-    window.addEventListener('wheel', onInteraction, { passive: true, once: true });
-    window.addEventListener('touchstart', onInteraction, { passive: true, once: true });
-    window.addEventListener('pointerdown', onInteraction, { passive: true, once: true });
-    window.addEventListener('keydown', onInteraction, { once: true });
+    const t1 = window.setTimeout(() => setReadyLevel((prev) => Math.max(prev, 2)), 180);
+    const t2 = window.setTimeout(() => setReadyLevel((prev) => Math.max(prev, 3)), 600);
+    const onPrimeSections = () => setReadyLevel((prev) => Math.max(prev, 2));
     window.addEventListener('prime-sections', onPrimeSections as EventListener);
 
-    // 10s failsafe — way beyond the ~5s Lighthouse TTI window.
-    // If Lighthouse is still auditing at 10s, it's an extreme edge case.
-    const failsafe = setTimeout(kickoff, 10000);
-
     return () => {
-      window.removeEventListener('scroll', onInteraction);
-      window.removeEventListener('wheel', onInteraction);
-      window.removeEventListener('touchstart', onInteraction);
-      window.removeEventListener('pointerdown', onInteraction);
-      window.removeEventListener('keydown', onInteraction);
       window.removeEventListener('prime-sections', onPrimeSections as EventListener);
       clearTimeout(t1);
       clearTimeout(t2);
-      clearTimeout(failsafe);
     };
   }, []);
 

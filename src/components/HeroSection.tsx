@@ -20,11 +20,11 @@ const HeroSection = () => {
   const [formOpen, setFormOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
   const heroOffset = useParallax(0.14);
-  const badgeReveal = useScrollReveal<HTMLDivElement>(0.2);
-  const titleReveal = useScrollReveal<HTMLHeadingElement>(0.2);
-  const copyReveal = useScrollReveal<HTMLParagraphElement>(0.25);
-  const actionsReveal = useScrollReveal<HTMLDivElement>(0.3);
-  const scrollReveal = useScrollReveal<HTMLDivElement>(0.35);
+  const badgeReveal = useScrollReveal<HTMLDivElement>(0.2, true);
+  const titleReveal = useScrollReveal<HTMLHeadingElement>(0.2, true);
+  const copyReveal = useScrollReveal<HTMLParagraphElement>(0.25, true);
+  const actionsReveal = useScrollReveal<HTMLDivElement>(0.3, true);
+  const scrollReveal = useScrollReveal<HTMLDivElement>(0.35, true);
 
   const scrollToWork = () => {
     let attempts = 0;

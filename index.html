@@ -3,11 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+
+    <script>
+      document.documentElement.classList.add('dark');
+    </script>
+
+    <style>
+      html, body, #root {
+        min-height: 100%;
+      }
+
+      html, body {
+        margin: 0;
+        background: hsl(220 30% 6%);
+      }
+    </style>
 
     <!-- Preconnect removed - GA now deferred -->
-
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="/fonts/O4ZRFGj5hxF0EhjimlIksgg.woff2" as="font" type="font/woff2" crossorigin />
 
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
