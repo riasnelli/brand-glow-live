@@ -87,7 +87,7 @@ const HeroSection = () => {
         >
           <span className="flex flex-wrap items-center justify-center gap-x-3 gap-y-4 text-5xl md:text-6xl lg:text-8xl font-bold leading-[0.98]">
             <span className="text-foreground shrink-0">{t('hero.heading1')}</span>
-            <span className="relative flex-none w-24 h-12 md:w-32 md:h-16 lg:w-52 lg:h-24 rounded-full overflow-hidden border-2 border-primary/30 shadow-lg">
+            <span className="relative flex-none w-20 h-10 md:w-28 md:h-14 lg:w-40 lg:h-16 rounded-full overflow-hidden border-2 border-primary/30 shadow-lg">
               {workImages.map((img, i) => (
                 <img
                   key={i}
