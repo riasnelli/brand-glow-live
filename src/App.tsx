@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import DeployTest from "./pages/DeployTest";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/deploy-test" element={<DeployTest />} />
               {/* Redirect /home and /home/ to root */}
               <Route path="/home" element={<Navigate to="/" replace />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
