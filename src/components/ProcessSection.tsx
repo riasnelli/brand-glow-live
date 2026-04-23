@@ -1,8 +1,11 @@
 import FloatingParticles from './FloatingParticles';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useParallax, useScrollReveal } from '@/hooks/use-scroll-motion';
 
 const ProcessSection = () => {
   const { t } = useLanguage();
+  const sectionReveal = useScrollReveal<HTMLElement>(0.14);
+  const sectionOffset = useParallax(0.05);
 
   const steps = [
     { number: '01', title: t('process.step1Title'), description: t('process.step1Desc') },
@@ -12,14 +15,17 @@ const ProcessSection = () => {
   ];
 
   return (
-    <section id="about" className="py-32 bg-background relative overflow-hidden">
+    <section id="about" ref={sectionReveal.ref} className="py-32 bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-muted/40 via-background to-muted/20 pointer-events-none" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
       <FloatingParticles count={12} />
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 mb-20">
+        <div
+          className={`grid lg:grid-cols-2 gap-16 mb-20 transition-all duration-700 ${sectionReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          style={{ transform: `translate3d(0, ${sectionReveal.isVisible ? sectionOffset * -0.16 : 32}px, 0)` }}
+        >
           <div>
             <div className="flex items-center gap-2 mb-6 animate-fade-up">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -44,8 +50,11 @@ const ProcessSection = () => {
           {steps.map((step, index) => (
             <div
               key={step.number}
-              className="group relative animate-fade-up"
-              style={{ animationDelay: `${(index + 1) * 150}ms` }}
+              className={`group relative transition-all duration-700 will-change-transform ${sectionReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{
+                transitionDelay: `${index * 110}ms`,
+                transform: `translate3d(0, ${sectionReveal.isVisible ? Math.max(0, 10 - index) - sectionOffset * 0.06 : 40}px, 0)`,
+              }}
             >
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-primary/50 via-border to-transparent" />
               
