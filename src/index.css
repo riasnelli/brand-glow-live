@@ -171,6 +171,20 @@
 }
 
 @layer utilities {
+  .skeleton-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, hsl(var(--foreground) / 0.06), transparent);
+    animation: shimmer 1.8s ease-in-out infinite;
+  }
+
   .animate-fade-up {
     animation: fadeUp 0.8s ease-out forwards;
   }
