@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useParallax, useScrollReveal } from '@/hooks/use-scroll-motion';
 
 interface InstagramPost {
   id: string;
@@ -315,6 +316,8 @@ const SelectedWorksSection = () => {
     permalink: string;
   } | null>(null);
   const { t } = useLanguage();
+  const sectionReveal = useScrollReveal<HTMLElement>(0.12);
+  const sectionOffset = useParallax(0.05);
 
   useEffect(() => {
     const fetchInstagramFeed = async () => {
@@ -386,13 +389,16 @@ const SelectedWorksSection = () => {
   };
 
   return (
-    <section id="work" className="py-32 bg-background relative overflow-hidden">
+    <section id="work" ref={sectionReveal.ref} className="py-32 bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-t from-muted/30 via-background to-background pointer-events-none" />
       <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
+        <div
+          className={`flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6 transition-all duration-700 ${sectionReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          style={{ transform: `translate3d(0, ${sectionReveal.isVisible ? sectionOffset * -0.16 : 32}px, 0)` }}
+        >
           <div>
             <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block animate-fade-up">
               {t('works.label')}
@@ -428,8 +434,11 @@ const SelectedWorksSection = () => {
                 href={project.instagramPost?.permalink || '#work'}
                 target={project.instagramPost ? '_blank' : '_self'}
                 rel="noopener noreferrer"
-                className={`group relative animate-fade-up block ${index % 2 === 1 ? 'md:mt-16' : ''}`}
-                style={{ animationDelay: `${(index + 1) * 100}ms` }}
+                className={`group relative block transition-all duration-700 will-change-transform ${index % 2 === 1 ? 'md:mt-16' : ''} ${sectionReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{
+                  transitionDelay: `${index * 100}ms`,
+                  transform: `translate3d(0, ${sectionReveal.isVisible ? Math.max(0, 12 - index) - sectionOffset * 0.08 : 40}px, 0)`,
+                }}
                 onClick={(e) => handleProjectClick(e, project)}
               >
                 <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4 cursor-pointer">
