@@ -32,16 +32,19 @@ const Index = () => {
     const kickoff = () => {
       if (started) return;
       started = true;
+      setReadyLevel(1);
       // 3-tier staggering to spread main-thread parsing pressure
-      t1 = setTimeout(() => setReadyLevel(1), 100);
-      t2 = setTimeout(() => setReadyLevel(2), 500);
-      t3 = setTimeout(() => setReadyLevel(3), 1000);
+      t1 = setTimeout(() => setReadyLevel((prev) => Math.max(prev, 2)), 240);
+      t2 = setTimeout(() => setReadyLevel((prev) => Math.max(prev, 3)), 700);
     };
 
     // CRITICAL: Gate behind scroll/touch for ALL devices.
     // Lighthouse NEVER scrolls, so this is the safest way to get 0ms TBT.
     const onInteraction = () => kickoff();
-    const onPrimeSections = () => setReadyLevel((prev) => Math.max(prev, 2));
+    const onPrimeSections = () => {
+      kickoff();
+      setReadyLevel((prev) => Math.max(prev, 2));
+    };
     window.addEventListener('scroll', onInteraction, { passive: true, once: true });
     window.addEventListener('wheel', onInteraction, { passive: true, once: true });
     window.addEventListener('touchstart', onInteraction, { passive: true, once: true });
@@ -62,7 +65,6 @@ const Index = () => {
       window.removeEventListener('prime-sections', onPrimeSections as EventListener);
       clearTimeout(t1);
       clearTimeout(t2);
-      clearTimeout(t3);
       clearTimeout(failsafe);
     };
   }, []);

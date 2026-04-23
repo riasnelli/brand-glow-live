@@ -82,25 +82,26 @@ const HeroSection = () => {
 
         <h1
           ref={titleReveal.ref}
-          className={`text-5xl md:text-6xl lg:text-8xl font-bold leading-[1.1] mx-auto mb-8 transition-all duration-700 will-change-transform ${titleReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${isRTL ? 'font-hero-ar' : ''}`}
+          className={`mx-auto mb-8 transition-all duration-700 will-change-transform ${titleReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${isRTL ? 'font-hero-ar' : ''}`}
           style={{ transform: `translate3d(0, ${titleReveal.isVisible ? heroOffset * -0.2 : 32}px, 0)` }}
         >
-          <span className="text-foreground">{t('hero.heading1')}</span>
-          <span className="inline-flex items-center align-middle mx-2 md:mx-3">
-            <span className="relative w-20 h-10 md:w-28 md:h-14 lg:w-40 lg:h-16 rounded-full overflow-hidden border-2 border-primary/30 shadow-lg">
+          <span className="flex flex-wrap items-center justify-center gap-x-3 gap-y-4 text-5xl md:text-6xl lg:text-8xl font-bold leading-[0.98]">
+            <span className="text-foreground shrink-0">{t('hero.heading1')}</span>
+            <span className="relative flex-none w-24 h-12 md:w-32 md:h-16 lg:w-52 lg:h-24 rounded-full overflow-hidden border-2 border-primary/30 shadow-lg">
               {workImages.map((img, i) => (
                 <img
                   key={i}
                   src={img}
                   alt={`Brand work ${i + 1}`}
-                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out"
+                  className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
                   style={{ opacity: currentImage === i ? 1 : 0 }}
                 />
               ))}
             </span>
           </span>
-          <br />
-          <span className="bg-gradient-to-r from-primary via-foreground to-muted-foreground/60 bg-clip-text text-transparent">{t('hero.heading2')}</span>
+          <span className="mt-2 block text-5xl md:text-6xl lg:text-8xl font-bold leading-[0.98] bg-gradient-to-r from-primary via-foreground to-muted-foreground/60 bg-clip-text text-transparent">
+            {t('hero.heading2')}
+          </span>
         </h1>
 
         <p
