@@ -27,8 +27,11 @@ const Index = () => {
     let t1: ReturnType<typeof setTimeout>;
     let t2: ReturnType<typeof setTimeout>;
     let t3: ReturnType<typeof setTimeout>;
+    let started = false;
 
     const kickoff = () => {
+      if (started) return;
+      started = true;
       // 3-tier staggering to spread main-thread parsing pressure
       t1 = setTimeout(() => setReadyLevel(1), 100);
       t2 = setTimeout(() => setReadyLevel(2), 500);
@@ -40,7 +43,10 @@ const Index = () => {
     const onInteraction = () => kickoff();
     const onPrimeSections = () => setReadyLevel((prev) => Math.max(prev, 2));
     window.addEventListener('scroll', onInteraction, { passive: true, once: true });
+    window.addEventListener('wheel', onInteraction, { passive: true, once: true });
     window.addEventListener('touchstart', onInteraction, { passive: true, once: true });
+    window.addEventListener('pointerdown', onInteraction, { passive: true, once: true });
+    window.addEventListener('keydown', onInteraction, { once: true });
     window.addEventListener('prime-sections', onPrimeSections as EventListener);
 
     // 10s failsafe — way beyond the ~5s Lighthouse TTI window.
@@ -49,7 +55,10 @@ const Index = () => {
 
     return () => {
       window.removeEventListener('scroll', onInteraction);
+      window.removeEventListener('wheel', onInteraction);
       window.removeEventListener('touchstart', onInteraction);
+      window.removeEventListener('pointerdown', onInteraction);
+      window.removeEventListener('keydown', onInteraction);
       window.removeEventListener('prime-sections', onPrimeSections as EventListener);
       clearTimeout(t1);
       clearTimeout(t2);

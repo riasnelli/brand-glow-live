@@ -27,8 +27,19 @@ const HeroSection = () => {
   const scrollReveal = useScrollReveal<HTMLDivElement>(0.35);
 
   const scrollToWork = () => {
+    let attempts = 0;
+
     const scroll = () => {
-      document.getElementById('work')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const target = document.getElementById('work');
+
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      if (attempts >= 20) return;
+      attempts += 1;
+      window.setTimeout(scroll, 120);
     };
 
     if (document.getElementById('work')) {
@@ -37,8 +48,7 @@ const HeroSection = () => {
     }
 
     window.dispatchEvent(new CustomEvent('prime-sections'));
-    window.setTimeout(scroll, 80);
-    window.setTimeout(scroll, 220);
+    scroll();
   };
 
   useEffect(() => {
