@@ -1,8 +1,11 @@
 import { Lightbulb, Palette, PenTool, BookOpen, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useParallax, useScrollReveal } from '@/hooks/use-scroll-motion';
 
 const ExpertiseSection = () => {
   const { t, isRTL } = useLanguage();
+  const sectionReveal = useScrollReveal<HTMLElement>(0.12);
+  const sectionOffset = useParallax(0.05);
 
   const services = [
     {
@@ -32,12 +35,15 @@ const ExpertiseSection = () => {
   ];
 
   return (
-    <section id="services" className="py-32 bg-background relative overflow-hidden">
+    <section id="services" ref={sectionReveal.ref} className="py-32 bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-muted/30 pointer-events-none" />
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
+        <div
+          className={`flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6 transition-all duration-700 ${sectionReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          style={{ transform: `translate3d(0, ${sectionReveal.isVisible ? sectionOffset * -0.18 : 32}px, 0)` }}
+        >
           <div>
             <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block animate-fade-up">
               {t('expertise.label')}
@@ -59,8 +65,11 @@ const ExpertiseSection = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group relative glass p-8 rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_40px_hsl(var(--primary)/0.1)] animate-fade-up overflow-hidden"
-              style={{ animationDelay: `${(index + 1) * 100}ms` }}
+              className={`group relative glass p-8 rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-700 hover:shadow-[0_0_40px_hsl(var(--primary)/0.1)] overflow-hidden will-change-transform ${sectionReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{
+                transitionDelay: `${index * 90}ms`,
+                transform: `translate3d(0, ${sectionReveal.isVisible ? Math.max(0, 12 - index * 2) - sectionOffset * 0.08 : 40}px, 0)`,
+              }}
             >
               <service.icon className="absolute -bottom-8 -right-8 w-48 h-48 text-primary/[0.04] group-hover:text-primary/[0.08] transition-colors duration-500 pointer-events-none" strokeWidth={0.8} />
 

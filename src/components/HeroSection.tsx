@@ -5,6 +5,7 @@ import FloatingParticles from './FloatingParticles';
 import { ShaderBackground } from '@/components/ui/hero-shader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import ProjectFormDialog from './ProjectFormDialog';
+import { useParallax, useScrollReveal } from '@/hooks/use-scroll-motion';
 
 import work1 from '@/assets/works/work-1.png';
 import work2 from '@/assets/works/work-2.png';
@@ -18,6 +19,12 @@ const HeroSection = () => {
   const { t, isRTL } = useLanguage();
   const [formOpen, setFormOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
+  const heroOffset = useParallax(0.14);
+  const badgeReveal = useScrollReveal<HTMLDivElement>(0.2);
+  const titleReveal = useScrollReveal<HTMLHeadingElement>(0.2);
+  const copyReveal = useScrollReveal<HTMLParagraphElement>(0.25);
+  const actionsReveal = useScrollReveal<HTMLDivElement>(0.3);
+  const scrollReveal = useScrollReveal<HTMLDivElement>(0.35);
 
   const scrollToWork = () => {
     const scroll = () => {
@@ -52,14 +59,22 @@ const HeroSection = () => {
       <FloatingParticles count={12} />
       
       <div className="relative z-10 container mx-auto px-6 text-center pt-32 pb-16 max-w-6xl">
-        <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-3 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-8">
+        <div
+          ref={badgeReveal.ref}
+          className={`inline-flex items-center gap-2 px-4 py-3 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-8 transition-all duration-700 will-change-transform ${badgeReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+          style={{ transform: `translate3d(0, ${badgeReveal.isVisible ? heroOffset * -0.12 : 24}px, 0)` }}
+        >
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow flex-shrink-0" />
           <span className="text-xs font-medium text-primary tracking-wider leading-none">
             {t('hero.badge')}
           </span>
         </div>
 
-        <h1 className={`animate-fade-up-delay-1 text-5xl md:text-6xl lg:text-8xl font-bold leading-[1.1] mx-auto mb-8 ${isRTL ? 'font-hero-ar' : ''}`}>
+        <h1
+          ref={titleReveal.ref}
+          className={`text-5xl md:text-6xl lg:text-8xl font-bold leading-[1.1] mx-auto mb-8 transition-all duration-700 will-change-transform ${titleReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${isRTL ? 'font-hero-ar' : ''}`}
+          style={{ transform: `translate3d(0, ${titleReveal.isVisible ? heroOffset * -0.2 : 32}px, 0)` }}
+        >
           <span className="text-foreground">{t('hero.heading1')}</span>
           <span className="inline-flex items-center align-middle mx-2 md:mx-3">
             <span className="relative w-20 h-10 md:w-28 md:h-14 lg:w-40 lg:h-16 rounded-full overflow-hidden border-2 border-primary/30 shadow-lg">
@@ -78,11 +93,19 @@ const HeroSection = () => {
           <span className="bg-gradient-to-r from-primary via-foreground to-muted-foreground/60 bg-clip-text text-transparent">{t('hero.heading2')}</span>
         </h1>
 
-        <p className="animate-fade-up-delay-2 text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto mb-12 leading-relaxed">
+        <p
+          ref={copyReveal.ref}
+          className={`text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto mb-12 leading-relaxed transition-all duration-700 will-change-transform ${copyReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          style={{ transform: `translate3d(0, ${copyReveal.isVisible ? heroOffset * -0.1 : 32}px, 0)` }}
+        >
           {t('hero.subheading')}
         </p>
 
-        <div className="animate-fade-up-delay-3 flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <div
+          ref={actionsReveal.ref}
+          className={`flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 transition-all duration-700 will-change-transform ${actionsReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          style={{ transform: `translate3d(0, ${actionsReveal.isVisible ? heroOffset * -0.06 : 32}px, 0)` }}
+        >
           <Button variant="hero" size="xl" onClick={() => setFormOpen(true)}>
             {t('hero.cta1')}
             <ArrowRight className="w-5 h-5" />
@@ -92,7 +115,11 @@ const HeroSection = () => {
           </Button>
         </div>
 
-        <div className="animate-fade-up-delay-4 flex flex-col items-center gap-2 text-muted-foreground">
+        <div
+          ref={scrollReveal.ref}
+          className={`flex flex-col items-center gap-2 text-muted-foreground transition-all duration-700 will-change-transform ${scrollReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          style={{ transform: `translate3d(0, ${scrollReveal.isVisible ? heroOffset * -0.03 : 32}px, 0)` }}
+        >
           <span className="text-xs tracking-[0.3em] uppercase">{t('hero.scroll')}</span>
           <ChevronDown className="w-5 h-5 animate-bounce-slow" />
         </div>
