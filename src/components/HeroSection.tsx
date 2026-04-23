@@ -85,8 +85,8 @@ const HeroSection = () => {
           className={`mx-auto mb-8 transition-all duration-700 will-change-transform ${titleReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${isRTL ? 'font-hero-ar' : ''}`}
           style={{ transform: `translate3d(0, ${titleReveal.isVisible ? heroOffset * -0.2 : 32}px, 0)` }}
         >
-          <span className="flex flex-wrap items-center justify-center gap-x-3 gap-y-4 text-5xl md:text-6xl lg:text-8xl font-bold leading-[0.98]">
-            <span className="text-foreground shrink-0">{t('hero.heading1')}</span>
+          <span className="flex items-center justify-center gap-3 text-5xl md:text-6xl lg:text-8xl font-bold leading-[0.98] whitespace-nowrap">
+            <span className="text-foreground shrink-0 whitespace-nowrap">{t('hero.heading1')}</span>
             <span className="relative flex-none w-20 h-10 md:w-28 md:h-14 lg:w-40 lg:h-16 rounded-full overflow-hidden border-2 border-primary/30 shadow-lg">
               {workImages.map((img, i) => (
                 <img
@@ -99,7 +99,7 @@ const HeroSection = () => {
               ))}
             </span>
           </span>
-          <span className="mt-2 block text-5xl md:text-6xl lg:text-8xl font-bold leading-[0.98] bg-gradient-to-r from-primary via-foreground to-muted-foreground/60 bg-clip-text text-transparent">
+          <span className="mt-2 block whitespace-nowrap text-5xl md:text-6xl lg:text-8xl font-bold leading-[0.98] bg-gradient-to-r from-primary via-foreground to-muted-foreground/60 bg-clip-text text-transparent">
             {t('hero.heading2')}
           </span>
         </h1>
