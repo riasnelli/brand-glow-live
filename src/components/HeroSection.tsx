@@ -87,12 +87,13 @@ const HeroSection = () => {
         >
           <span className="flex items-center justify-center gap-3 text-5xl md:text-6xl lg:text-8xl font-bold leading-[0.98] whitespace-nowrap">
             <span className="text-foreground shrink-0 whitespace-nowrap">{t('hero.heading1')}</span>
-            <span className="relative flex-none w-20 h-10 md:w-28 md:h-14 lg:w-40 lg:h-16 rounded-full overflow-hidden border-2 border-primary/30 shadow-lg">
+            <span className="relative flex-none w-20 h-10 md:w-28 md:h-14 lg:w-40 lg:h-16 rounded-full overflow-hidden border-2 border-primary/30 bg-card/80 shadow-lg">
               {workImages.map((img, i) => (
                 <img
                   key={i}
                   src={img}
-                  alt={`Brand work ${i + 1}`}
+                  alt=""
+                  aria-hidden="true"
                   className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
                   style={{ opacity: currentImage === i ? 1 : 0 }}
                 />
