@@ -11,7 +11,6 @@ const ProcessSection = () => {
     { number: '01', title: t('process.step1Title'), description: t('process.step1Desc') },
     { number: '02', title: t('process.step2Title'), description: t('process.step2Desc') },
     { number: '03', title: t('process.step3Title'), description: t('process.step3Desc') },
-    { number: '04', title: t('process.step4Title'), description: t('process.step4Desc') },
   ];
 
   return (
@@ -46,7 +45,7 @@ const ProcessSection = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {steps.map((step, index) => (
             <div
               key={step.number}
@@ -71,6 +70,21 @@ const ProcessSection = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* About snippet */}
+        <div className="mt-28 grid lg:grid-cols-3 gap-10 items-start">
+          <div>
+            <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block">
+              {t('about.label')}
+            </span>
+            <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
+              {t('about.heading')}
+            </h3>
+          </div>
+          <p className="lg:col-span-2 text-lg text-muted-foreground leading-relaxed">
+            {t('about.body')}
+          </p>
         </div>
       </div>
     </section>
