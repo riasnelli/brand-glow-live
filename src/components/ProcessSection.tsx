@@ -11,7 +11,6 @@ const ProcessSection = () => {
     { number: '01', title: t('process.step1Title'), description: t('process.step1Desc') },
     { number: '02', title: t('process.step2Title'), description: t('process.step2Desc') },
     { number: '03', title: t('process.step3Title'), description: t('process.step3Desc') },
-    { number: '04', title: t('process.step4Title'), description: t('process.step4Desc') },
   ];
 
   return (
