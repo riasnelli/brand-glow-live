@@ -4,6 +4,7 @@ import blooming from '@/assets/logos/blooming.png';
 import guardinex from '@/assets/logos/guardinex.png';
 import prakrti from '@/assets/logos/prakrti.png';
 import stgregorios from '@/assets/logos/stgregorios.png';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const logos = [
   { src: jollyflex, alt: 'JollyFlex USA' },
@@ -15,10 +16,14 @@ const logos = [
 ];
 
 const LogoMarquee = () => {
+  const { t } = useLanguage();
   const doubled = [...logos, ...logos];
 
   return (
     <section className="relative py-8 border-y border-border/30 bg-[#070707] dark:bg-[#070707] overflow-hidden">
+      <p className="text-center text-xs md:text-sm text-muted-foreground/80 tracking-wide px-6 mb-6">
+        {t('trust.line')}
+      </p>
       <div className="flex animate-marquee">
         {doubled.map((logo, index) => (
           <div
