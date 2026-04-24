@@ -102,6 +102,33 @@ const ExpertiseSection = () => {
             </div>
           ))}
         </div>
+
+        <p className="mt-12 text-center text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          {t('expertise.closing')}
+        </p>
+
+        {/* Industries */}
+        <div className="mt-24 grid lg:grid-cols-3 gap-10 items-start">
+          <div className="lg:col-span-1">
+            <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block">
+              {t('industries.label')}
+            </span>
+            <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-4">
+              {t('industries.heading')}
+            </h3>
+            <p className="text-muted-foreground leading-relaxed">
+              {t('industries.intro')}
+            </p>
+          </div>
+          <ul className="lg:col-span-2 grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {['i1','i2','i3','i4','i5','i6','i7','i8','i9','i10'].map((k) => (
+              <li key={k} className="flex items-center gap-3 text-foreground/90">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                <span className="text-base md:text-lg">{t(`industries.${k}`)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
