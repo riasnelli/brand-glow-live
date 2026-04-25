@@ -20,7 +20,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.siteTitleSuffix': 'Live',
 
     // Hero
-    'hero.badge': 'NOW ACCEPTING NEW PROJECTS · DUBAI & GCC',
+    'hero.badge': 'NOW ACCEPTING NEW PROJECTS',
     'hero.heading1': 'Brand.',
     'hero.heading2': 'Proudly Owned.',
     'hero.subheading': 'Fifteen years of senior-level brand design — without the agency markup or layers of account managers. You work directly with the freelance branding designer behind every logo, layout, and decision. That is how good branding gets made for Dubai and the GCC.',
@@ -190,7 +190,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.siteTitleSuffix': 'لايف',
 
     // Hero
-    'hero.badge': 'نقبل مشاريع جديدة الآن · دبي والخليج',
+    'hero.badge': 'نقبل مشاريع جديدة الآن',
     'hero.heading1': 'علامتك.',
     'hero.heading2': 'بفخر تملكها.',
     'hero.subheading': 'خمسة عشر عامًا من تصميم الهوية البصرية على مستوى كبار المصممين — دون تكاليف الوكالات أو طبقات إدارة الحسابات. تتعامل مباشرة مع المصمم المستقل الذي يقف خلف كل شعار وكل تفصيل وكل قرار. هكذا تُبنى العلامات التجارية في دبي والخليج.',
