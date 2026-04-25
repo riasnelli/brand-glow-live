@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
+import WhatsAppButton from '@/components/WhatsAppButton';
 import { Toaster } from "@/components/ui/toaster";
 
 // Lazy load below-the-fold components — each in its own dynamic import
@@ -64,6 +65,7 @@ const Index = () => {
           </>
         )}
       </main>
+      <WhatsAppButton />
     </div>
   );
 };
