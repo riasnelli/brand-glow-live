@@ -1,0 +1,49 @@
+# robots.txt for https://www.makeyourbrand.live
+# Freelance Branding Designer — Dubai, UAE & GCC
+
+# Default: allow all crawlers full access
+User-agent: *
+Allow: /
+
+# Explicitly allow key assets for proper rendering & indexing
+Allow: /assets/
+Allow: /favicon.png
+Allow: /og-image.jpg
+Allow: /sitemap.xml
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.svg$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
+Allow: /*.woff2$
+
+# Block internal/test routes from indexing
+Disallow: /deploy-test
+Disallow: /api/
+
+# Major search engines — explicit allow
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Social preview crawlers (OG/Twitter cards)
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Sitemap
+Sitemap: https://www.makeyourbrand.live/sitemap.xml
