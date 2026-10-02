@@ -3,6 +3,11 @@ import { ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useParallax, useScrollReveal } from '@/hooks/use-scroll-motion';
+import work1 from '@/assets/works/work-1.png';
+import work2 from '@/assets/works/work-2.png';
+import work3 from '@/assets/works/work-3.png';
+import work4 from '@/assets/works/work-4.png';
+import work5 from '@/assets/works/work-5.png';
 
 interface InstagramPost {
   id: string;
@@ -13,6 +18,14 @@ interface InstagramPost {
   timestamp: string;
   carouselImages?: string[];
 }
+
+const fallbackPosts: InstagramPost[] = [
+  { id: 'featured-1', type: 'IMAGE', imageUrl: work1, permalink: '#work', caption: '#Dinar Gold & Diamonds #Jewellery & Luxury', timestamp: '2025-01-01' },
+  { id: 'featured-2', type: 'IMAGE', imageUrl: work2, permalink: '#work', caption: '#Androster #Healthcare Branding', timestamp: '2025-01-01' },
+  { id: 'featured-3', type: 'IMAGE', imageUrl: work3, permalink: '#work', caption: '#Forest Brews #Packaging Design', timestamp: '2025-01-01' },
+  { id: 'featured-4', type: 'IMAGE', imageUrl: work4, permalink: '#work', caption: '#Chammanthi #Restaurant Branding', timestamp: '2025-01-01' },
+  { id: 'featured-5', type: 'IMAGE', imageUrl: work5, permalink: '#work', caption: '#CONSYST Technologies #Technology Branding', timestamp: '2025-01-01' },
+];
 
 const gradients = [
   'from-primary/20 to-primary/5',
@@ -308,8 +321,7 @@ const ProjectImageCarousel = ({
 };
 
 const SelectedWorksSection = () => {
-  const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>(fallbackPosts);
   const [lightbox, setLightbox] = useState<{
     images: string[];
     title: string;
@@ -322,22 +334,17 @@ const SelectedWorksSection = () => {
   useEffect(() => {
     const fetchInstagramFeed = async () => {
       try {
-        setLoading(true);
         const { data, error } = await supabase.functions.invoke('instagram-feed', {
           body: {},
         });
 
         if (error || data?.error) {
           console.error('Instagram fetch error:', error || data?.error);
-          setInstagramPosts([]);
-        } else {
-          setInstagramPosts((data.media || []).slice(0, 6));
+        } else if (Array.isArray(data?.media) && data.media.length > 0) {
+          setInstagramPosts(data.media.slice(0, 6));
         }
       } catch (err) {
         console.error('Error fetching Instagram feed:', err);
-        setInstagramPosts([]);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -354,9 +361,7 @@ const SelectedWorksSection = () => {
     allImages: string[];
   };
 
-  const projects: ProjectItem[] = loading
-    ? []
-    : (instagramPosts || [])
+  const projects: ProjectItem[] = (instagramPosts || [])
         .filter((post) => Boolean(post?.imageUrl))
         .slice(0, 6)
         .map((post, index) => {
@@ -417,14 +422,7 @@ const SelectedWorksSection = () => {
           </a>
         </div>
 
-        {loading ? (
-          <div className="flex flex-col items-center justify-center py-16 gap-4">
-            <span className="text-muted-foreground text-sm">{t('works.loading')}</span>
-            <div className="w-48 h-1 bg-muted rounded-full overflow-hidden">
-              <div className="h-full w-1/2 bg-primary/50 rounded-full animate-[shimmer_1.5s_ease-in-out_infinite]" />
-            </div>
-          </div>
-        ) : projects.length === 0 ? (
+        {projects.length === 0 ? (
           <div className="text-muted-foreground">{t('works.empty')}</div>
         ) : (
           <div className="grid md:grid-cols-2 gap-8">
@@ -432,7 +430,7 @@ const SelectedWorksSection = () => {
               <a
                 key={project.key}
                 href={project.instagramPost?.permalink || '#work'}
-                target={project.instagramPost ? '_blank' : '_self'}
+                target={project.instagramPost?.permalink.startsWith('http') ? '_blank' : '_self'}
                 rel="noopener noreferrer"
                 className={`group relative block transition-all duration-700 will-change-transform ${index % 2 === 1 ? 'md:mt-16' : ''} ${sectionReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{
