@@ -1,5 +1,9 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import {
+  instagramAuthorizationFallback,
+  isInstagramAuthorizationError,
+} from "./provider-error.ts";
 
 interface CarouselChild {
   media_url: string;
@@ -103,19 +107,26 @@ serve(async (req) => {
       const providerError = await response.json().catch(() => ({})) as InstagramErrorResponse;
       const providerCode = providerError.error?.code;
       const providerSubcode = providerError.error?.error_subcode;
-      const isCredentialError = response.status === 401 || response.status === 403 || providerCode === 190;
+      const isCredentialError = isInstagramAuthorizationError({
+        status: response.status,
+        code: providerCode,
+        subcode: providerSubcode,
+        type: providerError.error?.type,
+      });
       console.error("Instagram API rejected request", {
         status: response.status,
         code: providerCode,
         subcode: providerSubcode,
         type: providerError.error?.type,
       });
+      if (isCredentialError) {
+        return json(instagramAuthorizationFallback());
+      }
+
       return json({
-        error: isCredentialError
-          ? "Instagram authorization needs to be renewed."
-          : "Instagram is temporarily unavailable.",
-        code: isCredentialError ? "TOKEN_INVALID" : "PROVIDER_ERROR",
-      }, isCredentialError ? 503 : 502);
+        error: "Instagram is temporarily unavailable.",
+        code: "PROVIDER_ERROR",
+      }, 502);
     }
 
     const data: InstagramResponse = await response.json();
